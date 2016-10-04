@@ -1,0 +1,11 @@
+Admin hardcoded
+Guardar usuarios en shared preferences
+Start activity for result comprar elementos de la lista
+se suman las compras
+ver carrito de compra muestra otra lista
+	unicamente articulos comprados
+solo manejar ids de imagen, no bitmaps
+back es cancelar compra
+validar compras en 0
+Validar una sola sesion
+Al presionar salir, vaciar stack de actividades
