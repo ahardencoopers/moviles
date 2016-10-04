@@ -7,5 +7,3 @@ Utilizar verisionamiento x.y
 	Actualizar x en cambios grandes (e.g. Cambiar interfaz usuario y agregar funcionalidades 1.0 a 2.0)
 	Actualizar y en cambios pequeños (e.g. Arreglar bug 1.0 a 1.1)
 Solo hacer hacer hacer push de releases a master
-	
-
