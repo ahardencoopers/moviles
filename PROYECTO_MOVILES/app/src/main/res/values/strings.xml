@@ -5,4 +5,8 @@
     <string name="nombre">Nombre</string>
     <string name="direccion">Dirección</string>
     <string name="telefono">Teléfono</string>
+    <string name="nacimiento">Nacimiento</string>
+    <string name="peso">Peso</string>
+    <string name="altura">Altura</string>
+    <string name="registrarse">Registrarse</string>
 </resources>

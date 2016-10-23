@@ -52,5 +52,50 @@
         android:layout_centerHorizontal="true"
         android:hint="@string/telefono"/>
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_sexo"
+        android:layout_below="@+id/edit_telefono"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/date_nacimiento"
+        android:layout_below="@+id/spinner_sexo"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/nacimiento"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/edit_peso"
+        android:layout_below="@+id/date_nacimiento"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/peso"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/edit_altura"
+        android:layout_below="@+id/edit_peso"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/altura"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/registrarse"
+        android:id="@+id/button_registrarse"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
