@@ -9,4 +9,48 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="itesm.mx.proyecto_moviles.RegistrateActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/registrate"
+        android:id="@+id/registrate"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="250px"
+        android:layout_height="250px"
+        android:id="@+id/profile"
+        android:layout_below="@+id/registrate"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/profile"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_nombre"
+        android:layout_below="@+id/profile"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/nombre"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_direccion"
+        android:layout_below="@+id/edit_nombre"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/direccion"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/edit_telefono"
+        android:layout_below="@+id/edit_direccion"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/telefono"/>
+
+
 </RelativeLayout>
