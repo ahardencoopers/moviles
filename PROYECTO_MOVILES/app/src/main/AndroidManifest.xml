@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegistrateActivity" />
-        <activity android:name=".AgregarMedicamentos"></activity>
+        <activity android:name=".AgregarMedicamentos" />
+        <activity android:name=".AgregarMedicamento"></activity>
     </application>
 
 </manifest>
