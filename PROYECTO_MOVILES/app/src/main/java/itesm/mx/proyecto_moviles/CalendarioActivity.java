@@ -22,12 +22,16 @@ public class CalendarioActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         calendarioAdapter = new CalendarioAdapter(this);
-        for (int i = 1; i < 50; i++) {
-            calendarioAdapter.addItem("item " + i);
-            if (i % 4 == 0) {
-                calendarioAdapter.addSeparatorItem("separator " + i);
-            }
-        }
+        calendarioAdapter.addSeparatorItem("Lunes");
+        calendarioAdapter.addItem("Medicina");
+        calendarioAdapter.addItem("Medicina");
+        calendarioAdapter.addSeparatorItem("Martes");
+        calendarioAdapter.addItem("Medicina");
+        calendarioAdapter.addItem("Medicina");
+        calendarioAdapter.addSeparatorItem("Miercoles");
+        calendarioAdapter.addItem("Medicina");
+        calendarioAdapter.addItem("Medicina");
+
         setListAdapter(calendarioAdapter);
     }
 }

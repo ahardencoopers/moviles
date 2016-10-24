@@ -85,17 +85,13 @@ class CalendarioAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             switch (type) {
+                case TYPE_ITEM:
+                    convertView = mInflater.inflate(R.layout.row, null);
+                    holder.textView = (TextView)convertView.findViewById(R.id.text_nombre_medicina);
+                    break;
                 case TYPE_SEPARATOR:
                     convertView = mInflater.inflate(R.layout.row_dia, null);
                     holder.textView = (TextView)convertView.findViewById(R.id.text_dia);
-                    break;
-                case TYPE_ITEM:
-                    convertView = mInflater.inflate(R.layout.row, null);
-                    holder.textView = (TextView)convertView.findViewById(R.id.nombre_medicina);
-                    break;
-                default:
-                    convertView = mInflater.inflate(R.layout.row, null);
-                    holder.textView = (TextView)convertView.findViewById(R.id.nombre_medicina);
                     break;
             }
             convertView.setTag(holder);
