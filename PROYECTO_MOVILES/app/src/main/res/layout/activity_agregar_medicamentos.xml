@@ -9,4 +9,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="itesm.mx.proyecto_moviles.AgregarMedicamentos">
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_agregar_medicamento"
+        android:text="@string/agregar_medicamento"/>
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@android:id/list"
+        android:layout_below="@id/button_agregar_medicamento"></ListView>
+
 </RelativeLayout>

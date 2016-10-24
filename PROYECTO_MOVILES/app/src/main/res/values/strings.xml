@@ -9,4 +9,8 @@
     <string name="peso">Peso</string>
     <string name="altura">Altura</string>
     <string name="registrarse">Registrarse</string>
+    <string name="nombre_medicina">Medicina</string>
+    <string name="tomar_cada">Tomar cada 8 horas</string>
+    <string name="horario">8:00 - 16:00 - 00:00</string>
+    <string name="agregar_medicamento">Agregar Medicamento</string>
 </resources>
