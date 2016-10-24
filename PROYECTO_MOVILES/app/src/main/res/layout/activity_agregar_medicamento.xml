@@ -9,4 +9,73 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="itesm.mx.proyecto_moviles.AgregarMedicamento">
 
+    <ImageView
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:id="@+id/image_medicamento"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/logo"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nombre_medicina"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/image_medicamento"
+        android:hint="Nombre del Medicamento"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_tipo_medicina"
+        android:layout_below="@+id/nombre_medicina"
+        android:layout_toEndOf="@+id/image_medicamento" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/edit_dosis"
+        android:layout_below="@+id/spinner_tipo_medicina"
+        android:layout_toEndOf="@+id/image_medicamento"
+        android:hint="@string/dosis"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/edit_hora_inicio"
+        android:layout_below="@+id/edit_dosis"
+        android:layout_alignStart="@+id/edit_dosis"
+        android:hint="@string/hora_inicio"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/edit_tomar_cada"
+        android:layout_below="@+id/edit_hora_inicio"
+        android:layout_alignStart="@+id/edit_hora_inicio"
+        android:hint="@string/tomar_cada"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_comentario"
+        android:layout_below="@+id/edit_tomar_cada"
+        android:layout_alignStart="@+id/edit_tomar_cada"
+        android:hint="@string/comentarios"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guardar_medicamento"
+        android:id="@+id/boton_guardar_medicamento"
+        android:layout_below="@+id/edit_comentario"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp" />
 </RelativeLayout>

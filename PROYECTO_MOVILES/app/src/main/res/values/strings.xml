@@ -13,4 +13,8 @@
     <string name="tomar_cada">Tomar cada 8 horas</string>
     <string name="horario">8:00 - 16:00 - 00:00</string>
     <string name="agregar_medicamento">Agregar Medicamento</string>
+    <string name="dosis">Dosis</string>
+    <string name="hora_inicio">Hora Inicio</string>
+    <string name="comentarios">Comentarios</string>
+    <string name="guardar_medicamento">Guardar Medicamento</string>
 </resources>

@@ -25,7 +25,7 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
         ArrayAdapter<String> adapterSpinnerSexo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sSexos);
 
         spinnerSexo.setAdapter(adapterSpinnerSexo);
-        btnRegistrarse.setOnClickListener(this);
+        btnRegistrarse .setOnClickListener(this);
     }
 
     @Override
