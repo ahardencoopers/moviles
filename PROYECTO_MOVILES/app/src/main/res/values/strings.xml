@@ -22,4 +22,6 @@
     <string name="numero">Numero</string>
     <string name="correo">Correo</string>
     <string name="title_activity_medicamento_pendiente">MedicamentoPendiente</string>
+    <string name="tomada">Tomada</string>
+    <string name="horario_dosis">8:00</string>
 </resources>
