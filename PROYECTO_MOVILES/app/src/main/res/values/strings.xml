@@ -17,4 +17,8 @@
     <string name="hora_inicio">Hora Inicio</string>
     <string name="comentarios">Comentarios</string>
     <string name="guardar_medicamento">Guardar Medicamento</string>
+    <string name="especialidad">Especialidad</string>
+    <string name="codigo_postal">Codigo Postal</string>
+    <string name="numero">Numero</string>
+    <string name="correo">Correo</string>
 </resources>

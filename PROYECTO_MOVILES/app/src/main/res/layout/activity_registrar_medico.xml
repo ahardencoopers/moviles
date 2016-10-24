@@ -35,12 +35,65 @@
         android:hint="@string/nombre"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edit_especialidad"
         android:layout_below="@+id/edit_nombre"
         android:layout_centerHorizontal="true"
         android:hint="@string/especialidad"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_direccion"
+        android:layout_below="@+id/edit_especialidad"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/direccion"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_codigo_postal"
+        android:layout_below="@+id/edit_direccion"
+        android:layout_alignParentStart="true"
+        android:hint="@string/codigo_postal"
+        android:layout_toStartOf="@+id/registrate" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_numero"
+        android:layout_below="@+id/edit_direccion"
+        android:layout_alignStart="@+id/registrate"
+        android:hint="@string/numero"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/edit_telefono"
+        android:layout_below="@+id/edit_codigo_postal"
+        android:layout_alignParentStart="true"
+        android:hint="@string/telefono"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/edit_correo"
+        android:layout_below="@+id/edit_telefono"
+        android:layout_alignParentStart="true"
+        android:hint="@string/correo"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/registrarse"
+        android:id="@+id/boton_registrar_medico"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

@@ -18,7 +18,8 @@
         <activity android:name=".RegistrateActivity" />
         <activity android:name=".AgregarMedicamentos" />
         <activity android:name=".AgregarMedicamento" />
-        <activity android:name=".RegistrarMedico"></activity>
+        <activity android:name=".RegistrarMedico" />
+        <activity android:name=".MedicosRegistrados"></activity>
     </application>
 
 </manifest>
