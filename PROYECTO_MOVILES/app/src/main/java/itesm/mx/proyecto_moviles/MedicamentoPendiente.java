@@ -4,10 +4,14 @@ import android.app.ListActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.content.Intent;
 
 import java.util.ArrayList;
 
 public class MedicamentoPendiente extends ListActivity implements View.OnClickListener {
+
+    private Button tempcontinuar = null;
 
     public ArrayList<MedicamentoPorTomar> getDataForListView() {
         MedicamentoPorTomar medicamentoPorTomar;
@@ -29,14 +33,21 @@ public class MedicamentoPendiente extends ListActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicamento_pendiente);
 
+        tempcontinuar = (Button) findViewById(R.id.botom_temp_continuar);
+
         ArrayList <MedicamentoPorTomar> arrayListMedicamentoPorTomar;
         arrayListMedicamentoPorTomar = getDataForListView();
 
         MedicamentoPorTomarAdapter adapterMedicamentosPorTomar = new MedicamentoPorTomarAdapter(this, arrayListMedicamentoPorTomar);
         setListAdapter(adapterMedicamentosPorTomar);
+        tempcontinuar.setOnClickListener(this);
     }
 
     public void onClick(View v) {
-        return;
+        switch(v.getId()) {
+            case R.id.botom_temp_continuar:
+                Intent myIntent = new Intent(this, CalendarioActivity.class);
+                startActivity(myIntent);
+        }
     }
 }

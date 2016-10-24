@@ -24,6 +24,7 @@
             android:name=".MedicamentoPendiente"
             android:label="@string/title_activity_medicamento_pendiente"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CalendarioActivity"></activity>
     </application>
 
 </manifest>
