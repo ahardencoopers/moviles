@@ -8,7 +8,8 @@
         android:layout_height="250px"
         android:id="@+id/logo"
         android:src="@drawable/logo"
-        android:layout_above="@+id/comenzar"
+        android:layout_marginTop="43dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <Button
