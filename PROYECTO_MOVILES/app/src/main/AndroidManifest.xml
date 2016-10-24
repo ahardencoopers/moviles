@@ -19,7 +19,11 @@
         <activity android:name=".AgregarMedicamentos" />
         <activity android:name=".AgregarMedicamento" />
         <activity android:name=".RegistrarMedico" />
-        <activity android:name=".MedicosRegistrados"></activity>
+        <activity android:name=".MedicosRegistrados" />
+        <activity
+            android:name=".MedicamentoPendiente"
+            android:label="@string/title_activity_medicamento_pendiente"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
