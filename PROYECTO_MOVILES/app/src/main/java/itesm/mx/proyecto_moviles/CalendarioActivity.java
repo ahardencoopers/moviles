@@ -2,26 +2,21 @@ package itesm.mx.proyecto_moviles;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.app.ListActivity;
-import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.TreeSet;
+public class CalendarioActivity extends AppCompatActivity {
 
-public class CalendarioActivity extends ListActivity {
-
+    private ListView listCalendario;
     private CalendarioAdapter calendarioAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_calendario);
+
+        listCalendario = (ListView) findViewById(R.id.list2);
         calendarioAdapter = new CalendarioAdapter(this);
+
         calendarioAdapter.addSeparatorItem("Lunes");
         calendarioAdapter.addItem("Medicina");
         calendarioAdapter.addItem("Medicina");
@@ -32,6 +27,6 @@ public class CalendarioActivity extends ListActivity {
         calendarioAdapter.addItem("Medicina");
         calendarioAdapter.addItem("Medicina");
 
-        setListAdapter(calendarioAdapter);
+        listCalendario.setAdapter(calendarioAdapter);
     }
 }
