@@ -2,9 +2,7 @@ package itesm.mx.proyecto_moviles;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -13,24 +11,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import android.app.ListActivity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class AgregarMedicamentos extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnAgregarMedicamento = null;
-
     private ListView lista;
+    //Drawer
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
@@ -66,7 +57,6 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
 
         lista = (ListView) findViewById(R.id.list);
 
-
                 btnAgregarMedicamento = (Button) findViewById(R.id.button_agregar_medicamento);
 
         ArrayList <Medicamento> arrayListMedicamento;
@@ -78,14 +68,32 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Mis datos", "Mi doctor", "Medicamentos", "Agregar Medicamento"};
+        String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AgregarMedicamentos.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+                Intent intent;
+                switch(position) {
+                    case 0:
+                        //intent = new Intent(AgregarMedicamentos.this, AgregarMedicamentos.class);
+                        //startActivity(intent);
+                        break;
+                    case 1:
+                        intent = new Intent(AgregarMedicamentos.this, RegistrarMedico.class);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent = new Intent(AgregarMedicamentos.this, MedicamentoPendiente.class);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        intent = new Intent(AgregarMedicamentos.this, CalendarioActivity.class);
+                        startActivity(intent);
+                        break;
+                }
             }
         });
     }
@@ -96,7 +104,7 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Navigation!");
+                getSupportActionBar().setTitle("Menu");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 

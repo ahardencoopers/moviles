@@ -1,16 +1,15 @@
 package itesm.mx.proyecto_moviles;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Button;
 
 public class AgregarMedicamento extends AppCompatActivity implements View.OnClickListener {
 
+    //Varibles
     private Spinner spinnerTipoMedicamento = null;
     private String sTipoMedicamento[] = {"Pastilla", "Comprimido", "Tableta", "Topico", "Sublingual"};
     private Button btnGuardarMedicamento = null;
@@ -33,9 +32,10 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.boton_guardar_medicamento:
-                Intent myIntent = new Intent(this, RegistrarMedico.class);
-                startActivity(myIntent);
+                finish();
                 break;
         }
     }
+
+
 }
