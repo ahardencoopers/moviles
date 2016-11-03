@@ -135,6 +135,30 @@ public class ProductoOperations {
 		}
 	}
 
+	public Medicamento findMedicamento(String medicamentoNombre) {
+		Medicamento med;
+		String query = "SELECT * FROM " + TABLE_MED + " WHERE " + TABLE_MED + ".nombre = " + medicamentoNombre;
+
+		try {
+			Cursor cursor = db.rawQuery(query, null);
+			if(cursor.moveToFirst()) {
+				med = new Medicamento(cursor.getString(0), cursor.getString(1), cursor.getDouble(2),
+					cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
+			}
+			cursor.close();
+		}
+		catch(SQLException e) {
+			Log.e("SQLFind ERROR", e.toString());
+		}
+		
+		return med;
+	}
+
+	public Usuario findUsuario(String usuarioNombre) {
+		Usuario usr;
+		String query = "SELECT * FROM " + TABLE_USRS
+	}
+
 	public Evento findEvento(long eventID) {
 
 		String query = "Select " + TABLE_EVENTO + ".ID, " + TABLE_TIPO + "." + TIPO_NOMBRE + ", "
@@ -147,8 +171,8 @@ public class ProductoOperations {
                 ".ID" + " =  \"" + eventID + "\"";
 
         try {
+
             Cursor cursor = db.rawQuery(query, null);
-            evEvento = null;
             if (cursor.moveToFirst()) {
                 double dAux = cursor.getDouble(4) * cursor.getInt(2);
                 evEvento = new Evento(Long.parseLong(cursor.getString(0)),
@@ -157,9 +181,9 @@ public class ProductoOperations {
 
             }
             cursor.close();
-        }catch(SQLException e) {
-            Log.e("SQLFind", e.toString());
-        }
+            }catch(SQLException e) {
+                Log.e("SQLFind", e.toString());
+            }
 		return evEvento;
 	}
 

@@ -52,19 +52,19 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
 
     //Create table queries
     private static final String CREATE_TABLE_MED = "CREATE TABLE " +
-            TABLE_MED + " (" + MED_NOMBRE + " STRING, " + MED_TIPO + " STRING, " + 
+            TABLE_MED + " (" + MED_NOMBRE + "PRIMARY KEY STRING, " + MED_TIPO + " STRING, " + 
                                MED_DOSIS + " REAL, " + MED_TOMARCADA + " REAL, " +
                                MED_HORAINICIO + "STRING, " + MED_COMENTARIOS + "STRING, " +
                                MED_FOTOID + "INT, " + MED_HASTAFECHA + "STRING)";
 
     private static final String CREATE_TABLE_USRS = "CREATE TABLE " +
-            TABLE_USRS + " (" + USRS_NOMBRE + " STRING, " + USRS_DIR + " STRING, " +
+            TABLE_USRS + " (" + USRS_NOMBRE + "PRIMARY KEY STRING, " + USRS_DIR + " STRING, " +
 				USRS_TELEFONO + " STRING, " + USRS_TELEFONO + " STRING, " +
                                 USRS_SEXO + " STRING, " + USRS_FECHANACI + " STRING, " +
                                 USRS_PESO + " REAL, " + USRS_ALTURA + " REAL)";
 
     private static final String CREATE_TABLE_DOCS = "CREATE TABLE " +
-            TABLE_DOCS + " (" + DOCS_NOMBRE + " STRING, " + DOCS_ESPECIALIDAD + " STRING, " +
+            TABLE_DOCS + " (" + DOCS_NOMBRE + "PRIMARY KEY STRING, " + DOCS_ESPECIALIDAD + " STRING, " +
                                 DOCS_DIR + " STRING, " + DOCS_CODIGOPOS + " STRING, " +
                                 DOCS_NUMERO + " STRING, " + DOCS_CORREO + " STRING)";
 
