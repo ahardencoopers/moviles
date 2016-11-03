@@ -148,7 +148,7 @@ public class ProductoOperations {
 			cursor.close();
 		}
 		catch(SQLException e) {
-			Log.e("SQLFind ERROR", e.toString());
+			Log.e("SQLFIND ERROR", e.toString());
 		}
 		
 		return med;
@@ -156,66 +156,50 @@ public class ProductoOperations {
 
 	public Usuario findUsuario(String usuarioNombre) {
 		Usuario usr;
-		String query = "SELECT * FROM " + TABLE_USRS
+		String query = "SELECT * FROM " + TABLE_USRS + " WHERE " + TABLE_USRS + ".nombre = " + usuarioNombre;
+
+		try {
+			Cursor cursor = db.rawQuery(query, null);
+			if(cursor.moveToFirst()) {
+				usr = new Usuario(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
+					cursor.getString(5), cursor.getDouble(6), cursor.getDouble(7));
+			}
+			cursor.close();
+			catch(SQLException e) {
+				Log.e("SQLFIND ERROR", e.toString());
+			}
+		}
+
+		return usr;
 	}
 
-	public Evento findEvento(long eventID) {
+	public Doctor findDoctor(String doctorNombre) {
+		Doctor doc;
+		String query = "SELECT * FROM " + TABLE_DOCS + " WHERE " + TABLE_DOCS + ".nombre = " + doctorNombre;
 
-		String query = "Select " + TABLE_EVENTO + ".ID, " + TABLE_TIPO + "." + TIPO_NOMBRE + ", "
-                + TABLE_TIPO + "." + TIPO_CONSUMO + ", " + TABLE_ELECTRODOMESTICO + "." + ELECT_MARCA + ", "
-                + TABLE_EVENTO + "." + EVENTO_TIEMPOUSO + ", " + TABLE_EVENTO + "." + EVENTO_HORA_INICIO + ", "
-                + TABLE_EVENTO + "." + EVENTO_FECHA + ", " + TABLE_ELECTRODOMESTICO + "." + ELECT_FOTO
-                + " FROM " + TABLE_EVENTO + ", " + TABLE_ELECTRODOMESTICO + "," + TABLE_TIPO +
-                " WHERE " + EVENTO_APARATO + " = " + TABLE_ELECTRODOMESTICO + ".ID AND " +
-                ELECT_TIPOAPARATO + " = " + TABLE_TIPO + ".ID AND " + TABLE_EVENTO +
-                ".ID" + " =  \"" + eventID + "\"";
+		try {
+			Cursor cursor = db.rawQuery(query, null);
+			if(cursor.moveToFirst()) {
+				doc = new Doctor(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
+					cursor.getString(5), cursor.getString(6));
+			}
+		}
+		catch(SQLException e) {
+			Log.e("SQLFIND ERROR", e.toString());
+		}
 
-        try {
-
-            Cursor cursor = db.rawQuery(query, null);
-            if (cursor.moveToFirst()) {
-                double dAux = cursor.getDouble(4) * cursor.getInt(2);
-                evEvento = new Evento(Long.parseLong(cursor.getString(0)),
-                        cursor.getString(1), cursor.getString(3), cursor.getString(6),
-                        cursor.getDouble(4), cursor.getString(5), dAux, cursor.getBlob(7));
-
-            }
-            cursor.close();
-            }catch(SQLException e) {
-                Log.e("SQLFind", e.toString());
-            }
-		return evEvento;
+		return doc;
 	}
 
-    public boolean deleteElectrodomestico(long electID) {
-
+    public boolean deleteMedicamento(String nombreMedicamento) {
         boolean result = false;
 
-        String query1 = "Select * FROM " + TABLE_EVENTO +
-                " WHERE " + EVENTO_APARATO +
-                " =  \"" + electID + "\"";
-        String query2 = "Select * FROM " + TABLE_ELECTRODOMESTICO +
-                " WHERE " + "ID" +
-                " =  \"" + electID + "\"";
         try {
-            Cursor cursor = db.rawQuery(query1, null);
-            if (cursor.moveToFirst()) {
-                int id = Integer.parseInt(cursor.getString(0));
-                db.delete(TABLE_EVENTO,
-                        "ID" + " = ?",
-                        new String[]{String.valueOf(id)});
+                db.delete(TABLE_MED,
+                        "nombre" + " = ?",
+                        new String[]{nombreMedicamento});
                 result = true;
             }
-            cursor.close();
-            cursor = db.rawQuery(query2, null);
-            if (cursor.moveToFirst()) {
-                int id = Integer.parseInt(cursor.getString(0));
-                db.delete(TABLE_ELECTRODOMESTICO,
-                        "ID" + " = ?",
-                        new String[]{String.valueOf(id)});
-                result = true;
-            }
-            cursor.close();
         } catch(SQLiteException e){
             Log.e("SQLDELETE", e.toString());
         }
@@ -223,189 +207,47 @@ public class ProductoOperations {
     }
 
 
-	public boolean deleteEvent(long eventID) {
-			
-		boolean result = false;
+	public ArrayList<String[]> getAllMedicamentos() {
+		Medicamento med;
+		ArrayList<Medicamento> listaMedicamentos = new ArrayList<Medicamento>();
 
-		String query = 	"Select * FROM " + TABLE_EVENTO +
-				        " WHERE " + "ID" +
-				        " =  \"" + eventID + "\"";
-        try {
-            Cursor cursor = db.rawQuery(query, null);
-            if (cursor.moveToFirst()) {
-                int id = Integer.parseInt(cursor.getString(0));
-                db.delete(TABLE_EVENTO,
-                        "ID" + " = ?",
-                        new String[]{String.valueOf(id)});
-                result = true;
-            }
-            cursor.close();
-        } catch(SQLiteException e){
-            Log.e("SQLDELETE", e.toString());
-        }
-		return result;
+		String selectQuery = "Select * FROM " + TABLE_MED;
+
+		try {
+			Cursor cursor = db.rawQuery(selectQuery, null);
+			if (cursor.moveToFirst()) {
+				do {
+					med = new Medicamento(cursor.getString(0), cursor.getString(1), cursor.getDouble(2),
+					cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));	
+					listaTipos.add(sAux);
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+		}catch(SQLException e) {
+			Log.e("SQLGETALL", e.toString());
+		}
+		return listaMedicamentos;
 	}
 
-    public ArrayList<String[]> getAllTypes() {
+	public ArrayList<String[]> getAllDoctores() {
+		Doctor doc;
+		ArrayList<Doctor> listaDoctores = new ArrayList<Doctor>();
 
-        ArrayList<String[]> listaTipos = new ArrayList<String[]>();
+		String selectQuery = "Select * FROM " + TABLE_MED;
 
-        String selectQuery = "Select * FROM " + TABLE_TIPO;
-
-        try {
-            Cursor cursor = db.rawQuery(selectQuery, null);
-            if (cursor.moveToFirst()) {
-                do {
-                    String [] sAux = new String[3];
-                    sAux[0] = cursor.getString(0);
-                    sAux[1] = cursor.getString(1);
-                    sAux[2] = cursor.getString(2);
-                    listaTipos.add(sAux);
-
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }catch(SQLException e) {
-            Log.e("SQLList", e.toString());
-        }
-        return listaTipos;
-    }
-		
-	public ArrayList<Evento> getAllEvents() {
-
-		ArrayList<Evento> listaProducts = new ArrayList<Evento>();
-
-		String selectQuery = "Select " + TABLE_EVENTO + ".ID, " + TABLE_TIPO + "." + TIPO_NOMBRE + ", "
-                + TABLE_TIPO + "." + TIPO_CONSUMO + ", " + TABLE_ELECTRODOMESTICO + "." + ELECT_MARCA + ", "
-                + TABLE_EVENTO + "." + EVENTO_TIEMPOUSO + ", " + TABLE_EVENTO + "." + EVENTO_HORA_INICIO + ", "
-                + TABLE_EVENTO + "." + EVENTO_FECHA + ", " + TABLE_ELECTRODOMESTICO + "." + ELECT_FOTO
-                + " FROM " + TABLE_EVENTO + ", " + TABLE_ELECTRODOMESTICO + "," + TABLE_TIPO
-                + " WHERE " + TABLE_EVENTO + "." + EVENTO_APARATO + " = " + TABLE_ELECTRODOMESTICO + ".ID AND "
-                + TABLE_ELECTRODOMESTICO + "." + ELECT_TIPOAPARATO + " = " + TABLE_TIPO + ".ID";
-
-        try {
-            Cursor cursor = db.rawQuery(selectQuery, null);
-            if (cursor.moveToFirst()) {
-                do {
-                    evEvento = null;
-                    double dAux = cursor.getDouble(4) * cursor.getInt(2);
-                    evEvento = new Evento(Long.parseLong(cursor.getString(0)),
-                            cursor.getString(1), cursor.getString(3), cursor.getString(6),
-                            cursor.getDouble(4), cursor.getString(5), dAux, cursor.getBlob(7));
-                    listaProducts.add(evEvento);
-
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }catch(SQLException e) {
-            Log.e("SQLList", e.toString());
-        }
-	    return listaProducts;
+		try {
+			Cursor cursor = db.rawQuery(selectQuery, null);
+			if (cursor.moveToFirst()) {
+				do {
+					doc = new Doctor(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
+						cursor.getString(5), cursor.getString(6));
+					listaTipos.add(sAux);
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+		}catch(SQLException e) {
+			Log.e("SQLGETALL", e.toString());
+		}
+		return listDoctores;
 	}
-
-    public ArrayList<Electrodomestico> getAllElectrodomesticos() {
-
-        ArrayList<Electrodomestico> listaProducts = new ArrayList<Electrodomestico>();
-
-        String selectQuery = "Select " + TABLE_ELECTRODOMESTICO + ".ID, "
-                + TABLE_TIPO + "." + TIPO_NOMBRE + ", "
-                + TABLE_ELECTRODOMESTICO + "." + ELECT_MARCA + ", "
-                + TABLE_ELECTRODOMESTICO + "." + ELECT_FOTO
-                + " FROM " + TABLE_ELECTRODOMESTICO + ", " + TABLE_TIPO
-                + " WHERE " + TABLE_ELECTRODOMESTICO + "." + ELECT_TIPOAPARATO + " = " + TABLE_TIPO + ".ID";
-
-        try {
-            Cursor cursor = db.rawQuery(selectQuery, null);
-            if (cursor.moveToFirst()) {
-                do {
-                    elArticulo = null;
-                    elArticulo = new Electrodomestico(Long.parseLong(cursor.getString(0)),
-                            cursor.getString(1), cursor.getString(2), cursor.getBlob(3));
-                    listaProducts.add(elArticulo);
-                    //System.out.println(cursor.getString(0) + " " + cursor.getString(1) + " " + cursor.getString(2));
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }catch(SQLException e) {
-            Log.e("SQLList", e.toString());
-        }
-        return listaProducts;
-    }
-
-    public ArrayList<Integer>  getAllEventIds() {
-
-        ArrayList<Integer> listaIds = new ArrayList<Integer>();
-
-        String selectQuery = "Select " + TABLE_EVENTO + ".ID " + " FROM " + TABLE_EVENTO;
-
-        try {
-            Cursor cursor = db.rawQuery(selectQuery, null);
-            if (cursor.moveToFirst()) {
-                do {
-                    listaIds.add(cursor.getInt(0));
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }catch(SQLException e) {
-            Log.e("SQLList", e.toString());
-        }
-        return listaIds;
-
-    }
-
-    public ArrayList<String>  getAllEventDates() {
-
-        ArrayList<String> listaDates = new ArrayList<String>();
-
-        String selectQuery = "Select " + TABLE_EVENTO + "." +EVENTO_FECHA + " FROM " + TABLE_EVENTO
-                + " GROUP BY " + EVENTO_FECHA;
-
-        try {
-            Cursor cursor = db.rawQuery(selectQuery, null);
-            if (cursor.moveToFirst()) {
-                do {
-                    listaDates.add(cursor.getString(0));
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }catch(SQLException e) {
-            Log.e("SQLList", e.toString());
-        }
-        return listaDates;
-    }
-
-    public ArrayList<Evento> getAllEventsByDate(String sDATE) {
-
-        ArrayList<Evento> listaProducts = new ArrayList<Evento>();
-
-        String selectQuery = "Select " + TABLE_EVENTO + ".ID, " + TABLE_TIPO + "." + TIPO_NOMBRE + ", "
-                + TABLE_TIPO + "." + TIPO_CONSUMO + ", " + TABLE_ELECTRODOMESTICO + "." + ELECT_MARCA + ", SUM("
-                + TABLE_EVENTO + "." + EVENTO_TIEMPOUSO + "), " + TABLE_EVENTO + "." + EVENTO_HORA_INICIO + ", "
-                + TABLE_EVENTO + "." + EVENTO_FECHA + ", " + TABLE_ELECTRODOMESTICO + "." + ELECT_FOTO
-                + " FROM " + TABLE_EVENTO + ", " + TABLE_ELECTRODOMESTICO + "," + TABLE_TIPO
-                + " WHERE " + TABLE_EVENTO + "." + EVENTO_APARATO + " = " + TABLE_ELECTRODOMESTICO + ".ID AND "
-                + TABLE_ELECTRODOMESTICO + "." + ELECT_TIPOAPARATO + " = " + TABLE_TIPO + ".ID AND "
-                + TABLE_EVENTO + "." + EVENTO_FECHA + " = " + "\"" + sDATE + "\" GROUP BY "
-                + TABLE_ELECTRODOMESTICO + "." + ELECT_MARCA;
-                //+ " ORDER BY " + TABLE_EVENTO + "." + EVENTO_FECHA + " DESC";
-
-        try {
-            Cursor cursor = db.rawQuery(selectQuery, null);
-            if (cursor.moveToFirst()) {
-                do {
-                    evEvento = null;
-                    double dAux = cursor.getDouble(4) * cursor.getInt(2);
-                    evEvento = new Evento(Long.parseLong(cursor.getString(0)),
-                            cursor.getString(1), cursor.getString(3), cursor.getString(6),
-                            cursor.getDouble(4), cursor.getString(5), dAux, cursor.getBlob(7));
-                    listaProducts.add(evEvento);
-
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }catch(SQLException e) {
-            Log.e("SQLList", e.toString());
-        }
-        return listaProducts;
-    }
 }
