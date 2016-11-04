@@ -4,26 +4,29 @@ package itesm.mx.proyecto_moviles;
  * Created by achs on 2/11/16.
  */
 public class Doctor {
-    private String nombre;
-    private String especialidad;
-    private String direccion;
-    private String codigopos;
-    private String numero;
-    private String correo;
+    private String sNombre;
+    private String sEspecialidad;
+    private String sDireccion;
+    private String sCodigopos;
+    private String sNumero;
+    private String sCorreo;
+    private String sTelefono;
 
-    public Doctor(String nombre, String especialidad, String direccion, String codigopos, String numero, String correo) {
-        this.nombre = nombre;
-        this.especialidad = especialidad;
-        this.direccion = direccion;
-        this.codigopos = codigopos;
-        this.numero = numero;
-        this.correo = correo;
+    public Doctor(String nombre, String especialidad, String direccion, String codigopos, String numero, String correo, String telefono) {
+        this.sNombre = nombre;
+        this.sEspecialidad = especialidad;
+        this.sDireccion = direccion;
+        this.sCodigopos = codigopos;
+        this.sNumero = numero;
+        this.sCorreo = correo;
+        this.sTelefono = telefono;
     }
 
-    public String getNombre() { return nombre; }
-    public String getEspecialidad() { return especialidad; }
-    public String getDireccion() { return direccion; }
-    public String getCodigopos() { return codigopos; }
-    public String getNumero() { return numero; }
-    public String getCorreo() { return correo; }
+    public String getNombre() { return sNombre; }
+    public String getEspecialidad() { return sEspecialidad; }
+    public String getDireccion() { return sDireccion; }
+    public String getCodigopos() { return sCodigopos; }
+    public String getNumero() { return sNumero; }
+    public String getCorreo() { return sCorreo; }
+    public String getTelefono() { return sTelefono; }
 }

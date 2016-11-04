@@ -33,11 +33,8 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
 
         ArrayList<Medicamento> listMedicamentos = new ArrayList<Medicamento>();
 
-        medicamento = new Medicamento(R.drawable.logo, "Medicina", "Tomar cada 8 horas", "8:00 - 16:00 - 00:00");
+        medicamento = new Medicamento("Medicina", "Medicina", 1, "8:00 - 16:00 - 00:00","Cada 8 horas", "", -1, "23/05/2017" );
         listMedicamentos.add(medicamento);
-        medicamento = new Medicamento(R.drawable.logo, "Medicina", "Tomar cada 8 horas", "8:00 - 16:00 - 00:00");
-        listMedicamentos.add(medicamento);
-
         return listMedicamentos;
     }
 

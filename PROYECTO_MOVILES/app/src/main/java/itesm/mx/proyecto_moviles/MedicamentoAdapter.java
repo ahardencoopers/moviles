@@ -33,12 +33,14 @@ public class MedicamentoAdapter extends ArrayAdapter<Medicamento> {
             TextView tvNombre = (TextView) convertView.findViewById(R.id.text_nombre_medicina);
             TextView tvTomarCada = (TextView) convertView.findViewById(R.id.text_tomar_cada);
             TextView tvHorario = (TextView) convertView.findViewById(R.id.text_horario);
-
-
-            ivMedicamento.setImageResource(medicamento.getIdImagen());
+            TextView tvDosis = (TextView) convertView.findViewById(R.id.text_dosis);
+            //System.out.println(medicamento.getIdImagen());
+            if(medicamento.getIdImagen() > -1)
+                ivMedicamento.setImageResource(medicamento.getIdImagen());
             tvNombre.setText(medicamento.getNombre());
             tvTomarCada.setText(medicamento.getTomarCada());
             tvHorario.setText(medicamento.getHorario());
+            tvDosis.setText("Dosis: " + medicamento.getDosis() + " " + medicamento.getTipo());
         }
 
         return convertView;
