@@ -10,7 +10,7 @@ public class Usuario {
     private String sDireccion;
     private String sTelefono;
     private String sSexo;
-    private String sFechaNacimiento; //Usuarios.fechanaci en BD
+    private String sFechaNacimiento; //Usuarios.fechanacimiento en BD
     private double dPeso;
     private double dAltura;
 

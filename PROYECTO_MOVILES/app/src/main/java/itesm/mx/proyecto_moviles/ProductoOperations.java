@@ -161,7 +161,7 @@ public class ProductoOperations {
 
 	public Usuario findUsuario(String usuarioNombre) {
 		Usuario usr = null;
-		String query = "SELECT * FROM " + TABLE_USRS + " WHERE " + TABLE_USRS + ".nombre = " + usuarioNombre;
+		String query = "SELECT * FROM " + TABLE_USRS ; //+ " WHERE " + TABLE_USRS + "." + USRS_NOMBRE + " = " + usuarioNombre;
 
 		try {
 			Cursor cursor = db.rawQuery(query, null);
@@ -180,7 +180,7 @@ public class ProductoOperations {
 
 	public Doctor findDoctor(String doctorNombre) {
 		Doctor doc = null;
-		String query = "SELECT * FROM " + TABLE_DOCS + " WHERE " + TABLE_DOCS + ".nombre = " + doctorNombre;
+		String query = "SELECT * FROM " + TABLE_DOCS + " WHERE " + TABLE_DOCS + "." + DOCS_NOMBRE + " = " + doctorNombre;
 
 		try {
 			Cursor cursor = db.rawQuery(query, null);

@@ -36,7 +36,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String USRS_NOMBRE = "nombre";
     private static final String USRS_DIR = "direccion";
     private static final String USRS_TELEFONO = "telefono";
-    private static final String USRS_CORREO = "correo";
+    //private static final String USRS_CORREO = "correo";
     private static final String USRS_SEXO = "sexo";
     private static final String USRS_FECHANACI = "fechaNacimiento";
     private static final String USRS_PESO = "peso";
@@ -47,7 +47,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String DOCS_ESPECIALIDAD = "especialidad";
     private static final String DOCS_DIR = "direccion";
     private static final String DOCS_CODIGOPOS = "codigopos";
-    private static final String DOCS_NUMERO = "numero";
+    private static final String DOCS_CIUDAD = "ciudad";
     private static final String DOCS_TELEFONO = "telefono";
     private static final String DOCS_CORREO = "correo";
 
@@ -60,15 +60,15 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
                                MED_FOTOID + "INT, " + MED_HASTAFECHA + " TEXT)";
 
     private static final String CREATE_TABLE_USRS = "CREATE TABLE " +
-            TABLE_USRS + " (" + USRS_NOMBRE + " TEXT, " + USRS_DIR + " TEXT, " +
-				                USRS_TELEFONO + " TEXT, " + USRS_CORREO + " PRIMARY KEY TEXT, " +
+            TABLE_USRS + " (" + USRS_NOMBRE + " PRIMARY KEY TEXT, " + USRS_DIR + " TEXT, " +
+				                USRS_TELEFONO + " TEXT, " + //USRS_CORREO + " PRIMARY KEY TEXT, " +
                                 USRS_SEXO + " TEXT, " + USRS_FECHANACI + " TEXT, " +
                                 USRS_PESO + " REAL, " + USRS_ALTURA + " REAL)";
 
     private static final String CREATE_TABLE_DOCS = "CREATE TABLE " +
             TABLE_DOCS + " (" + DOCS_NOMBRE + "TEXT, " + DOCS_ESPECIALIDAD + " TEXT, " +
-                                DOCS_DIR + " TEXT, " + DOCS_CODIGOPOS + " INT, " +
-                                DOCS_NUMERO + " TEXT, " + DOCS_CORREO + " PRIMARY KEY TEXT)";
+                                DOCS_DIR + " TEXT, " + DOCS_CODIGOPOS + " INT, " + DOCS_TELEFONO + " TEXT, " +
+                                DOCS_CIUDAD + " TEXT, " + DOCS_CORREO + " PRIMARY KEY TEXT)";
 
     public ProductoDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
