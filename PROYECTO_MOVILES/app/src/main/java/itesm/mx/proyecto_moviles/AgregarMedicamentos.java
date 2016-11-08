@@ -52,9 +52,9 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        lista = (ListView) findViewById(R.id.list);
+        lista = (ListView) findViewById(R.id.list_medicamentos);
 
-                btnAgregarMedicamento = (Button) findViewById(R.id.button_agregar_medicamento);
+        btnAgregarMedicamento = (Button) findViewById(R.id.button_agregar_medicamento);
 
         ArrayList <Medicamento> arrayListMedicamento;
         arrayListMedicamento = getDataForListView();

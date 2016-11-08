@@ -69,7 +69,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         dPeso = Double.parseDouble(etPeso.getText().toString());
         dAltura = Double.parseDouble(etAltura.getText().toString());
         Usuario usrAux = new Usuario(usr.getiId(), sNombre, sDireccion, sTelefono,sSexo, sDOB, dPeso, dAltura);
-        return dao.updateUser(usr);
+        return dao.updateUser(usrAux);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         if (val > -1) {
             Toast.makeText(UserActivity.this, "Información de usuario actualizada", Toast.LENGTH_SHORT).show();
             System.out.println(Long.toString(val) + " " + Long.toString(usr.getiId()));
-            System.out.println(usr.getNombre() + " " + usr.getDireccion());
+            //System.out.println(usr.getNombre() + " " + usr.getDireccion());
         }
         else
             Toast.makeText(UserActivity.this, "Error al actualizar usuario", Toast.LENGTH_SHORT).show();

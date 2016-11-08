@@ -28,6 +28,7 @@
     <string name="ciudad">Ciudad</string>
     <string name="user">Usuario</string>
     <string name="guardar_usuario">Guardar</string>
+    <string name="agregar_medico">Agregar Médico</string>
 
     <string name="action_user">Datos de Usuario</string>
     <string name="action_settings">Settings</string>

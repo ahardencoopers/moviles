@@ -22,7 +22,8 @@
         <activity android:name=".MedicosRegistrados" />
         <activity android:name=".CalendarioActivity" />
         <activity android:name=".MedicamentoPendiente" />
-        <activity android:name=".UserActivity"></activity>
+        <activity android:name=".UserActivity" />
+        <activity android:name=".Medicos"></activity>
     </application>
 
 </manifest>
