@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:id="@+id/image_medicamento"
+            android:src="@drawable/logo"/>
+        <TextView
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_nombre_medicina"
+            android:text="Medicina"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/image_medicamento" />
+        <TextView
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_dosis"
+            android:text="1 Pastilla"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/image_medicamento" />
+        <TextView
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_horario_dosis"
+            android:text="8:00"
+            android:layout_below="@+id/checkBox_tomada"
+            android:layout_alignStart="@+id/checkBox_tomada" />
+        <CheckBox
+            android:layout_width="125px"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox_tomada"
+            android:text="Tomada"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="63dp" />
+    </RelativeLayout>
+
+</LinearLayout>
