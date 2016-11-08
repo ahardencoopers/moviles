@@ -16,14 +16,18 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
     private Spinner spinnerSexo = null;
     private String sSexos[] = {"Hombre", "Mujer"};
     private Button btnRegistrarse = null;
+    private ProductoOperations dao;
     EditText etNombre, etDireccion, etTelefono, etDOB, etPeso, etAltura;
-    ProductoOperations dao;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrate);
-
+        //inicio de base de datos
+        dao = new ProductoOperations(this);
+        dao.open();
+        //Declaracion de forma
         etNombre = (EditText) findViewById(R.id.edit_nombre);
         etDireccion = (EditText) findViewById(R.id.edit_direccion);
         etTelefono = (EditText) findViewById(R.id.edit_telefono);
@@ -50,10 +54,9 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
         sDOB = etDOB.getText().toString();
         dPeso = Double.parseDouble(etPeso.getText().toString());
         dAltura = Double.parseDouble(etAltura.getText().toString());
-        Usuario usr = new Usuario(sNombre, sDireccion, sTelefono,sSexo, sDOB, dPeso, dAltura);
-        dao.open();
+        Usuario usr = new Usuario(0, sNombre, sDireccion, sTelefono,sSexo, sDOB, dPeso, dAltura);
+
         long index = dao.addUsuario(usr);
-        dao.close();
         return (index > -1);
     }
 
@@ -63,6 +66,8 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
             case R.id.button_registrarse:
                 if(registrarUsuario()) {
                     Intent myIntent = new Intent(this, AgregarMedicamentos.class);
+                    dao.close();
+                    finish();
                     startActivity(myIntent);
                 }
                 else {
@@ -72,4 +77,17 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
                 }
         }
     }
+    /*
+    @Override
+    protected void onResume() {
+        dao.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        dao.close();
+        super.onPause();
+    }
+    */
 }

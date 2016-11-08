@@ -53,22 +53,22 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
 
     //Create table queries
     private static final String CREATE_TABLE_MED = "CREATE TABLE " +
-            TABLE_MED + " (" +
-                               MED_NOMBRE + " PRIMARY KEY TEXT, " + MED_TIPO + " TEXT, " +
+            TABLE_MED + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                               MED_NOMBRE + " TEXT, " + MED_TIPO + " TEXT, " +
                                MED_DOSIS + " REAL, " + MED_HORAINICIO + " TEXT, " +
                                MED_TOMARCADA + " REAL, " + MED_COMENTARIOS + " TEXT, " +
-                               MED_FOTOID + "INT, " + MED_HASTAFECHA + " TEXT)";
+                               MED_FOTOID + " INT, " + MED_HASTAFECHA + " TEXT)";
 
     private static final String CREATE_TABLE_USRS = "CREATE TABLE " +
-            TABLE_USRS + " (" + USRS_NOMBRE + " PRIMARY KEY TEXT, " + USRS_DIR + " TEXT, " +
+            TABLE_USRS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + USRS_NOMBRE + " TEXT, " + USRS_DIR + " TEXT, " +
 				                USRS_TELEFONO + " TEXT, " + //USRS_CORREO + " PRIMARY KEY TEXT, " +
                                 USRS_SEXO + " TEXT, " + USRS_FECHANACI + " TEXT, " +
                                 USRS_PESO + " REAL, " + USRS_ALTURA + " REAL)";
 
     private static final String CREATE_TABLE_DOCS = "CREATE TABLE " +
-            TABLE_DOCS + " (" + DOCS_NOMBRE + "TEXT, " + DOCS_ESPECIALIDAD + " TEXT, " +
+            TABLE_DOCS + " (" + DOCS_NOMBRE + " TEXT, " + DOCS_ESPECIALIDAD + " TEXT, " +
                                 DOCS_DIR + " TEXT, " + DOCS_CODIGOPOS + " INT, " + DOCS_TELEFONO + " TEXT, " +
-                                DOCS_CIUDAD + " TEXT, " + DOCS_CORREO + " PRIMARY KEY TEXT)";
+                                DOCS_CIUDAD + " TEXT, " + DOCS_CORREO + " TEXT PRIMARY KEY)";
 
     public ProductoDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

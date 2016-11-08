@@ -4,6 +4,7 @@ package itesm.mx.proyecto_moviles;
  * Created by achs on 23/10/16.
  */
 public class Medicamento {
+    private long id;
     private String nombre;
     private String tipo;
     private double dosis;
@@ -13,7 +14,8 @@ public class Medicamento {
     private int idImagen; //Medicamentos.fotoid en BD
     private String hastaFecha;
 
-    public Medicamento(String nombre, String tipo, double dosis, String horario, String tomarCada, String comentarios, int idImagen, String hastaFecha) {
+    public Medicamento(long id, String nombre, String tipo, double dosis, String horario, String tomarCada, String comentarios, int idImagen, String hastaFecha) {
+        this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
         this.dosis = dosis;
@@ -23,6 +25,8 @@ public class Medicamento {
         this.idImagen = idImagen;
         this.hastaFecha = hastaFecha;
     }
+    public long getId() { return id; }
+
     public String getNombre() { return nombre; }
 
     public String getTipo() { return tipo; }

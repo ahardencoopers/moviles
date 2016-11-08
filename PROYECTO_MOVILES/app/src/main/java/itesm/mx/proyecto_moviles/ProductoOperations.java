@@ -22,38 +22,39 @@ public class ProductoOperations {
     //private Electrodomestico elArticulo;
     //private Evento evEvento;
 
-    //Name of the tables
-    private static final String TABLE_MED = "Medicamentos";
-    private static final String TABLE_USRS = "Usuarios";
-    private static final String TABLE_DOCS = "Doctores";
+	//Name of the tables
+	private static final String TABLE_MED = "Medicamento";
+	private static final String TABLE_USRS = "Usuario";
+	private static final String TABLE_DOCS = "Doctor";
 
-    //fields of table Medicamentos
-    private static final String MED_NOMBRE = "nombre";
-    private static final String MED_TIPO = "tipo";
-    private static final String MED_DOSIS = "dosis";
-    private static final String MED_HORAINICIO = "horainicio";
-    private static final String MED_TOMARCADA = "tomarcada";
-    private static final String MED_COMENTARIOS = "comentarios";
-    private static final String MED_FOTOID = "fotoid";
-    private static final String MED_HASTAFECHA = "hastafecha";
+	//fields of table Medicamentos
+	private static final String MED_NOMBRE = "nombre";
+	private static final String MED_TIPO = "tipo";
+	private static final String MED_DOSIS = "dosis";
+	private static final String MED_HORAINICIO = "horainicio";
+	private static final String MED_TOMARCADA = "tomarcada";
+	private static final String MED_COMENTARIOS = "comentarios";
+	private static final String MED_FOTOID = "fotoid";
+	private static final String MED_HASTAFECHA = "hastafecha";
 
-    //fields of table Usuarios
-    private static final String USRS_NOMBRE = "nombre";
-    private static final String USRS_DIR = "direccion";
-    private static final String USRS_TELEFONO = "telefono";
-    private static final String USRS_SEXO = "sexo";
-    private static final String USRS_FECHANACI = "fechanaci";
-    private static final String USRS_PESO = "peso";
-    private static final String USRS_ALTURA = "altura";
+	//fields of table Usuarios
+	private static final String USRS_NOMBRE = "nombre";
+	private static final String USRS_DIR = "direccion";
+	private static final String USRS_TELEFONO = "telefono";
+	//private static final String USRS_CORREO = "correo";
+	private static final String USRS_SEXO = "sexo";
+	private static final String USRS_FECHANACI = "fechaNacimiento";
+	private static final String USRS_PESO = "peso";
+	private static final String USRS_ALTURA = "altura";
 
-    //fields of table Doctores
-    private static final String DOCS_NOMBRE = "nombre";
-    private static final String DOCS_ESP = "especialidad";
-    private static final String DOCS_DIR = "direccion";
-    private static final String DOCS_CODIGOPOS = "codigopos";
-    private static final String DOCS_NUMERO = "numero";
-    private static final String DOCS_TELEFONO = "telefono";
-    private static final String DOCS_CORREO = "correo";
+	//fields of table Doctores
+	private static final String DOCS_NOMBRE = "nombre";
+	private static final String DOCS_ESPECIALIDAD = "especialidad";
+	private static final String DOCS_DIR = "direccion";
+	private static final String DOCS_CODIGOPOS = "codigopos";
+	private static final String DOCS_CIUDAD = "ciudad";
+	private static final String DOCS_TELEFONO = "telefono";
+	private static final String DOCS_CORREO = "correo";
 
 
 	public ProductoOperations(Context context) {
@@ -119,6 +120,25 @@ public class ProductoOperations {
 		return newRowId;
 	}
 
+	public int updateUser(Usuario usr) {
+		int result = -1;
+		try {
+			ContentValues values = new ContentValues();
+			values.put(USRS_NOMBRE, usr.getNombre());
+			values.put(USRS_DIR, usr.getDireccion());
+			values.put(USRS_FECHANACI, usr.getFechaNacimiento());
+			values.put(USRS_TELEFONO, usr.getTelefono());
+			values.put(USRS_ALTURA, usr.getAltura());
+			values.put(USRS_PESO, usr.getPeso());
+			values.put(USRS_SEXO, usr.getSexo());
+			result = db.update(TABLE_USRS, values, "ID =" + usr.getiId(), null);
+		}
+		catch(SQLiteException e){
+			Log.e("SQLUPDATE", e.toString());
+		}
+		return result;
+	}
+
 	public long addDoctor(Doctor doc) {
 		long newRowId = 0;
 		try {
@@ -126,10 +146,10 @@ public class ProductoOperations {
 			//Object Doctor attributes: nombre especialidad direccion codigopos numero telefono correo
 			ContentValues values = new ContentValues();
 			values.put(DOCS_NOMBRE, doc.getNombre());
-			values.put(DOCS_ESP, doc.getEspecialidad());
+			values.put(DOCS_ESPECIALIDAD, doc.getEspecialidad());
 			values.put(DOCS_DIR, doc.getDireccion());
 			values.put(DOCS_CODIGOPOS, doc.getCodigopos());
-			values.put(DOCS_NUMERO, doc.getNumero());
+			values.put(DOCS_CIUDAD, doc.getCiudad());
 			values.put(DOCS_TELEFONO, doc.getTelefono());
 			values.put(DOCS_CORREO, doc.getCorreo());
 
@@ -147,8 +167,8 @@ public class ProductoOperations {
 		try {
 			Cursor cursor = db.rawQuery(query, null);
 			if(cursor.moveToFirst()) {
-				med = new Medicamento(cursor.getString(0), cursor.getString(1), cursor.getDouble(2),
-					cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getInt(6), cursor.getString(7));
+				med = new Medicamento(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3),
+					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getInt(7), cursor.getString(8));
 			}
 			cursor.close();
 		}
@@ -159,15 +179,15 @@ public class ProductoOperations {
 		return med;
 	}
 
-	public Usuario findUsuario(String usuarioNombre) {
+	public Usuario findUsuario() {
 		Usuario usr = null;
 		String query = "SELECT * FROM " + TABLE_USRS ; //+ " WHERE " + TABLE_USRS + "." + USRS_NOMBRE + " = " + usuarioNombre;
 
 		try {
 			Cursor cursor = db.rawQuery(query, null);
 			if (cursor.moveToFirst()) {
-				usr = new Usuario(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
-						cursor.getDouble(5), cursor.getDouble(6));
+				usr = new Usuario(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
+						cursor.getDouble(6), cursor.getDouble(7));
 			}
 			cursor.close();
 		}
@@ -221,8 +241,8 @@ public class ProductoOperations {
 			Cursor cursor = db.rawQuery(selectQuery, null);
 			if (cursor.moveToFirst()) {
 				do {
-					med = new Medicamento(cursor.getString(0), cursor.getString(1), cursor.getDouble(2),
-					cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getInt(6), cursor.getString(7));
+					med = new Medicamento(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3),
+					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getInt(7), cursor.getString(8));
 					listaMedicamentos.add(med);
 				} while (cursor.moveToNext());
 			}

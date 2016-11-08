@@ -1,22 +1,37 @@
 <resources>
-    <string name="app_name">A01321004_EXAMEN_1_ANDROID_AD16</string>
-    <string name="login">Mi Tiendita</string>
-    <string name="register">Registro</string>
-    <string name="welcome">Bienvenido</string>
-    <string name="pass">Contraseña</string>
-    <string name="email">Correo electrónico</string>
-    <string name="confpass">Confirmar contraseña</string>
-    <string name="session">Iniciar Sesión</string>
-    <string name="save">Guardar</string>
-    <string name="exit">Salir</string>
-    <string name="buytotal">Total Compra:</string>
-    <string name="total">Total</string>
-    <string name="shopcar">Ver carrito de compra</string>
-    <string name="articles">Artículos</string>
-    <string name="article">Artículo</string>
-    <string name="Serie">#Serie  </string>
-    <string name="name">Nombre:  </string>
-    <string name="price">Precio:  </string>
-    <string name="ctdbuy">Ctd. comprar</string>
-    <string name="car">Carrito</string>
+    <string name="app_name">Recuerdame Med</string>
+    <string name="comenzar">Comenzar</string>
+    <string name="registrate">Registrate</string>
+    <string name="nombre">Nombre</string>
+    <string name="direccion">Dirección</string>
+    <string name="telefono">Teléfono</string>
+    <string name="nacimiento">Nacimiento</string>
+    <string name="peso">Peso</string>
+    <string name="altura">Altura</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="nombre_medicina">Medicina</string>
+    <string name="tomar_cada">Tomar cada 8 horas</string>
+    <string name="horario">8:00 - 16:00 - 00:00</string>
+    <string name="agregar_medicamento">Agregar Medicamento</string>
+    <string name="dosis">Dosis</string>
+    <string name="hora_inicio">Hora Inicio</string>
+    <string name="comentarios">Comentarios</string>
+    <string name="guardar_medicamento">Guardar Medicamento</string>
+    <string name="especialidad">Especialidad</string>
+    <string name="codigo_postal">Codigo Postal</string>
+    <string name="numero">Numero</string>
+    <string name="correo">Correo</string>
+    <string name="title_activity_medicamento_pendiente">MedicamentoPendiente</string>
+    <string name="tomada">Tomada</string>
+    <string name="horario_dosis">8:00</string>
+    <string name="lunes">Lunes</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="user">Usuario</string>
+    <string name="guardar_usuario">Guardar</string>
+
+    <string name="action_user">Datos de Usuario</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

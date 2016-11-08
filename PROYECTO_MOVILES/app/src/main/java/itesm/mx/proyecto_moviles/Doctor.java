@@ -26,7 +26,7 @@ public class Doctor {
     public String getEspecialidad() { return sEspecialidad; }
     public String getDireccion() { return sDireccion; }
     public String getCodigopos() { return sCodigopos; }
-    public String getNumero() { return sCiudad; }
+    public String getCiudad() { return sCiudad; }
     public String getCorreo() { return sCorreo; }
     public String getTelefono() { return sTelefono; }
 }

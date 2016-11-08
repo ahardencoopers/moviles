@@ -33,7 +33,7 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
 
         ArrayList<Medicamento> listMedicamentos = new ArrayList<Medicamento>();
 
-        medicamento = new Medicamento("Medicina", "Medicina", 1, "8:00 - 16:00 - 00:00","Cada 8 horas", "", -1, "23/05/2017" );
+        medicamento = new Medicamento(0, "Medicina", "Medicina", 1, "8:00 - 16:00 - 00:00","Cada 8 horas", "", -1, "23/05/2017" );
         listMedicamentos.add(medicamento);
         return listMedicamentos;
     }
@@ -149,7 +149,9 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
             return true;
         }
         if (id == R.id.action_user) {
-            //Intent intent = new Intent(AgregarMedicamentos.this, )
+            Intent intent = new Intent(AgregarMedicamentos.this, UserActivity.class);
+            startActivity(intent);
+            return true;
         }
 
         // Activate the navigation drawer toggle

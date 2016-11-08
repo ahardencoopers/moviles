@@ -1,141 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:weightSum="1"
-    android:clickable="false"
-    android:descendantFocusability="blocksDescendants"
-    android:focusable="false"
-    android:focusableInTouchMode="false">
+    android:weightSum="1">
 
+    <ImageView
+        android:id="@+id/image_medicamento"
+        android:layout_width="100px"
+        android:layout_height="70dp"
+        android:src="@drawable/logo"
+        android:layout_weight="0.27" />
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="67dp"
-        android:layout_height="179dp">
-
-        <ImageView
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/text_nombre_medicina"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/image_articulo_row"
-            android:src="@mipmap/ic_launcher"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"/>
-
+            android:hint="@string/nombre_medicina"/>
+        <TextView
+            android:id="@+id/text_tomar_cada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/tomar_cada"/>
+        <TextView
+            android:id="@+id/text_horario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/horario"/>
+        <TextView
+            android:id="@+id/text_dosis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dosis"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="184dp">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:weightSum="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Serie"
-                android:id="@+id/textView8"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/edit_serie_row"
-                android:enabled="false"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:weightSum="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/name"
-                android:id="@+id/textView9"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/edit_name_row"
-                android:enabled="false"
-                android:layout_weight="1.04"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ctdbuy"
-                android:id="@+id/textView10"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:id="@+id/edit_ctd_row"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/price"
-                android:id="@+id/textView11"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/edit_price_row"
-                android:enabled="false"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-        </LinearLayout>
-
-
-    </LinearLayout>
-
 
 </LinearLayout>
