@@ -13,10 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 public class CalendarioActivity extends AppCompatActivity {
 
     private ListView listCalendario;
-    private CalendarioAdapter calendarioAdapter;
+    private static CalendarioAdapter calendarioAdapter;
     //Drawer
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
@@ -24,6 +26,28 @@ public class CalendarioActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
+    private ProductoOperations dao;
+
+    public ArrayList<Medicamento> getDataForCalendario() {
+        ArrayList<CalendarioEntry> listCalendarioEntry = new ArrayList<CalendarioEntry>();
+        ArrayList<Medicamento> listMedicamentos = new ArrayList<Medicamento>();
+        CalendarioEntry temp;
+
+        dao = new ProductoOperations(this);
+        dao.open();
+
+        listMedicamentos = dao.getAllMedicamentos();
+
+        temp = new CalendarioEntry("Lunes");
+        calendarioAdapter.addSeparatorItem(temp);
+
+        temp = new CalendarioEntry(0, "Med", "Pastilla", 10.5, "8", "8", "", "17/05/2016");
+        calendarioAdapter.addItem(temp);
+
+        return listMedicamentos;
+    }
+
+    //Calendario
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +62,13 @@ public class CalendarioActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+
         listCalendario = (ListView) findViewById(R.id.list_calendario);
         calendarioAdapter = new CalendarioAdapter(this);
 
-        calendarioAdapter.addSeparatorItem("Lunes");
+        this.getDataForCalendario();
+
+        /*calendarioAdapter.addSeparatorItem("Lunes");
         calendarioAdapter.addItem("Medicina");
         calendarioAdapter.addItem("Medicina");
         calendarioAdapter.addSeparatorItem("Martes");
@@ -49,11 +76,12 @@ public class CalendarioActivity extends AppCompatActivity {
         calendarioAdapter.addItem("Medicina");
         calendarioAdapter.addSeparatorItem("Miercoles");
         calendarioAdapter.addItem("Medicina");
-        calendarioAdapter.addItem("Medicina");
+        calendarioAdapter.addItem("Medicina");*/
 
         listCalendario.setAdapter(calendarioAdapter);
     }
 
+    //Drawer
     private void addDrawerItems() {
         String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
