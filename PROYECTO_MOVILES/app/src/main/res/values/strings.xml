@@ -31,6 +31,7 @@
     <string name="agregar_medico">Agregar Médico</string>
     <string name="registrar_medico">Agrega a tu médico</string>
     <string name="actualizar">Actualizar</string>
+    <string name="delete">Borrar</string>
 
     <string name="action_user">Datos de Usuario</string>
     <string name="action_settings">Settings</string>

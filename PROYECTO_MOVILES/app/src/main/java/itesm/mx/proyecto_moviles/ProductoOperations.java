@@ -198,14 +198,14 @@ public class ProductoOperations {
 		return usr;
 	}
 
-	public Doctor findDoctor(String CorreoDoctor) {
+	public Doctor findDoctor(String ID) {
 		Doctor doc = null;
-		String query = "SELECT * FROM " + TABLE_DOCS + " WHERE " + TABLE_DOCS + "." + DOCS_CORREO + " = " + CorreoDoctor;
+		String query = "SELECT * FROM " + TABLE_DOCS + " WHERE " + TABLE_DOCS + ".ID" + " = " + ID;
 
 		try {
 			Cursor cursor = db.rawQuery(query, null);
 			if(cursor.moveToFirst()) {
-				doc = new Doctor(cursor.getFloat(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
+				doc = new Doctor(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
 					cursor.getString(6), cursor.getString(7));
 			}
 		}
@@ -220,7 +220,7 @@ public class ProductoOperations {
         boolean result = false;
         try {
                 db.delete(TABLE_MED,
-                        "nombre" + " = ?",
+                        "ID" + " = ?",
                         new String[]{Long.toString(id)});
                 result = true;
 		}
@@ -263,7 +263,7 @@ public class ProductoOperations {
 
 			if (cursor.moveToFirst()) {
 				do {
-					Doctor doc = new Doctor(cursor.getFloat(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
+					Doctor doc = new Doctor(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
 						cursor.getString(6), cursor.getString(7));
 					listaDoctores.add(doc);
 				} while (cursor.moveToNext());
@@ -273,5 +273,38 @@ public class ProductoOperations {
 			Log.e("SQLGETALL", e.toString());
 		}
 		return listaDoctores;
+	}
+
+	public int updateMedico(Doctor doc) {
+		int result = -1;
+		try {
+			ContentValues values = new ContentValues();
+			values.put(DOCS_NOMBRE, doc.getNombre());
+			values.put(DOCS_DIR, doc.getDireccion());
+			values.put(DOCS_ESPECIALIDAD, doc.getEspecialidad());
+			values.put(DOCS_TELEFONO, doc.getTelefono());
+			values.put(DOCS_CORREO, doc.getCorreo());
+			values.put(DOCS_CIUDAD, doc.getCiudad());
+			values.put(DOCS_CODIGOPOS, doc.getCodigopos());
+			result = db.update(TABLE_DOCS, values, "ID =" + doc.getID(), null);
+		}
+		catch(SQLiteException e){
+			Log.e("SQLUPDATE", e.toString());
+		}
+		return result;
+	}
+
+	public boolean deleteDoctor(long id) {
+		boolean result = false;
+		try {
+			db.delete(TABLE_DOCS,
+					"ID" + " = ?",
+					new String[]{Long.toString(id)});
+			result = true;
+		}
+		catch(SQLiteException e){
+			Log.e("SQLDELETE", e.toString());
+		}
+		return result;
 	}
 }
