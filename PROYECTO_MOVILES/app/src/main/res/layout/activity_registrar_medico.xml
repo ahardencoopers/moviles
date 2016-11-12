@@ -60,6 +60,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:id="@+id/edit_codigo_postal_medico"
                 android:layout_below="@+id/edit_direccion_medico"
                 android:layout_alignParentStart="true"

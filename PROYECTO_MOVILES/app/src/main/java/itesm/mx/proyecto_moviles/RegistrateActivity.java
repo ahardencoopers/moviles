@@ -38,7 +38,7 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
         btnRegistrarse = (Button) findViewById(R.id.button_registrarse);
 
         spinnerSexo = (Spinner) findViewById(R.id.spinner_sexo);
-        ArrayAdapter<String> adapterSpinnerSexo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sSexos);
+        ArrayAdapter<String> adapterSpinnerSexo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, sSexos);
 
         spinnerSexo.setAdapter(adapterSpinnerSexo);
         btnRegistrarse .setOnClickListener(this);

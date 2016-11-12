@@ -57,7 +57,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
                                MED_NOMBRE + " TEXT, " + MED_TIPO + " TEXT, " +
                                MED_DOSIS + " REAL, " + MED_HORAINICIO + " TEXT, " +
                                MED_TOMARCADA + " REAL, " + MED_COMENTARIOS + " TEXT, " +
-                               MED_FOTOID + " INT, " + MED_HASTAFECHA + " TEXT)";
+                               MED_HASTAFECHA + " TEXT)";
 
     private static final String CREATE_TABLE_USRS = "CREATE TABLE " +
             TABLE_USRS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + USRS_NOMBRE + " TEXT, " + USRS_DIR + " TEXT, " +

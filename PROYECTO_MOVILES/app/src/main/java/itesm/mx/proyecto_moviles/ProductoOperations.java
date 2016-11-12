@@ -85,7 +85,7 @@ public class ProductoOperations {
 			values.put(MED_HORAINICIO, med.getHorario());
 			values.put(MED_TOMARCADA, med.getTomarCada());
 			values.put(MED_COMENTARIOS, med.getComentarios());
-			values.put(MED_FOTOID, med.getIdImagen());
+			//values.put(MED_FOTOID, med.getIdImagen());
 			values.put(MED_HASTAFECHA, med.getHastaFecha());
 		
 			newRowId = db.insert(TABLE_MED, null, values);
@@ -168,7 +168,7 @@ public class ProductoOperations {
 			Cursor cursor = db.rawQuery(query, null);
 			if(cursor.moveToFirst()) {
 				med = new Medicamento(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3),
-					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getInt(7), cursor.getString(8));
+					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
 			}
 			cursor.close();
 		}
@@ -242,7 +242,7 @@ public class ProductoOperations {
 			if (cursor.moveToFirst()) {
 				do {
 					med = new Medicamento(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3),
-					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getInt(7), cursor.getString(8));
+					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
 					listaMedicamentos.add(med);
 				} while (cursor.moveToNext());
 			}
