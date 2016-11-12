@@ -54,10 +54,10 @@
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:id="@+id/spinner_sexo"
-        android:layout_below="@+id/edit_telefono"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/edit_telefono" />
 
     <EditText
         android:layout_width="match_parent"

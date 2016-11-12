@@ -75,7 +75,7 @@ public class MedicamentoPendiente extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case 1:
-                        intent = new Intent(MedicamentoPendiente.this, RegistrarMedico.class);
+                        intent = new Intent(MedicamentoPendiente.this, Medicos.class);
                         startActivity(intent);
                         break;
                     case 2:
@@ -142,6 +142,11 @@ public class MedicamentoPendiente extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_user) {
+            Intent intent = new Intent(MedicamentoPendiente.this, UserActivity.class);
+            startActivity(intent);
             return true;
         }
 

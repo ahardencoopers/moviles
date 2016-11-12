@@ -11,10 +11,10 @@ public class Medicamento {
     private String horario; //Medicamentos.horainicio en BD
     private String tomarCada;
     private String comentarios;
-    private int idImagen; //Medicamentos.fotoid en BD
+    // private int idImagen; //Medicamentos.fotoid en BD
     private String hastaFecha;
 
-    public Medicamento(long id, String nombre, String tipo, double dosis, String horario, String tomarCada, String comentarios, int idImagen, String hastaFecha) {
+    public Medicamento(long id, String nombre, String tipo, double dosis, String horario, String tomarCada, String comentarios, String hastaFecha) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -22,7 +22,18 @@ public class Medicamento {
         this.horario = horario;
         this.tomarCada = tomarCada;
         this.comentarios = comentarios;
-        this.idImagen = idImagen;
+        // this.idImagen = idImagen;
+        this.hastaFecha = hastaFecha;
+    }
+
+    public Medicamento(String nombre, String tipo, double dosis, String horario, String tomarCada, String comentarios, String hastaFecha) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.dosis = dosis;
+        this.horario = horario;
+        this.tomarCada = tomarCada;
+        this.comentarios = comentarios;
+        //this.idImagen = idImagen;
         this.hastaFecha = hastaFecha;
     }
     public long getId() { return id; }
@@ -39,7 +50,7 @@ public class Medicamento {
 
     public String getComentarios() { return comentarios; }
 
-    public int getIdImagen() { return idImagen; }
+    // public int getIdImagen() { return idImagen; }
 
     public String getHastaFecha() {return hastaFecha; }
 

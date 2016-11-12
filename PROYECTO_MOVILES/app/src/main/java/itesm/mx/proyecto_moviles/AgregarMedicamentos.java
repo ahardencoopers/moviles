@@ -28,13 +28,15 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
+    private ProductoOperations dao;
+
     public ArrayList<Medicamento> getDataForListView() {
         Medicamento medicamento;
 
         ArrayList<Medicamento> listMedicamentos = new ArrayList<Medicamento>();
 
-        medicamento = new Medicamento(0, "Medicina", "Medicina", 1, "8:00 - 16:00 - 00:00","Cada 8 horas", "", -1, "23/05/2017" );
-        listMedicamentos.add(medicamento);
+        //medicamento = new Medicamento(0, "Medicina", "Medicina", 1, "8:00 - 16:00 - 00:00","Cada 8 horas", "23/05/2017" );
+        //listMedicamentos.add(medicamento);
         return listMedicamentos;
     }
 
@@ -52,12 +54,16 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        //inicio de base de datos
+        dao = new ProductoOperations(this);
+        dao.open();
+
         lista = (ListView) findViewById(R.id.list_medicamentos);
 
         btnAgregarMedicamento = (Button) findViewById(R.id.button_agregar_medicamento);
 
         ArrayList <Medicamento> arrayListMedicamento;
-        arrayListMedicamento = getDataForListView();
+        arrayListMedicamento = dao.getAllMedicamentos();
 
         MedicamentoAdapter adapterMedicamentos = new MedicamentoAdapter(this, arrayListMedicamento);
         lista.setAdapter(adapterMedicamentos);
@@ -79,7 +85,7 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
                         //startActivity(intent);
                         break;
                     case 1:
-                        intent = new Intent(AgregarMedicamentos.this, RegistrarMedico.class);
+                        intent = new Intent(AgregarMedicamentos.this, Medicos.class);
                         startActivity(intent);
                         break;
                     case 2:

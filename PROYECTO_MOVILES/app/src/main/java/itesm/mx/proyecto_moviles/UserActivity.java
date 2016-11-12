@@ -77,7 +77,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         long val = saveUser();
         if (val > -1) {
             Toast.makeText(UserActivity.this, "Información de usuario actualizada", Toast.LENGTH_SHORT).show();
-            System.out.println(Long.toString(val) + " " + Long.toString(usr.getiId()));
+            //System.out.println(Long.toString(val) + " " + Long.toString(usr.getiId()));
             //System.out.println(usr.getNombre() + " " + usr.getDireccion());
         }
         else

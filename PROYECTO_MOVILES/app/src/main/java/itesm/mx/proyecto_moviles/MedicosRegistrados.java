@@ -12,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MedicosRegistrados extends AppCompatActivity implements View.OnClickListener{
 
@@ -23,10 +25,23 @@ public class MedicosRegistrados extends AppCompatActivity implements View.OnClic
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
+    //database
+    ProductoOperations dao;
+
+    //Views
+    EditText etNombre, etEspecialidad, etHospital, etCP, etCiudad, etTelefono, etCorreo;
+    Button btnActualizar;
+
+    private long idMedico = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicos_registrados);
+
+        //data base
+        dao = new ProductoOperations(this);
+        dao.open();
 
         //Drawer
         mDrawerList = (ListView)findViewById(R.id.navList);mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -36,11 +51,61 @@ public class MedicosRegistrados extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        //getViews
+        etNombre = (EditText) findViewById(R.id.text_nombre_medico);
+        etEspecialidad = (EditText) findViewById(R.id.text_especialidad);
+        etHospital = (EditText) findViewById(R.id.text_hospital);
+        etCP = (EditText) findViewById(R.id.text_codigo_postal);
+        etCiudad = (EditText) findViewById(R.id.text_numero);
+        etTelefono = (EditText) findViewById(R.id.text_telefono);
+        etCorreo = (EditText) findViewById(R.id.text_correo);
+        btnActualizar = (Button) findViewById(R.id.button_actualizar_medico);
+
+        //listeners
+        btnActualizar.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        if(intent.getExtras() != null) {
+            System.out.println("Id: " + intent.getLongExtra("Id", idMedico));
+            idMedico = intent.getLongExtra("Id", idMedico);
+            setMedico(idMedico);
+        }
+
+    }
+
+    void setMedico(float id)
+    {
+        Doctor doc = dao.findDoctor(Float.toString(id));
+        etNombre.setText(doc.getNombre());
+        etEspecialidad.setText(doc.getEspecialidad());
+        etHospital.setText(doc.getDireccion());
+        etCP.setText(doc.getCodigopos());
+        etCiudad.setText(doc.getCiudad());
+        etTelefono.setText(doc.getTelefono());
+        etCorreo.setText(doc.getCorreo());
+    }
+
+    float saveMedico()
+    {
+        String sNombre = etNombre.getText().toString();
+        String sEsp = etEspecialidad.getText().toString();
+        String sHospital = etHospital.getText().toString();
+        String sCP = etCP.getText().toString();
+        String sCiudad = etCiudad.getText().toString();
+        String sTelefono = etTelefono.getText().toString();
+        String sCorreo = etCorreo.getText().toString();
+        Doctor doc = new Doctor(idMedico, sNombre, sEsp, sHospital, sCP, sCiudad, sCorreo, sTelefono);
+        return dao.updateMedico(doc);
     }
 
     @Override
     public void onClick(View view) {
-
+        if(saveMedico() > -1)
+        {
+            Toast.makeText(MedicosRegistrados.this, "Información de médico actualizada", Toast.LENGTH_SHORT).show();
+        }
+        else
+            Toast.makeText(MedicosRegistrados.this, "Error al actualizar médico", Toast.LENGTH_SHORT).show();
     }
 
     private void addDrawerItems() {
@@ -56,18 +121,22 @@ public class MedicosRegistrados extends AppCompatActivity implements View.OnClic
                     case 0:
                         intent = new Intent(MedicosRegistrados.this, AgregarMedicamentos.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case 1:
-                        //intent = new Intent(MedicosRegistrados.this, RegistrarMedico.class);
-                        //startActivity(intent);
+                        intent = new Intent(MedicosRegistrados.this, Medicos.class);
+                        startActivity(intent);
+                        finish();
                         break;
                     case 2:
                         intent = new Intent(MedicosRegistrados.this, MedicamentoPendiente.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case 3:
                         intent = new Intent(MedicosRegistrados.this, CalendarioActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                 }
             }
@@ -136,4 +205,15 @@ public class MedicosRegistrados extends AppCompatActivity implements View.OnClic
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        dao.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        dao.close();
+        super.onPause();
+    }
 }
