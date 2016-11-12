@@ -38,7 +38,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         btnGuardar = (Button) findViewById(R.id.button_guardarUser);
         spSexo = (Spinner) findViewById(R.id.spinner_sexo_user);
 
-        ArrayAdapter<String> adapterSpinnerSexo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sSexos);
+        ArrayAdapter<String> adapterSpinnerSexo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, sSexos);
         spSexo.setAdapter(adapterSpinnerSexo);
 
         setUser();

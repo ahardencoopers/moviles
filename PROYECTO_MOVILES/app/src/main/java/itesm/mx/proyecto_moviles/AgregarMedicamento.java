@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AgregarMedicamento extends AppCompatActivity implements View.OnClickListener {
 
@@ -78,6 +79,9 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                     long index = dao.addMedicamento(medicamento);
                     dao.close();
                     finish();
+                }
+                else {
+                    Toast.makeText(AgregarMedicamento.this, "Favor de llenar todos los campos", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
