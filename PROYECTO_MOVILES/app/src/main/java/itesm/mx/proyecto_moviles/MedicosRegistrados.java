@@ -56,18 +56,22 @@ public class MedicosRegistrados extends AppCompatActivity implements View.OnClic
                     case 0:
                         intent = new Intent(MedicosRegistrados.this, AgregarMedicamentos.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case 1:
-                        //intent = new Intent(MedicosRegistrados.this, RegistrarMedico.class);
-                        //startActivity(intent);
+                        intent = new Intent(MedicosRegistrados.this, Medicos.class);
+                        startActivity(intent);
+                        finish();
                         break;
                     case 2:
                         intent = new Intent(MedicosRegistrados.this, MedicamentoPendiente.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case 3:
                         intent = new Intent(MedicosRegistrados.this, CalendarioActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                 }
             }

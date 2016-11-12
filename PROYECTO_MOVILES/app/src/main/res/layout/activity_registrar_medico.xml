@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="itesm.mx.proyecto_moviles.RegistrarMedico">
 
-    <RelativeLayout
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        tools:context="itesm.mx.proyecto_moviles.RegistrarMedico">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="353dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/registrate"
+            android:text="@string/registrar_medico"
             android:id="@+id/registrate"
+            android:textAlignment="center"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
@@ -30,12 +28,13 @@
             android:id="@+id/profile"
             android:layout_below="@+id/registrate"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/profile"/>
+            android:src="@drawable/profile"
+            android:layout_gravity="center_horizontal" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_nombre"
+            android:id="@+id/edit_nombre_medico"
             android:layout_below="@+id/profile"
             android:layout_centerHorizontal="true"
             android:hint="@string/nombre"/>
@@ -43,7 +42,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_especialidad"
+            android:id="@+id/edit_especialidad_medico"
             android:layout_below="@+id/edit_nombre"
             android:layout_centerHorizontal="true"
             android:hint="@string/especialidad"/>
@@ -51,35 +50,40 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_direccion"
-            android:layout_below="@+id/edit_especialidad"
+            android:id="@+id/edit_direccion_medico"
+            android:layout_below="@+id/edit_especialidad_medico"
             android:layout_centerHorizontal="true"
             android:hint="@string/direccion"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/edit_codigo_postal"
-            android:layout_below="@+id/edit_direccion"
-            android:layout_alignParentStart="true"
-            android:hint="@string/codigo_postal"
-            android:layout_toStartOf="@+id/registrate" />
-
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edit_ciudad"
-            android:layout_below="@+id/edit_direccion"
-            android:layout_alignStart="@+id/registrate"
-            android:hint="@string/ciudad"/>
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_codigo_postal_medico"
+                android:layout_below="@+id/edit_direccion_medico"
+                android:layout_alignParentStart="true"
+                android:hint="@string/codigo_postal"
+                android:layout_toStartOf="@+id/profile" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_ciudad_medico"
+                android:layout_below="@+id/edit_direccion_medico"
+                android:hint="@string/ciudad"
+                android:layout_toEndOf="@+id/edit_codigo_postal_medico" />
+
+        </LinearLayout>
+
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
             android:ems="10"
-            android:id="@+id/edit_telefono"
-            android:layout_below="@+id/edit_codigo_postal"
+            android:id="@+id/edit_telefono_medico"
+            android:layout_below="@+id/edit_codigo_postal_medico"
             android:layout_alignParentStart="true"
             android:hint="@string/telefono"/>
 
@@ -88,24 +92,18 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/edit_correo"
-            android:layout_below="@+id/edit_telefono"
+            android:id="@+id/edit_correo_medico"
+            android:layout_below="@+id/edit_telefono_medico"
             android:layout_alignParentStart="true"
             android:hint="@string/correo"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/registrarse"
+            android:text="@string/registrar_medico"
             android:id="@+id/boton_registrar_medico"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
 
-    </RelativeLayout>
-    <ListView
-        android:id="@+id/navList"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="left|start"
-        android:background="#ffeeeeee"/>
-</android.support.v4.widget.DrawerLayout>
+    </LinearLayout>

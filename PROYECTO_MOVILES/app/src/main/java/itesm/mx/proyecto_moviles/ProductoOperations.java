@@ -140,7 +140,7 @@ public class ProductoOperations {
 	}
 
 	public long addDoctor(Doctor doc) {
-		long newRowId = 0;
+		long newRowId = -1;
 		try {
 			//Table Docotores  field strings: nombre especialidad direccion codigopos numero telefono correo
 			//Object Doctor attributes: nombre especialidad direccion codigopos numero telefono correo
@@ -152,7 +152,7 @@ public class ProductoOperations {
 			values.put(DOCS_CIUDAD, doc.getCiudad());
 			values.put(DOCS_TELEFONO, doc.getTelefono());
 			values.put(DOCS_CORREO, doc.getCorreo());
-
+			newRowId = db.insert(TABLE_DOCS, null, values);
 		}
 		catch (SQLException e) {
 			Log.e("SQLADD", e.toString());
@@ -160,9 +160,9 @@ public class ProductoOperations {
 		return newRowId;
 	}
 
-	public Medicamento findMedicamento(String medicamentoNombre) {
+	public Medicamento findMedicamento(long id) {
 		Medicamento med = null;
-		String query = "SELECT * FROM " + TABLE_MED + " WHERE " + TABLE_MED + ".nombre = " + medicamentoNombre;
+		String query = "SELECT * FROM " + TABLE_MED + " WHERE " + TABLE_MED + ".ID = " + id;
 
 		try {
 			Cursor cursor = db.rawQuery(query, null);
@@ -198,15 +198,15 @@ public class ProductoOperations {
 		return usr;
 	}
 
-	public Doctor findDoctor(String doctorNombre) {
+	public Doctor findDoctor(String CorreoDoctor) {
 		Doctor doc = null;
-		String query = "SELECT * FROM " + TABLE_DOCS + " WHERE " + TABLE_DOCS + "." + DOCS_NOMBRE + " = " + doctorNombre;
+		String query = "SELECT * FROM " + TABLE_DOCS + " WHERE " + TABLE_DOCS + "." + DOCS_CORREO + " = " + CorreoDoctor;
 
 		try {
 			Cursor cursor = db.rawQuery(query, null);
 			if(cursor.moveToFirst()) {
-				doc = new Doctor(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
-					cursor.getString(5), cursor.getString(6));
+				doc = new Doctor(cursor.getFloat(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
+					cursor.getString(6), cursor.getString(7));
 			}
 		}
 		catch(SQLException e) {
@@ -216,12 +216,12 @@ public class ProductoOperations {
 		return doc;
 	}
 
-    public boolean deleteMedicamento(String nombreMedicamento) {
+    public boolean deleteMedicamento(long id) {
         boolean result = false;
         try {
                 db.delete(TABLE_MED,
                         "nombre" + " = ?",
-                        new String[]{nombreMedicamento});
+                        new String[]{Long.toString(id)});
                 result = true;
 		}
         catch(SQLiteException e){
@@ -256,14 +256,15 @@ public class ProductoOperations {
 	public ArrayList<Doctor> getAllDoctores() {
 		ArrayList<Doctor> listaDoctores = new ArrayList<Doctor>();
 
-		String selectQuery = "Select * FROM " + TABLE_MED;
+		String selectQuery = "Select * FROM " + TABLE_DOCS;
 
 		try {
 			Cursor cursor = db.rawQuery(selectQuery, null);
+
 			if (cursor.moveToFirst()) {
 				do {
-					Doctor doc = new Doctor(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
-						cursor.getString(5), cursor.getString(6));
+					Doctor doc = new Doctor(cursor.getFloat(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
+						cursor.getString(6), cursor.getString(7));
 					listaDoctores.add(doc);
 				} while (cursor.moveToNext());
 			}

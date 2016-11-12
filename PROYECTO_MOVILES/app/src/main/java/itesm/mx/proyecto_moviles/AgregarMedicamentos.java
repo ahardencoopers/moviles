@@ -79,7 +79,7 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
                         //startActivity(intent);
                         break;
                     case 1:
-                        intent = new Intent(AgregarMedicamentos.this, RegistrarMedico.class);
+                        intent = new Intent(AgregarMedicamentos.this, Medicos.class);
                         startActivity(intent);
                         break;
                     case 2:

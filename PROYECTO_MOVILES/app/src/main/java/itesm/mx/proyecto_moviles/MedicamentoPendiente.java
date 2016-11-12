@@ -75,7 +75,7 @@ public class MedicamentoPendiente extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case 1:
-                        intent = new Intent(MedicamentoPendiente.this, RegistrarMedico.class);
+                        intent = new Intent(MedicamentoPendiente.this, Medicos.class);
                         startActivity(intent);
                         break;
                     case 2:

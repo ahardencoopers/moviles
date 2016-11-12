@@ -13,8 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class Medicos extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Medicos extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     //Drawer
     private ListView mDrawerList;
@@ -25,24 +28,82 @@ public class Medicos extends AppCompatActivity {
 
     private Button btnAgregarMedico;
     private ListView listMedicos;
+    final int REQUEST_CODE = 1;
+    ArrayList<Doctor> docDoctores;
+    private DoctorAdapter dAdapter;
+
+    ProductoOperations dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicos);
+        //data base
+        dao = new ProductoOperations(this);
+        dao.open();
 
+        //inicio de listview
+        docDoctores = showProducts();
+        dAdapter = new DoctorAdapter(this, docDoctores);
+
+
+        //Drawable menu
         mDrawerList = (ListView)findViewById(R.id.navList);mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
-
         addDrawerItems();
         setupDrawer();
-
+        //set drawable
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
+        //set views
         btnAgregarMedico = (Button) findViewById(R.id.button_agregar_medico);
         listMedicos = (ListView) findViewById(R.id.list_medicos);
 
+        //Adapter Lista
+        listMedicos.setAdapter(dAdapter);
+        listMedicos.setOnItemClickListener(this);
+        registerForContextMenu(listMedicos);
+
+        //listeners
+        btnAgregarMedico.setOnClickListener(this);
+
+    }
+
+    public ArrayList<Doctor> showProducts () {
+        ArrayList<Doctor> List = dao.getAllDoctores();
+        //System.out.println("Cantidad de medicos: " + Integer.toString(List.size()));
+        if (List != null){
+            return List;
+        }else
+            return null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this, RegistrarMedico.class);
+        startActivityForResult(intent, REQUEST_CODE);
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Doctor dAux = (Doctor) adapterView.getItemAtPosition(i);
+        Intent intent = new Intent(this, MedicosRegistrados.class);
+        intent.putExtra("Id", dAux.getID());
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            dao.open();
+            docDoctores.clear();
+            docDoctores.addAll(showProducts());
+            dAdapter.notifyDataSetChanged();
+            //Toast.makeText(getApplicationContext(), "Medico Registrado!",
+            //        Toast.LENGTH_LONG).show();
+        }
     }
 
     private void addDrawerItems() {
@@ -56,12 +117,12 @@ public class Medicos extends AppCompatActivity {
                 Intent intent;
                 switch(position) {
                     case 0:
-                        //intent = new Intent(AgregarMedicamentos.this, AgregarMedicamentos.class);
-                        //startActivity(intent);
+                        intent = new Intent(Medicos.this, AgregarMedicamentos.class);
+                        startActivity(intent);
                         break;
                     case 1:
-                        intent = new Intent(Medicos.this, RegistrarMedico.class);
-                        startActivity(intent);
+                        //intent = new Intent(Medicos.this, Medicos.class);
+                        //startActivity(intent);
                         break;
                     case 2:
                         intent = new Intent(Medicos.this, MedicamentoPendiente.class);
@@ -141,5 +202,16 @@ public class Medicos extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onResume() {
+        dao.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        dao.close();
+        super.onPause();
     }
 }

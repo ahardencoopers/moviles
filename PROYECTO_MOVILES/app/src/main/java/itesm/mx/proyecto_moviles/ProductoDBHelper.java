@@ -66,9 +66,9 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
                                 USRS_PESO + " REAL, " + USRS_ALTURA + " REAL)";
 
     private static final String CREATE_TABLE_DOCS = "CREATE TABLE " +
-            TABLE_DOCS + " (" + DOCS_NOMBRE + " TEXT, " + DOCS_ESPECIALIDAD + " TEXT, " +
+            TABLE_DOCS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + DOCS_NOMBRE + " TEXT, " + DOCS_ESPECIALIDAD + " TEXT, " +
                                 DOCS_DIR + " TEXT, " + DOCS_CODIGOPOS + " INT, " + DOCS_TELEFONO + " TEXT, " +
-                                DOCS_CIUDAD + " TEXT, " + DOCS_CORREO + " TEXT PRIMARY KEY)";
+                                DOCS_CIUDAD + " TEXT, " + DOCS_CORREO + " TEXT)";
 
     public ProductoDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

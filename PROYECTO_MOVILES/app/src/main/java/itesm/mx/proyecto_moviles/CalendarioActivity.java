@@ -69,16 +69,16 @@ public class CalendarioActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case 1:
-                        intent = new Intent(CalendarioActivity.this, RegistrarMedico.class);
+                        intent = new Intent(CalendarioActivity.this, Medicos.class);
                         startActivity(intent);
                         break;
                     case 2:
-                        //intent = new Intent(CalendarioActivity.this, MedicamentoPendiente.class);
-                        //startActivity(intent);
+                        intent = new Intent(CalendarioActivity.this, MedicamentoPendiente.class);
+                        startActivity(intent);
                         break;
                     case 3:
-                        intent = new Intent(CalendarioActivity.this, CalendarioActivity.class);
-                        startActivity(intent);
+                        //intent = new Intent(CalendarioActivity.this, CalendarioActivity.class);
+                        //startActivity(intent);
                         break;
                 }
             }

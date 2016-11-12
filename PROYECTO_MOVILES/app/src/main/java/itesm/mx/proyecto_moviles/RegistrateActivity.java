@@ -77,7 +77,7 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
                 }
         }
     }
-    /*
+
     @Override
     protected void onResume() {
         dao.open();
@@ -89,5 +89,5 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
         dao.close();
         super.onPause();
     }
-    */
+
 }
