@@ -12,8 +12,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CalendarioActivity extends AppCompatActivity {
 
@@ -32,17 +34,48 @@ public class CalendarioActivity extends AppCompatActivity {
         ArrayList<CalendarioEntry> listCalendarioEntry = new ArrayList<CalendarioEntry>();
         ArrayList<Medicamento> listMedicamentos = new ArrayList<Medicamento>();
         CalendarioEntry temp;
+        int dias = 0;
 
         dao = new ProductoOperations(this);
         dao.open();
 
         listMedicamentos = dao.getAllMedicamentos();
 
-        temp = new CalendarioEntry("Lunes");
-        calendarioAdapter.addSeparatorItem(temp);
+        while(dias < 5) {
+            Calendar cCalendario = Calendar.getInstance();
+            int dia = (cCalendario.get(Calendar.DAY_OF_MONTH) + dias);
+            int mes =  (cCalendario.get(Calendar.MONTH) + 1);
+            int year = cCalendario.get(Calendar.YEAR);
 
-        temp = new CalendarioEntry(0, "Med", "Pastilla", 10.5, "8", "8", "", "17/05/2016");
-        calendarioAdapter.addItem(temp);
+            temp = new CalendarioEntry(Integer.toString(dia) + "/" + Integer.toString(mes) + "/" + Integer.toString(year));
+            calendarioAdapter.addSeparatorItem(temp);
+
+            Log.d("Calendario temp", temp.getSeparador());
+
+            for(int i=0; i<listMedicamentos.size(); i++) {
+                Medicamento actual = listMedicamentos.get(i);
+
+                Log.d("Calendario med", actual.getHastaFecha());
+
+                String[] fechaMed = actual.getHastaFecha().split("/");
+                int diaMed = Integer.parseInt(fechaMed[0]);
+                int mesMed = Integer.parseInt(fechaMed[1]);
+                int yearMed = Integer.parseInt(fechaMed[2]);
+
+                if(year <= yearMed) {
+                    if(mes - 1 <= mesMed) {
+                        if(dia <= diaMed) {
+                            temp = new CalendarioEntry(actual.getId(), actual.getNombre(), actual.getTipo(), actual.getDosis(), actual.getHorario(),
+                                    actual.getTomarCada(), actual.getComentarios(), actual.getHastaFecha());
+                            calendarioAdapter.addItem(temp);
+                        }
+                    }
+                }
+
+            }
+
+            dias++;
+        }
 
         return listMedicamentos;
     }
