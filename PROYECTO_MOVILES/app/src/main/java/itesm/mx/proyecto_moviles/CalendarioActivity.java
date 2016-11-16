@@ -12,11 +12,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CalendarioActivity extends AppCompatActivity {
 
     private ListView listCalendario;
-    private CalendarioAdapter calendarioAdapter;
+    private static CalendarioAdapter calendarioAdapter;
     //Drawer
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
@@ -24,6 +28,59 @@ public class CalendarioActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
+    private ProductoOperations dao;
+
+    public ArrayList<Medicamento> getDataForCalendario() {
+        ArrayList<CalendarioEntry> listCalendarioEntry = new ArrayList<CalendarioEntry>();
+        ArrayList<Medicamento> listMedicamentos = new ArrayList<Medicamento>();
+        CalendarioEntry temp;
+        int dias = 0;
+
+        dao = new ProductoOperations(this);
+        dao.open();
+
+        listMedicamentos = dao.getAllMedicamentos();
+
+        while(dias < 5) {
+            Calendar cCalendario = Calendar.getInstance();
+            int dia = (cCalendario.get(Calendar.DAY_OF_MONTH) + dias);
+            int mes =  (cCalendario.get(Calendar.MONTH) + 1);
+            int year = cCalendario.get(Calendar.YEAR);
+
+            temp = new CalendarioEntry(Integer.toString(dia) + "/" + Integer.toString(mes) + "/" + Integer.toString(year));
+            calendarioAdapter.addSeparatorItem(temp);
+
+            Log.d("Calendario temp", temp.getSeparador());
+
+            for(int i=0; i<listMedicamentos.size(); i++) {
+                Medicamento actual = listMedicamentos.get(i);
+
+                Log.d("Calendario med", actual.getHastaFecha());
+
+                String[] fechaMed = actual.getHastaFecha().split("/");
+                int diaMed = Integer.parseInt(fechaMed[0]);
+                int mesMed = Integer.parseInt(fechaMed[1]);
+                int yearMed = Integer.parseInt(fechaMed[2]);
+
+                if(year <= yearMed) {
+                    if(mes - 1 <= mesMed) {
+                        if(dia <= diaMed) {
+                            temp = new CalendarioEntry(actual.getId(), actual.getNombre(), actual.getTipo(), actual.getDosis(), actual.getHorario(),
+                                    actual.getTomarCada(), actual.getComentarios(), actual.getHastaFecha());
+                            calendarioAdapter.addItem(temp);
+                        }
+                    }
+                }
+
+            }
+
+            dias++;
+        }
+
+        return listMedicamentos;
+    }
+
+    //Calendario
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +95,13 @@ public class CalendarioActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+
         listCalendario = (ListView) findViewById(R.id.list_calendario);
         calendarioAdapter = new CalendarioAdapter(this);
 
-        calendarioAdapter.addSeparatorItem("Lunes");
+        this.getDataForCalendario();
+
+        /*calendarioAdapter.addSeparatorItem("Lunes");
         calendarioAdapter.addItem("Medicina");
         calendarioAdapter.addItem("Medicina");
         calendarioAdapter.addSeparatorItem("Martes");
@@ -49,11 +109,12 @@ public class CalendarioActivity extends AppCompatActivity {
         calendarioAdapter.addItem("Medicina");
         calendarioAdapter.addSeparatorItem("Miercoles");
         calendarioAdapter.addItem("Medicina");
-        calendarioAdapter.addItem("Medicina");
+        calendarioAdapter.addItem("Medicina");*/
 
         listCalendario.setAdapter(calendarioAdapter);
     }
 
+    //Drawer
     private void addDrawerItems() {
         String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);

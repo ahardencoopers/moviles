@@ -23,6 +23,7 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
 
     private Button btnAgregarMedicamento = null;
     private ListView lista;
+    final int REQUEST_CODE = 1;
     //Drawer
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
@@ -85,7 +86,7 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
         int id = item.getItemId();
 
         if (id == R.id.delete) {
-            Toast.makeText(getApplicationContext(), "Medico Borrado: " + listMedicamentos.get(info.position).getId(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Medicamento Borrado: " + listMedicamentos.get(info.position).getId(), Toast.LENGTH_LONG).show();
             dao.deleteMedicamento(listMedicamentos.get(info.position).getId());
             listMedicamentos.clear();
             listMedicamentos.addAll(dao.getAllMedicamentos());
@@ -198,8 +199,18 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
         switch(v.getId()) {
             case R.id.button_agregar_medicamento:
                 Intent myIntent = new Intent(this, AgregarMedicamento.class);
-                startActivity(myIntent);
+                startActivityForResult(myIntent, REQUEST_CODE);
                 break;
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            dao.open();
+            listMedicamentos.clear();
+            listMedicamentos.addAll(dao.getAllMedicamentos());
+            adapterMedicamentos.notifyDataSetChanged();
         }
     }
 }

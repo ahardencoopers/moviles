@@ -1,5 +1,6 @@
 package itesm.mx.proyecto_moviles;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     private String sSexos[] = {"Hombre", "Mujer"};
     EditText etNombre, etDireccion, etTelefono, etDOB, etPeso, etAltura;
     TextView tvNombre;
+    TextView tvDOB;
     Spinner spSexo;
     Button btnGuardar;
     ProductoOperations dao;
@@ -32,13 +34,13 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         etNombre = (EditText) findViewById(R.id.edit_nombre_user);
         etDireccion = (EditText) findViewById(R.id.edit_direccion_user);
         etTelefono = (EditText) findViewById(R.id.edit_telefono_user);
-        etDOB = (EditText) findViewById(R.id.date_nacimiento_user);
+        tvDOB = (TextView) findViewById(R.id.edit_fechafin);
         etPeso = (EditText) findViewById(R.id.edit_peso_user);
         etAltura = (EditText) findViewById(R.id.edit_altura_user);
         btnGuardar = (Button) findViewById(R.id.button_guardarUser);
         spSexo = (Spinner) findViewById(R.id.spinner_sexo_user);
 
-        ArrayAdapter<String> adapterSpinnerSexo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, sSexos);
+        ArrayAdapter<String> adapterSpinnerSexo = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sSexos);
         spSexo.setAdapter(adapterSpinnerSexo);
 
         setUser();
@@ -46,13 +48,19 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         btnGuardar.setOnClickListener(this);
     }
 
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+
     private void setUser() {
         usr = dao.findUsuario();
         tvNombre.setText(usr.getNombre());
         etNombre.setText(usr.getNombre());
         etDireccion.setText(usr.getDireccion());
         etTelefono.setText(usr.getTelefono());
-        etDOB.setText(usr.getFechaNacimiento());
+        tvDOB.setText(usr.getFechaNacimiento());
         etAltura.setText(Double.toString(usr.getAltura()));
         etPeso.setText(Double.toString(usr.getPeso()));
         spSexo.setSelection((usr.getSexo().equals("Hombre"))? 0 : 1);
@@ -65,7 +73,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         sDireccion = etDireccion .getText().toString();
         sTelefono = etTelefono.getText().toString();
         sSexo = spSexo.getSelectedItem().toString();
-        sDOB = etDOB.getText().toString();
+        sDOB = tvDOB.getText().toString();
         dPeso = Double.parseDouble(etPeso.getText().toString());
         dAltura = Double.parseDouble(etAltura.getText().toString());
         Usuario usrAux = new Usuario(usr.getiId(), sNombre, sDireccion, sTelefono,sSexo, sDOB, dPeso, dAltura);

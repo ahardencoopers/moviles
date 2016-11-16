@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,93 +8,125 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="horizontal"
     tools:context="itesm.mx.proyecto_moviles.UserActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/user"
-        android:id="@+id/text_user"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="250px"
-        android:layout_height="250px"
-        android:id="@+id/profile"
-        android:layout_below="@id/text_user"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/profile"/>
-
-    <EditText
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_nombre_user"
-        android:layout_below="@id/profile"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/nombre"/>
+        android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_direccion_user"
-        android:layout_below="@id/edit_nombre_user"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/direccion"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/user"
+            android:id="@+id/text_user"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/edit_telefono_user"
-        android:layout_below="@id/edit_direccion_user"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/telefono"/>
+        <ImageView
+            android:layout_width="250px"
+            android:layout_height="250px"
+            android:id="@+id/profile"
+            android:layout_below="@id/text_user"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/profile"
+            android:layout_gravity="center_horizontal" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner_sexo_user"
-        android:layout_below="@id/edit_telefono_user"
-        android:layout_centerHorizontal="true" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_nombre_user"
+            android:layout_below="@id/profile"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/nombre"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/date_nacimiento_user"
-        android:layout_below="@id/spinner_sexo_user"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/nacimiento"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_direccion_user"
+            android:layout_below="@id/edit_nombre_user"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/direccion"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/edit_peso_user"
-        android:layout_below="@id/date_nacimiento_user"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/peso"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/edit_telefono_user"
+            android:layout_below="@id/edit_direccion_user"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/telefono"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/edit_altura_user"
-        android:layout_below="@id/edit_peso_user"
-        android:layout_centerHorizontal="true"
-        android:hint="@string/altura"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_sexo_user"
+            android:layout_below="@id/edit_telefono_user"
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/guardar_usuario"
-        android:id="@+id/button_guardarUser"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-</RelativeLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nacimiento"
+                android:id="@+id/btnFecha"
+                android:onClick="showDatePickerDialog"
+                android:layout_below="@+id/edit_fechafin"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_fechafin"
+                android:layout_below="@+id/edit_tomar_cada"
+                android:layout_toEndOf="@+id/btnFecha" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/edit_peso_user"
+                android:layout_below="@id/btnFecha"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/peso"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/edit_altura_user"
+                android:layout_below="@id/edit_peso_user"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/altura"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/guardar_usuario"
+                android:id="@+id/button_guardarUser"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
