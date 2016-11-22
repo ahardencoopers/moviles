@@ -8,6 +8,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service
+            android:name=".medServ"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver android:name="itesm.mx.proyecto_moviles.AutoStart">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +36,7 @@
             android:name=".MedicamentoPendiente"
             android:label="@string/title_activity_medicamento_pendiente"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CalendarioActivity"></activity>
+        <activity android:name=".CalendarioActivity" />
     </application>
 
 </manifest>
