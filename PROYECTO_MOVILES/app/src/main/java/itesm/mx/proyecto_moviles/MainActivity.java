@@ -10,12 +10,23 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnComenzar = null;
+    private ProductoOperations dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio);
+        //inicio de base de datos
+        dao = new ProductoOperations(this);
+        dao.open();
+        Usuario usr = dao.findUsuario();
+        if(usr != null) {
+            Intent intent = new Intent(this, AgregarMedicamentos.class);
+            finish();
+            startActivity(intent);
+        }
 
+        //llamar a la forma
         btnComenzar = (Button) findViewById(R.id.comenzar);
         btnComenzar.setOnClickListener(this);
     }
@@ -25,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()) {
             case R.id.comenzar:
                 Intent myIntent = new Intent(this, RegistrateActivity.class);
+                finish();
                 startActivity(myIntent);
                 break;
         }

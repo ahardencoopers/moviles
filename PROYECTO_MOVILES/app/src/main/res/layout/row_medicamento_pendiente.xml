@@ -35,7 +35,7 @@
             android:layout_below="@+id/checkBox_tomada"
             android:layout_alignStart="@+id/checkBox_tomada" />
         <CheckBox
-            android:layout_width="125px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox_tomada"
             android:text="Tomada"

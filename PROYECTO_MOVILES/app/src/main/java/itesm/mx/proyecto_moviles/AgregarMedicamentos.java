@@ -2,9 +2,7 @@ package itesm.mx.proyecto_moviles;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -13,40 +11,32 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import android.app.ListActivity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class AgregarMedicamentos extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnAgregarMedicamento = null;
-
     private ListView lista;
+    //Drawer
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
+    private ProductoOperations dao;
+
     public ArrayList<Medicamento> getDataForListView() {
         Medicamento medicamento;
 
         ArrayList<Medicamento> listMedicamentos = new ArrayList<Medicamento>();
 
-        medicamento = new Medicamento(R.drawable.logo, "Medicina", "Tomar cada 8 horas", "8:00 - 16:00 - 00:00");
-        listMedicamentos.add(medicamento);
-        medicamento = new Medicamento(R.drawable.logo, "Medicina", "Tomar cada 8 horas", "8:00 - 16:00 - 00:00");
-        listMedicamentos.add(medicamento);
-
+        //medicamento = new Medicamento(0, "Medicina", "Medicina", 1, "8:00 - 16:00 - 00:00","Cada 8 horas", "23/05/2017" );
+        //listMedicamentos.add(medicamento);
         return listMedicamentos;
     }
 
@@ -64,13 +54,16 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        lista = (ListView) findViewById(R.id.list);
+        //inicio de base de datos
+        dao = new ProductoOperations(this);
+        dao.open();
 
+        lista = (ListView) findViewById(R.id.list_medicamentos);
 
-                btnAgregarMedicamento = (Button) findViewById(R.id.button_agregar_medicamento);
+        btnAgregarMedicamento = (Button) findViewById(R.id.button_agregar_medicamento);
 
         ArrayList <Medicamento> arrayListMedicamento;
-        arrayListMedicamento = getDataForListView();
+        arrayListMedicamento = dao.getAllMedicamentos();
 
         MedicamentoAdapter adapterMedicamentos = new MedicamentoAdapter(this, arrayListMedicamento);
         lista.setAdapter(adapterMedicamentos);
@@ -78,14 +71,32 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Mis datos", "Mi doctor", "Medicamentos", "Agregar Medicamento"};
+        String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AgregarMedicamentos.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+                Intent intent;
+                switch(position) {
+                    case 0:
+                        //intent = new Intent(AgregarMedicamentos.this, AgregarMedicamentos.class);
+                        //startActivity(intent);
+                        break;
+                    case 1:
+                        intent = new Intent(AgregarMedicamentos.this, Medicos.class);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent = new Intent(AgregarMedicamentos.this, MedicamentoPendiente.class);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        intent = new Intent(AgregarMedicamentos.this, CalendarioActivity.class);
+                        startActivity(intent);
+                        break;
+                }
             }
         });
     }
@@ -96,7 +107,7 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Navigation!");
+                getSupportActionBar().setTitle("Menu");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
@@ -141,6 +152,11 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_user) {
+            Intent intent = new Intent(AgregarMedicamentos.this, UserActivity.class);
+            startActivity(intent);
             return true;
         }
 
