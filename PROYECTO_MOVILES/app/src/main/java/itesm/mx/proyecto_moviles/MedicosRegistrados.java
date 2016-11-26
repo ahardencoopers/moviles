@@ -109,7 +109,7 @@ public class MedicosRegistrados extends AppCompatActivity implements View.OnClic
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario"};
+        String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario", "Historial" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -137,6 +137,10 @@ public class MedicosRegistrados extends AppCompatActivity implements View.OnClic
                         intent = new Intent(MedicosRegistrados.this, CalendarioActivity.class);
                         startActivity(intent);
                         finish();
+                        break;
+                    case 4:
+                        intent = new Intent(MedicosRegistrados.this, Historial.class);
+                        startActivity(intent);
                         break;
                 }
             }

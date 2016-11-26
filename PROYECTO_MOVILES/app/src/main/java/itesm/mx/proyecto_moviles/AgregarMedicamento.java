@@ -1,5 +1,6 @@
 package itesm.mx.proyecto_moviles;
 
+
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,10 @@ import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 
 public class AgregarMedicamento extends AppCompatActivity implements View.OnClickListener {
 
@@ -64,10 +69,13 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.boton_guardar_medicamento:
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy");
                 String nombre = etNombre.getText().toString();
                 String dosis = etDosis.getText().toString();
                 String horainicio = etHora.getText().toString();
                 String cadaHora = etTomarCada.getText().toString();
+                String fechainicio = mdformat.format(calendar.getTime());
                 String fechafin = tvFechafin.getText().toString();
                 String comentarios = etComentarios.getText().toString();
                 if (etNombre.getText() != null && etDosis.getText() != null
@@ -75,7 +83,7 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                         tvFechafin.getText() != null) {
                     Medicamento medicamento = new Medicamento(nombre,
                             spinnerTipoMedicamento.getSelectedItem().toString(),
-                            Double.valueOf(dosis), horainicio, cadaHora, comentarios, fechafin);
+                            Double.valueOf(dosis), horainicio, cadaHora, comentarios, fechainicio, fechafin);
                     long index = dao.addMedicamento(medicamento);
                     dao.close();
                     Toast.makeText(AgregarMedicamento.this, "Medicamento Registrado!", Toast.LENGTH_SHORT).show();
