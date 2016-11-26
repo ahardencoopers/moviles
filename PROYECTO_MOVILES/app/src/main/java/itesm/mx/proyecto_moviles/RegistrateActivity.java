@@ -1,6 +1,7 @@
 package itesm.mx.proyecto_moviles;
 
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
     private Button btnRegistrarse = null;
     private ProductoOperations dao;
     EditText etNombre, etDireccion, etTelefono, etDOB, etPeso, etAltura;
+    TextView tvDOB;
 
 
     @Override
@@ -31,7 +33,7 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
         etNombre = (EditText) findViewById(R.id.edit_nombre);
         etDireccion = (EditText) findViewById(R.id.edit_direccion);
         etTelefono = (EditText) findViewById(R.id.edit_telefono);
-        etDOB = (EditText) findViewById(R.id.date_nacimiento);
+        tvDOB = (TextView) findViewById(R.id.edit_fechafin);
         etPeso = (EditText) findViewById(R.id.edit_peso);
         etAltura = (EditText) findViewById(R.id.edit_altura);
 
@@ -51,13 +53,18 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
         sDireccion = etDireccion .getText().toString();
         sTelefono = etTelefono.getText().toString();
         sSexo = spinnerSexo.getSelectedItem().toString();
-        sDOB = etDOB.getText().toString();
+        sDOB = tvDOB.getText().toString();
         dPeso = Double.parseDouble(etPeso.getText().toString());
         dAltura = Double.parseDouble(etAltura.getText().toString());
         Usuario usr = new Usuario(0, sNombre, sDireccion, sTelefono,sSexo, sDOB, dPeso, dAltura);
 
         long index = dao.addUsuario(usr);
         return (index > -1);
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     @Override

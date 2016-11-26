@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AgregarMedicamento extends AppCompatActivity implements View.OnClickListener {
 
@@ -77,6 +78,7 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                             Double.valueOf(dosis), horainicio, cadaHora, comentarios, fechafin);
                     long index = dao.addMedicamento(medicamento);
                     dao.close();
+                    Toast.makeText(AgregarMedicamento.this, "Medicamento Registrado!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 break;
