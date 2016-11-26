@@ -8,13 +8,17 @@ import android.os.IBinder;
 
 public class medServ extends Service {
 
+
+
     public medServ() {
 
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        //return STICKY
+
+
+        return START_STICKY;
     }
 
     @Override

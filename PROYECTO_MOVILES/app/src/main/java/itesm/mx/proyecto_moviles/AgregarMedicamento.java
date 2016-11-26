@@ -1,5 +1,9 @@
 package itesm.mx.proyecto_moviles;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +13,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class AgregarMedicamento extends AppCompatActivity implements View.OnClickListener {
 
@@ -76,7 +84,39 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                             spinnerTipoMedicamento.getSelectedItem().toString(),
                             Double.valueOf(dosis), horainicio, cadaHora, comentarios, fechafin);
                     long index = dao.addMedicamento(medicamento);
+
+                    //checar para horas antes de actual
+
+                    Calendar cal = Calendar.getInstance();
+                    String[] sHora = horainicio.split(":");
+                    int iHora = Integer.parseInt(sHora[0]);
+                    int iMinu = Integer.parseInt(sHora[1]);
+                    int iIntervalo = Integer.parseInt(cadaHora);
+
+
+                    cal.set(Calendar.HOUR_OF_DAY, iHora);
+                    cal.set(Calendar.MINUTE,iMinu);
+                    cal.set(Calendar.SECOND,0);
+                    cal.set(Calendar.MILLISECOND,0);
+
+                    int iReqCode = (int) dao.addFecha(cal.getTimeInMillis());
+
+                    AlarmManager alarmMgr = (AlarmManager)getSystemService(ALARM_SERVICE);
+                    Intent intent = new Intent(this, AlarmReceiver.class);
+                    intent.putExtra("reqCode", iReqCode);
+                    String ALARMA_ACTION = "itesm.mx.proyecto_moviles.ALARMA";
+                    intent.setAction(ALARMA_ACTION);
+
+                    PendingIntent pending = PendingIntent.getBroadcast(this.getApplicationContext(),
+                            iReqCode, intent, 0);
+
+                    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                            cal.getTimeInMillis(), //hora de prender alarma
+                            (long) (iIntervalo*3600*1000), //intervalo de tiempo
+                            pending);
+
                     dao.close();
+
                     finish();
                 }
                 break;

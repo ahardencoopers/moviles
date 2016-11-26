@@ -5,6 +5,7 @@
 */
 package itesm.mx.proyecto_moviles;
 
+import android.animation.FloatEvaluator;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -26,6 +27,7 @@ public class ProductoOperations {
 	private static final String TABLE_MED = "Medicamento";
 	private static final String TABLE_USRS = "Usuario";
 	private static final String TABLE_DOCS = "Doctor";
+	private static final String TABLE_FECHAS = "Fechas";
 
 	//fields of table Medicamentos
 	private static final String MED_NOMBRE = "nombre";
@@ -55,6 +57,9 @@ public class ProductoOperations {
 	private static final String DOCS_CIUDAD = "ciudad";
 	private static final String DOCS_TELEFONO = "telefono";
 	private static final String DOCS_CORREO = "correo";
+
+	//fields of table fechas
+	private static final String FECHAS_TSTAMP = "tstamp";
 
 
 	public ProductoOperations(Context context) {
@@ -298,6 +303,71 @@ public class ProductoOperations {
 		boolean result = false;
 		try {
 			db.delete(TABLE_DOCS,
+					"ID" + " = ?",
+					new String[]{Long.toString(id)});
+			result = true;
+		}
+		catch(SQLiteException e){
+			Log.e("SQLDELETE", e.toString());
+		}
+		return result;
+	}
+
+	public long addFecha(long stamp){
+		long newRowId = -1;
+		try {
+			ContentValues values = new ContentValues();
+			values.put(FECHAS_TSTAMP, stamp);
+			newRowId = db.insert(TABLE_FECHAS, null, values);
+		}
+		catch (SQLException e) {
+			Log.e("SQLADD", e.toString());
+		}
+		return newRowId;
+	}
+
+	public Fecha getFecha(long id){
+		Fecha fecha = null;
+		String query = "SELECT * FROM " + TABLE_FECHAS + " WHERE " + TABLE_FECHAS + ".ID" + " = " + id;
+
+		try {
+			Cursor cursor = db.rawQuery(query, null);
+			if(cursor.moveToFirst()) {
+				fecha = new Fecha(cursor.getLong(0), cursor.getLong(1));
+			}
+		}
+		catch(SQLException e) {
+			Log.e("SQLFIND ERROR", e.toString());
+		}
+
+		return fecha;
+	}
+
+	public ArrayList<Fecha> getAllFechas() {
+		ArrayList<Fecha> listaFechas = new ArrayList<Fecha>();
+
+		String selectQuery = "Select * FROM " + TABLE_FECHAS;
+
+		try {
+			Cursor cursor = db.rawQuery(selectQuery, null);
+
+			if (cursor.moveToFirst()) {
+				do {
+					Fecha fe = new Fecha(cursor.getLong(0), cursor.getLong(1));
+					listaFechas.add(fe);
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+		}catch(SQLException e) {
+			Log.e("SQLGETALL", e.toString());
+		}
+		return listaFechas;
+	}
+
+	public boolean deleteFecha(long id){
+		boolean result = false;
+		try {
+			db.delete(TABLE_FECHAS,
 					"ID" + " = ?",
 					new String[]{Long.toString(id)});
 			result = true;

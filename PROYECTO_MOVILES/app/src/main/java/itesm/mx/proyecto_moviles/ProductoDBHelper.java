@@ -21,6 +21,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String TABLE_MED = "Medicamento";
     private static final String TABLE_USRS = "Usuario";
     private static final String TABLE_DOCS = "Doctor";
+    private static final String TABLE_FECHAS = "Fechas";
 
     //fields of table Medicamentos
     private static final String MED_NOMBRE = "nombre";
@@ -51,6 +52,9 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String DOCS_TELEFONO = "telefono";
     private static final String DOCS_CORREO = "correo";
 
+    //fields of table fechas
+    private static final String FECHAS_TSTAMP = "tstamp";
+
     //Create table queries
     private static final String CREATE_TABLE_MED = "CREATE TABLE " +
             TABLE_MED + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -70,6 +74,11 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
                                 DOCS_DIR + " TEXT, " + DOCS_CODIGOPOS + " INT, " + DOCS_TELEFONO + " TEXT, " +
                                 DOCS_CIUDAD + " TEXT, " + DOCS_CORREO + " TEXT)";
 
+    private static final String CREATE_TABLE_FECHAS = "CREATE TABLE " +
+            TABLE_FECHAS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + FECHAS_TSTAMP + " INTEGER)";
+
+
+
     public ProductoDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -85,6 +94,9 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
         Log.i("Producthelper onCreate", CREATE_TABLE_DOCS);
         db.execSQL(CREATE_TABLE_DOCS);
 
+        Log.i("Producthelper onCreate", CREATE_TABLE_FECHAS);
+        db.execSQL(CREATE_TABLE_FECHAS);
+
     }
 
     @Override
@@ -98,6 +110,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MED);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USRS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOCS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FECHAS);
         onCreate(db);
     }
 
