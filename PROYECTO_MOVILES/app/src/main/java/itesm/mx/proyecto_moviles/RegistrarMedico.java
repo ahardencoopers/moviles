@@ -5,6 +5,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,10 +54,18 @@ public class RegistrarMedico extends AppCompatActivity implements View.OnClickLi
         String sCiudad = etCiudad.getText().toString();
         String sTelefono = etTelefono.getText().toString();
         String sCorreo = etCorreo.getText().toString();
-        Doctor doc = new Doctor(0,sNombre,sEsp,sDir,sCP,sCiudad,sCorreo,sTelefono);
-        res = dao.addDoctor(doc);
-        System.out.println("ID: " + res);
-        return res;
+        if(TextUtils.isEmpty(sNombre) || TextUtils.isEmpty(sEsp) || TextUtils.isEmpty(sCP) || TextUtils.isEmpty(sCiudad) || TextUtils.isEmpty(sTelefono)
+                || TextUtils.isEmpty(sCorreo)) {
+            Toast.makeText(RegistrarMedico.this, "El médico no pudo ser registrado, llenar todos los campos e intentar de nuevo", Toast.LENGTH_SHORT).show();
+            return -1;
+
+        }
+        else {
+            Doctor doc = new Doctor(0,sNombre,sEsp,sDir,sCP,sCiudad,sCorreo,sTelefono);
+            res = dao.addDoctor(doc);
+            System.out.println("ID: " + res);
+            return res;
+        }
     }
 
     @Override
