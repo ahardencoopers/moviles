@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -11,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class RegistrateActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,17 +52,31 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
     private boolean registrarUsuario() {
         String sNombre, sDireccion, sTelefono, sDOB, sSexo;
         double dPeso, dAltura;
+
         sNombre = etNombre.getText().toString();
         sDireccion = etDireccion .getText().toString();
         sTelefono = etTelefono.getText().toString();
         sSexo = spinnerSexo.getSelectedItem().toString();
         sDOB = tvDOB.getText().toString();
-        dPeso = Double.parseDouble(etPeso.getText().toString());
-        dAltura = Double.parseDouble(etAltura.getText().toString());
-        Usuario usr = new Usuario(0, sNombre, sDireccion, sTelefono,sSexo, sDOB, dPeso, dAltura);
 
-        long index = dao.addUsuario(usr);
-        return (index > -1);
+
+        if(TextUtils.isEmpty(sNombre) || TextUtils.isEmpty(sDireccion) || TextUtils.isEmpty(sTelefono) || TextUtils.isEmpty(sSexo)
+                || TextUtils.isEmpty(sDOB) || TextUtils.isEmpty(etPeso.getText().toString()) || TextUtils.isEmpty(etAltura.getText().toString())) {
+            Toast.makeText(RegistrateActivity.this,
+                    "Error al registrar usuario, favor de llenar todos los campos e intentarlo de nuevo.",
+                    Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+        else {
+            dPeso = Double.parseDouble(etPeso.getText().toString());
+            dAltura = Double.parseDouble(etAltura.getText().toString());
+
+            Usuario usr = new Usuario(0, sNombre, sDireccion, sTelefono,sSexo, sDOB, dPeso, dAltura);
+
+            long index = dao.addUsuario(usr);
+            return (index > -1);
+        }
     }
 
     public void showDatePickerDialog(View v) {
