@@ -101,16 +101,6 @@ public class CalendarioActivity extends AppCompatActivity {
 
         this.getDataForCalendario();
 
-        /*calendarioAdapter.addSeparatorItem("Lunes");
-        calendarioAdapter.addItem("Medicina");
-        calendarioAdapter.addItem("Medicina");
-        calendarioAdapter.addSeparatorItem("Martes");
-        calendarioAdapter.addItem("Medicina");
-        calendarioAdapter.addItem("Medicina");
-        calendarioAdapter.addSeparatorItem("Miercoles");
-        calendarioAdapter.addItem("Medicina");
-        calendarioAdapter.addItem("Medicina");*/
-
         listCalendario.setAdapter(calendarioAdapter);
     }
 
