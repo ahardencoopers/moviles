@@ -180,11 +180,13 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
         if (id == R.id.action_settings) {
             return true;
         }
+        /*
         if (id == R.id.action_user) {
             Intent intent = new Intent(AgregarMedicamentos.this, UserActivity.class);
             startActivity(intent);
             return true;
         }
+        */
 
         // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
