@@ -12,6 +12,11 @@
     android:orientation="horizontal"
     tools:context="itesm.mx.proyecto_moviles.AgregarMedicamento">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="100px"
         android:layout_height="100px"
@@ -19,11 +24,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/logo"/>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
 
         <EditText
