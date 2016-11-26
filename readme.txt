@@ -1,4 +1,8 @@
 Proyecto Final Desarrollo de Aplicaciones para Dispositivos Moviles
+Omar Rashid García López		A01321004
+Andrés Bernardo Álvarez Chávez		A00813787
+Carlo Borgo Esparza			A01191574
+Alberto Harden Cooper Saldívar		A00811931
 
 Requerimientos repositorio:
 Utilizar Licencia GPL
