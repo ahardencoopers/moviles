@@ -97,7 +97,7 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario"};
+        String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario", "Historial" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -120,6 +120,10 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
                         break;
                     case 3:
                         intent = new Intent(AgregarMedicamentos.this, CalendarioActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 4:
+                        intent = new Intent(AgregarMedicamentos.this, Historial.class);
                         startActivity(intent);
                         break;
                 }

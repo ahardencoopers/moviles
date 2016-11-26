@@ -106,7 +106,7 @@ public class CalendarioActivity extends AppCompatActivity {
 
     //Drawer
     private void addDrawerItems() {
-        String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario"};
+        String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario", "Historial" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -130,6 +130,10 @@ public class CalendarioActivity extends AppCompatActivity {
                     case 3:
                         //intent = new Intent(CalendarioActivity.this, CalendarioActivity.class);
                         //startActivity(intent);
+                        break;
+                    case 4:
+                        intent = new Intent(CalendarioActivity.this, Historial.class);
+                        startActivity(intent);
                         break;
                 }
             }
