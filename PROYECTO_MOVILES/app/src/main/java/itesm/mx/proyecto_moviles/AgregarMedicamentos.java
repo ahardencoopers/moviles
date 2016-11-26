@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,12 +23,15 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
 
     private Button btnAgregarMedicamento = null;
     private ListView lista;
+    final int REQUEST_CODE = 1;
     //Drawer
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
+    ArrayList<Medicamento> listMedicamentos;
+    MedicamentoAdapter adapterMedicamentos;
 
     private ProductoOperations dao;
 
@@ -62,16 +67,37 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
 
         btnAgregarMedicamento = (Button) findViewById(R.id.button_agregar_medicamento);
 
-        ArrayList <Medicamento> arrayListMedicamento;
-        arrayListMedicamento = dao.getAllMedicamentos();
+        listMedicamentos = dao.getAllMedicamentos();
 
-        MedicamentoAdapter adapterMedicamentos = new MedicamentoAdapter(this, arrayListMedicamento);
+        adapterMedicamentos = new MedicamentoAdapter(this, listMedicamentos);
         lista.setAdapter(adapterMedicamentos);
         btnAgregarMedicamento.setOnClickListener(this);
+        registerForContextMenu(lista);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.menu_context, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        int id = item.getItemId();
+
+        if (id == R.id.delete) {
+            Toast.makeText(getApplicationContext(), "Medicamento Borrado: " + listMedicamentos.get(info.position).getId(), Toast.LENGTH_LONG).show();
+            dao.deleteMedicamento(listMedicamentos.get(info.position).getId());
+            listMedicamentos.clear();
+            listMedicamentos.addAll(dao.getAllMedicamentos());
+            adapterMedicamentos.notifyDataSetChanged();
+            return true;
+        }
+        return super.onContextItemSelected(item);
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario"};
+        String[] osArray = { "Medicamentos", "Mi Doctor", "Hoy", "Calendario", "Historial" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -94,6 +120,10 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
                         break;
                     case 3:
                         intent = new Intent(AgregarMedicamentos.this, CalendarioActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 4:
+                        intent = new Intent(AgregarMedicamentos.this, Historial.class);
                         startActivity(intent);
                         break;
                 }
@@ -173,8 +203,18 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
         switch(v.getId()) {
             case R.id.button_agregar_medicamento:
                 Intent myIntent = new Intent(this, AgregarMedicamento.class);
-                startActivity(myIntent);
+                startActivityForResult(myIntent, REQUEST_CODE);
                 break;
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            dao.open();
+            listMedicamentos.clear();
+            listMedicamentos.addAll(dao.getAllMedicamentos());
+            adapterMedicamentos.notifyDataSetChanged();
         }
     }
 }

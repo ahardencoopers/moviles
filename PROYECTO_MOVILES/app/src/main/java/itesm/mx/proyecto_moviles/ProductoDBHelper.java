@@ -21,7 +21,9 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String TABLE_MED = "Medicamento";
     private static final String TABLE_USRS = "Usuario";
     private static final String TABLE_DOCS = "Doctor";
-    private static final String TABLE_FECHAS = "Fechas";
+    private static final String TABLE_FECHAS = "Fechas"; // checar
+
+    private static final String TABLE_HIST = "Historial";
 
     //fields of table Medicamentos
     private static final String MED_NOMBRE = "nombre";
@@ -31,6 +33,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String MED_TOMARCADA = "tomarcada";
     private static final String MED_COMENTARIOS = "comentarios";
     private static final String MED_FOTOID = "fotoid";
+    private static final String MED_FECHAINICIO = "fechainicio";
     private static final String MED_HASTAFECHA = "hastafecha";
 
     //fields of table Usuarios
@@ -52,8 +55,16 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String DOCS_TELEFONO = "telefono";
     private static final String DOCS_CORREO = "correo";
 
+    //checar/eliminar
     //fields of table fechas
     private static final String FECHAS_TSTAMP = "tstamp";
+
+    //fields of table Historial
+    private static final String HIST_MEDICAMENTO = "medicamento";
+    private static final String HIST_DOSIS = "dosis";
+    private static final String HIST_HORARIO = "horario";
+    private static final String HIST_FECHA = "fecha";
+    private static final String HIST_TOMADA = "tomada";
 
     //Create table queries
     private static final String CREATE_TABLE_MED = "CREATE TABLE " +
@@ -61,7 +72,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
                                MED_NOMBRE + " TEXT, " + MED_TIPO + " TEXT, " +
                                MED_DOSIS + " REAL, " + MED_HORAINICIO + " TEXT, " +
                                MED_TOMARCADA + " REAL, " + MED_COMENTARIOS + " TEXT, " +
-                               MED_HASTAFECHA + " TEXT)";
+                               MED_FECHAINICIO + " TEXT, " + MED_HASTAFECHA + " TEXT)";
 
     private static final String CREATE_TABLE_USRS = "CREATE TABLE " +
             TABLE_USRS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + USRS_NOMBRE + " TEXT, " + USRS_DIR + " TEXT, " +
@@ -74,10 +85,14 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
                                 DOCS_DIR + " TEXT, " + DOCS_CODIGOPOS + " INT, " + DOCS_TELEFONO + " TEXT, " +
                                 DOCS_CIUDAD + " TEXT, " + DOCS_CORREO + " TEXT)";
 
+    //checar/eliminar
     private static final String CREATE_TABLE_FECHAS = "CREATE TABLE " +
             TABLE_FECHAS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + FECHAS_TSTAMP + " INTEGER)";
 
 
+    private static final String CREATE_TABLE_HIST = "CREATE TABLE " +
+            TABLE_HIST + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + HIST_MEDICAMENTO + " TEXT, " + HIST_DOSIS + " REAL, " +
+                            HIST_HORARIO + " TEXT, " + HIST_FECHA + " TEXT, " + HIST_TOMADA + " REAL)" ;
 
     public ProductoDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -94,8 +109,13 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
         Log.i("Producthelper onCreate", CREATE_TABLE_DOCS);
         db.execSQL(CREATE_TABLE_DOCS);
 
+        //checar
         Log.i("Producthelper onCreate", CREATE_TABLE_FECHAS);
         db.execSQL(CREATE_TABLE_FECHAS);
+
+        Log.i("Producthelper onCreate", CREATE_TABLE_HIST);
+        db.execSQL(CREATE_TABLE_HIST);
+
 
     }
 
@@ -111,6 +131,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USRS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOCS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FECHAS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HIST);
         onCreate(db);
     }
 

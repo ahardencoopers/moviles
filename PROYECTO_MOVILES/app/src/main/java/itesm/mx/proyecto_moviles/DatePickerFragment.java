@@ -38,11 +38,10 @@ public class DatePickerFragment extends DialogFragment
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Do something with the date chosen by the user
+        month++;
         data = day + "/" + month + "/" + year;
-        Log.d("LOG","hello " + data);
+        Log.d("LOG","hello " + month);
         TextView fecha = (TextView) getActivity().findViewById(R.id.edit_fechafin);
         fecha.setText(data);
     }
 }
-
-

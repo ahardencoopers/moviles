@@ -1,9 +1,13 @@
 package itesm.mx.proyecto_moviles;
 
+
+//ch
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.SystemClock;
+
+
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,9 +17,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import java.util.Date;
 
 public class AgregarMedicamento extends AppCompatActivity implements View.OnClickListener {
@@ -71,10 +76,13 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.boton_guardar_medicamento:
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy");
                 String nombre = etNombre.getText().toString();
                 String dosis = etDosis.getText().toString();
                 String horainicio = etHora.getText().toString();
                 String cadaHora = etTomarCada.getText().toString();
+                String fechainicio = mdformat.format(calendar.getTime());
                 String fechafin = tvFechafin.getText().toString();
                 String comentarios = etComentarios.getText().toString();
                 if (etNombre.getText() != null && etDosis.getText() != null
@@ -82,17 +90,17 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                         tvFechafin.getText() != null) {
                     Medicamento medicamento = new Medicamento(nombre,
                             spinnerTipoMedicamento.getSelectedItem().toString(),
-                            Double.valueOf(dosis), horainicio, cadaHora, comentarios, fechafin);
+                            Double.valueOf(dosis), horainicio, cadaHora, comentarios, fechainicio, fechafin);
                     long index = dao.addMedicamento(medicamento);
 
-                    //checar para horas antes de actual
+                    //checar para horas antes de actual alarma
+                    //reescribir
 
                     Calendar cal = Calendar.getInstance();
                     String[] sHora = horainicio.split(":");
                     int iHora = Integer.parseInt(sHora[0]);
                     int iMinu = Integer.parseInt(sHora[1]);
                     int iIntervalo = Integer.parseInt(cadaHora);
-
 
                     cal.set(Calendar.HOUR_OF_DAY, iHora);
                     cal.set(Calendar.MINUTE,iMinu);
@@ -117,6 +125,7 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
 
                     dao.close();
 
+                    Toast.makeText(AgregarMedicamento.this, "Medicamento Registrado!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 break;

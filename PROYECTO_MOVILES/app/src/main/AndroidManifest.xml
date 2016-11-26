@@ -35,6 +35,7 @@
         <activity android:name=".MedicamentoPendiente" />
         <activity android:name=".UserActivity" />
         <activity android:name=".Medicos" />
+        <activity android:name=".Historial"></activity>
 
         <receiver
             android:name=".AlarmReceiver"
