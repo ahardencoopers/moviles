@@ -3,6 +3,7 @@ package itesm.mx.proyecto_moviles;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -70,9 +71,8 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                 String cadaHora = etTomarCada.getText().toString();
                 String fechafin = tvFechafin.getText().toString();
                 String comentarios = etComentarios.getText().toString();
-                if (etNombre.getText() != null && etDosis.getText() != null
-                        && etHora.getText() != null && etTomarCada.getText() != null &&
-                        tvFechafin.getText() != null) {
+                if (!TextUtils.isEmpty(nombre) && !TextUtils.isEmpty(dosis) && !TextUtils.isEmpty(horainicio) && !TextUtils.isEmpty(cadaHora) &&
+                        !TextUtils.isEmpty(fechafin)) {
                     Medicamento medicamento = new Medicamento(nombre,
                             spinnerTipoMedicamento.getSelectedItem().toString(),
                             Double.valueOf(dosis), horainicio, cadaHora, comentarios, fechafin);
@@ -81,6 +81,11 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                     Toast.makeText(AgregarMedicamento.this, "Medicamento Registrado!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
+                if (TextUtils.isEmpty(nombre) || TextUtils.isEmpty(dosis) || TextUtils.isEmpty(horainicio) || TextUtils.isEmpty(cadaHora) ||
+                        TextUtils.isEmpty(fechafin)) {
+                    Toast.makeText(AgregarMedicamento.this, "Error al registrar Medicamento, llene todos los campos e intente de nuevo.", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
         }
     }
