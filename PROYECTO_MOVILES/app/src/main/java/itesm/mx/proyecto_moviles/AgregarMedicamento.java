@@ -85,29 +85,40 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                 String fechainicio = mdformat.format(calendar.getTime());
                 String fechafin = tvFechafin.getText().toString();
                 String comentarios = etComentarios.getText().toString();
+
+                Calendar cal = Calendar.getInstance();
+                String[] sHora = horainicio.split(":");
+                int iHora = Integer.parseInt(sHora[0]);
+                int iMinu = Integer.parseInt(sHora[1]);
+                int iIntervalo = Integer.parseInt(cadaHora);
+
+                String[] sFecha = fechainicio.split("/");
+                int iDia = Integer.parseInt(sFecha[0]);
+                int iAnno = Integer.parseInt(sFecha[2]);
+                int iMes = Integer.parseInt(sFecha[1]);
+
+                cal.set(Calendar.YEAR, iAnno);
+                cal.set(Calendar.MONTH, (iMes -1));
+                cal.set(Calendar.DAY_OF_MONTH, iDia);
+
+                cal.set(Calendar.HOUR_OF_DAY, iHora);
+                cal.set(Calendar.MINUTE,iMinu);
+                cal.set(Calendar.SECOND,0);
+                cal.set(Calendar.MILLISECOND,0);
+
+                boolean bAlarmInFuture = (cal.getTimeInMillis() > calendar.getTimeInMillis());
+
                 if (etNombre.getText() != null && etDosis.getText() != null
                         && etHora.getText() != null && etTomarCada.getText() != null &&
-                        tvFechafin.getText() != null) {
+                        tvFechafin.getText() != null && bAlarmInFuture) {
                     Medicamento medicamento = new Medicamento(nombre,
                             spinnerTipoMedicamento.getSelectedItem().toString(),
                             Double.valueOf(dosis), horainicio, cadaHora, comentarios, fechainicio, fechafin);
+
                     long index = dao.addMedicamento(medicamento);
+                    int iReqCode = (int) index;
+                    //int iReqCode = (int) dao.addFecha(cal.getTimeInMillis());
 
-                    //checar para horas antes de actual alarma
-                    //reescribir
-
-                    Calendar cal = Calendar.getInstance();
-                    String[] sHora = horainicio.split(":");
-                    int iHora = Integer.parseInt(sHora[0]);
-                    int iMinu = Integer.parseInt(sHora[1]);
-                    int iIntervalo = Integer.parseInt(cadaHora);
-
-                    cal.set(Calendar.HOUR_OF_DAY, iHora);
-                    cal.set(Calendar.MINUTE,iMinu);
-                    cal.set(Calendar.SECOND,0);
-                    cal.set(Calendar.MILLISECOND,0);
-
-                    int iReqCode = (int) dao.addFecha(cal.getTimeInMillis());
 
                     AlarmManager alarmMgr = (AlarmManager)getSystemService(ALARM_SERVICE);
                     Intent intent = new Intent(this, AlarmReceiver.class);
@@ -128,9 +139,12 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                     Toast.makeText(AgregarMedicamento.this, "Medicamento Registrado!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
+                else{
+                    Toast.makeText(AgregarMedicamento.this, "Error al registrar", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
         }
     }
-
 
 }

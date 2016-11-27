@@ -3,6 +3,7 @@ package itesm.mx.proyecto_moviles;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.WakefulBroadcastReceiver;
 import android.widget.Toast;
 
 /**
@@ -15,13 +16,13 @@ import android.widget.Toast;
  *
  */
 
-public class AutoStart extends BroadcastReceiver
+public class AutoStart extends WakefulBroadcastReceiver
 {
     @Override
     public void onReceive(Context context, Intent intent)
     {
         Intent startServiceIntent = new Intent(context, medServ.class);
-        context.startService(startServiceIntent);
+        startWakefulService(context, startServiceIntent);
     }
 
 }
