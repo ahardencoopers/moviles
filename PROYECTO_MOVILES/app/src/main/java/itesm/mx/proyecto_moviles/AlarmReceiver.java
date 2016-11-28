@@ -31,7 +31,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 "WakelockTag");
         wakeLock.acquire();
 
-        int iReqCode= intent.getIntExtra("requestCode", 0);
+        int iReqCode= intent.getIntExtra("reqCode", 0);
 
         dao = new ProductoOperations(context);
         dao.open();
