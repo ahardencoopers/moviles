@@ -44,7 +44,6 @@ public class MedicamentoPendiente extends AppCompatActivity {
             Date dateStart = format.parse(fechaInicio);
             Date dateEnd = format.parse(fechaFin);
             diferencia = Math.round((dateEnd.getTime() - dateStart.getTime()) / (double) 86400000);
-            Log.d("FECHA", dateStart.toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -94,7 +93,7 @@ public class MedicamentoPendiente extends AppCompatActivity {
                 listMedicamentosPorTomar.add(medicamentoPorTomar);
                 if(dao.getHistorialByDate(formattedDate).size() <= 0) {
                     if(dao.updateHistorial(medicamentoPorTomar) == 0) {
-                        dao.addHistorial(medicamentoPorTomar);
+                        //dao.addHistorial(medicamentoPorTomar);
                     }
                 }
                 horas += tomarhora;
@@ -161,10 +160,10 @@ public class MedicamentoPendiente extends AppCompatActivity {
                 break;
         }
 
-        ArrayList<MedicamentoPorTomar> temp = dao.getAllHistorial();
+        ArrayList<MedicamentoPorTomar> temp = dao.getAllHistorialAsc();
 
         for(int i=0; i<temp.size(); i++) {
-            Log.d("hist", temp.get(i).getNombre() + Long.toString(temp.get(i).getId()) + " " + temp.get(i).getTomada());
+            Log.d("hist", Long.toString(temp.get(i).getId()) + " " + temp.get(i).getTomada());
         }
 
         return super.onContextItemSelected(item);

@@ -6,6 +6,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,8 +16,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class Historial extends AppCompatActivity {
 
+    private ListView listHistorial;
+    private static HistorialAdapter historialAdapter;
     //Drawer
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
@@ -25,6 +30,49 @@ public class Historial extends AppCompatActivity {
     private String mActivityTitle;
 
     private ProductoOperations dao;
+
+    public ArrayList<MedicamentoPorTomar> getDataForHistorial() {
+        ArrayList<HistorialEntry> listHistorialEntry = new ArrayList<HistorialEntry>();
+        ArrayList<MedicamentoPorTomar> listMedicamentoPorTomar = new ArrayList<MedicamentoPorTomar>();
+        HistorialEntry temp;
+        int dias = 0;
+
+        listMedicamentoPorTomar = dao.getAllHistorialAsc();
+
+        if(listMedicamentoPorTomar.size() > 0) {
+            String fechaActual = listMedicamentoPorTomar.get(0).getFecha();
+            String[] fecha = listMedicamentoPorTomar.get(0).getFecha().split("/");
+
+            Log.d("historial", listMedicamentoPorTomar.get(0).getNombre() + Long.toString(listMedicamentoPorTomar.get(0).getId()));
+            Log.d("historial", listMedicamentoPorTomar.get(0).getFecha());
+            temp = new HistorialEntry(Integer.parseInt(fecha[0]) + "/" + Integer.parseInt(fecha[1]) + "/" + Integer.parseInt(fecha[2]));
+            historialAdapter.addSeparatorItem(temp);
+
+            temp = new HistorialEntry(listMedicamentoPorTomar.get(0).getId(), listMedicamentoPorTomar.get(0).getNombre(),
+                    listMedicamentoPorTomar.get(0).getFecha(), Double.parseDouble(listMedicamentoPorTomar.get(0).getDosis()),
+                    listMedicamentoPorTomar.get(0).getHorario());
+            historialAdapter.addItem(temp);
+
+
+            for(int i=0; i<listMedicamentoPorTomar.size(); i++) {
+                MedicamentoPorTomar medActual = listMedicamentoPorTomar.get(i);
+                if(!fechaActual.equals(medActual.getFecha())) {
+                    fechaActual = medActual.getFecha();
+                    fecha = medActual.getFecha().split("/");
+
+                    temp = new HistorialEntry(Integer.parseInt(fecha[0]) + "/" + Integer.parseInt(fecha[1]) + "/" + Integer.parseInt(fecha[2]));
+                    historialAdapter.addSeparatorItem(temp);
+                }
+
+                temp = new HistorialEntry(listMedicamentoPorTomar.get(i).getId(), listMedicamentoPorTomar.get(i).getNombre(),
+                        listMedicamentoPorTomar.get(i).getFecha(), Double.parseDouble(listMedicamentoPorTomar.get(i).getDosis()),
+                        listMedicamentoPorTomar.get(i).getHorario());
+                historialAdapter.addItem(temp);
+            }
+        }
+
+        return listMedicamentoPorTomar;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +91,13 @@ public class Historial extends AppCompatActivity {
         //inicio de base de datos
         dao = new ProductoOperations(this);
         dao.open();
+
+        listHistorial = (ListView) findViewById(R.id.list_historial);
+        historialAdapter = new HistorialAdapter(this);
+
+        this.getDataForHistorial();
+
+        listHistorial.setAdapter(historialAdapter);
 
 
     }

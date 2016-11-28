@@ -182,7 +182,6 @@ public class ProductoOperations {
 			//Object Medicamento attributes: nombre tipo dosis horario tomarCada comentarios idImagen hastafecha
 			ContentValues values = new ContentValues();
 			values.put("ID", med.getId());
-			Log.d("hist add", Long.toString(med.getId()) + " " + Boolean.toString(med.getTomada()));
 			values.put(HIST_MEDICAMENTO, med.getNombre());
 			values.put(HIST_DOSIS, med.getDosis());
 			values.put(HIST_HORARIO, med.getHorario());
@@ -215,7 +214,6 @@ public class ProductoOperations {
 			values.put(HIST_FECHA, med.getFecha());
 			values.put(HIST_HORARIO, med.getHorario());
 			values.put(HIST_DOSIS, med.getDosis());
-			Log.d("hist update", med.getNombre() + Long.toString(med.getId()) + " " + Boolean.toString(med.getTomada()));
 			if(med.getTomada()) {
 				values.put(HIST_TOMADA, 1);
 			}
@@ -228,7 +226,6 @@ public class ProductoOperations {
 		catch(SQLiteException e){
 			Log.e("SQLUPDATE", e.toString());
 		}
-		Log.d("hist update result", Integer.toString(result));
 		return result;
 	}
 
@@ -326,6 +323,29 @@ public class ProductoOperations {
 		return listaMedicamentos;
 	}
 
+	public ArrayList<MedicamentoPorTomar> getAllHistorialAsc() {
+		MedicamentoPorTomar med = null;
+		ArrayList<MedicamentoPorTomar> listaMedicamentos = new ArrayList<MedicamentoPorTomar>();
+
+		String selectQuery = "Select * FROM " + TABLE_HIST + " ORDER BY ID ASC";
+
+		try {
+			Cursor cursor = db.rawQuery(selectQuery, null);
+			if (cursor.moveToFirst()) {
+				do {
+					boolean bAux = (cursor.getInt(5) == 1)? true : false ;
+					med = new MedicamentoPorTomar(cursor.getInt(0), R.drawable.logo, cursor.getString(1), cursor.getString(2),
+							cursor.getString(3), bAux, cursor.getString(4));
+					listaMedicamentos.add(med);
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+		}catch(SQLException e) {
+			Log.e("SQLGETALL", e.toString());
+		}
+		return listaMedicamentos;
+	}
+
 	public ArrayList<MedicamentoPorTomar> getAllHistorial() {
 		MedicamentoPorTomar med = null;
 		ArrayList<MedicamentoPorTomar> listaMedicamentos = new ArrayList<MedicamentoPorTomar>();
@@ -336,14 +356,9 @@ public class ProductoOperations {
 			Cursor cursor = db.rawQuery(selectQuery, null);
 			if (cursor.moveToFirst()) {
 				do {
-					Log.d("get all", cursor.getString(0));
-					Log.d("get all", cursor.getString(1));
-					Log.d("get all", cursor.getString(2));
-					Log.d("get all", cursor.getString(3));
-					Log.d("get all", cursor.getString(4));
 					boolean bAux = (cursor.getInt(5) == 1)? true : false ;
-					med = new MedicamentoPorTomar(cursor.getLong(0), R.drawable.logo,  cursor.getString(1), cursor.getString(2), cursor.getString(3),
-							bAux, cursor.getString(5));
+					med = new MedicamentoPorTomar(cursor.getInt(0), R.drawable.logo, cursor.getString(1), cursor.getString(2),
+							cursor.getString(3), bAux, cursor.getString(4));
 					listaMedicamentos.add(med);
 				} while (cursor.moveToNext());
 			}
