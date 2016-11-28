@@ -60,6 +60,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String FECHAS_TSTAMP = "tstamp";
 
     //fields of table Historial
+    //private static final String HIST_ID = "ID";
     private static final String HIST_MEDICAMENTO = "medicamento";
     private static final String HIST_DOSIS = "dosis";
     private static final String HIST_HORARIO = "horario";
