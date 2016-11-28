@@ -181,6 +181,8 @@ public class ProductoOperations {
 			//Table Medicamentos field strings: nombre tipo dosis horainicio tomarcada comentarios fotoid hastafecha
 			//Object Medicamento attributes: nombre tipo dosis horario tomarCada comentarios idImagen hastafecha
 			ContentValues values = new ContentValues();
+			values.put("ID", med.getId());
+			Log.d("hist add", Long.toString(med.getId()));
 			values.put(HIST_MEDICAMENTO, med.getNombre());
 			values.put(HIST_DOSIS, med.getDosis());
 			values.put(HIST_HORARIO, med.getHorario());
@@ -197,7 +199,9 @@ public class ProductoOperations {
 	}
 
 	public int updateHistorial(MedicamentoPorTomar med) {
+		long id = med.getId();
 		int result = -1;
+
 		try {
 			ContentValues values = new ContentValues();
 			values.put(HIST_MEDICAMENTO, med.getNombre());
@@ -205,7 +209,7 @@ public class ProductoOperations {
 			values.put(HIST_HORARIO, med.getHorario());
 			values.put(HIST_DOSIS, med.getDosis());
 			values.put(HIST_TOMADA, med.getTomada());
-			result = db.update(TABLE_USRS, values, "ID =" + med.getId(), null);
+			result = db.update(TABLE_HIST, values, "ID = " + id, null);
 		}
 		catch(SQLiteException e){
 			Log.e("SQLUPDATE", e.toString());
@@ -311,7 +315,7 @@ public class ProductoOperations {
 		MedicamentoPorTomar med = null;
 		ArrayList<MedicamentoPorTomar> listaMedicamentos = new ArrayList<MedicamentoPorTomar>();
 
-		String selectQuery = "Select * FROM " + TABLE_MED;
+		String selectQuery = "Select * FROM " + TABLE_HIST;
 
 		try {
 			Cursor cursor = db.rawQuery(selectQuery, null);

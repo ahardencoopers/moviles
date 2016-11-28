@@ -93,7 +93,7 @@ public class MedicamentoPendiente extends AppCompatActivity {
                         String.valueOf(horas) + ":" + horario.split(":")[1], false, formattedDate);
                 listMedicamentosPorTomar.add(medicamentoPorTomar);
                 if(dao.getHistorialByDate(formattedDate).size() <= 0) {
-                    dao.addHistorial(medicamentoPorTomar);
+                    //dao.addHistorial(medicamentoPorTomar);
                 }
                 horas += tomarhora;
             }
@@ -134,15 +134,33 @@ public class MedicamentoPendiente extends AppCompatActivity {
 
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+
         int id = item.getItemId();
+        MedicamentoPorTomar medHistorial = arrayListMedicamentoPorTomar.get(info.position);
+        long medId = Long.parseLong(medHistorial.getFecha().replace("/", "") + medHistorial.getHorario().replace(":", ""));
+        medHistorial.setId(medId);
 
         switch (id) {
             case R.id.tomada:
-                Toast.makeText(getApplicationContext(), "tomada " + arrayListMedicamentoPorTomar.get(info.position).getNombre(), Toast.LENGTH_LONG).show();
+                medHistorial.setTomada(true);
+                if(dao.updateHistorial(medHistorial) == 0) {
+                    dao.addHistorial(medHistorial);
+                }
+                Toast.makeText(getApplicationContext(), "Medicamento  " + medHistorial.getNombre() + " registrado como tomado.", Toast.LENGTH_LONG).show();
                 break;
             case R.id.no_tomada:
-                Toast.makeText(getApplicationContext(), "no tomada " + arrayListMedicamentoPorTomar.get(info.position).getNombre(), Toast.LENGTH_LONG).show();
+                medHistorial.setTomada(false);
+                if(dao.updateHistorial(medHistorial) == 0) {
+                    dao.addHistorial(medHistorial);
+                }
+                Toast.makeText(getApplicationContext(), "Medicamento  " + medHistorial.getNombre() + " registrado como no tomado.", Toast.LENGTH_LONG).show();
                 break;
+        }
+
+        ArrayList<MedicamentoPorTomar> temp = dao.getAllHistorial();
+
+        for(int i=0; i<temp.size(); i++) {
+            Log.d("hist", Long.toString(temp.get(i).getId()) + " " + temp.get(i).getTomada());
         }
 
         return super.onContextItemSelected(item);

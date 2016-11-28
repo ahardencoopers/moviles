@@ -34,6 +34,8 @@ public class MedicamentoPorTomar {
 
     public long getId() { return Id; }
 
+    public void setId(long id) { this.Id = id; }
+
     public String getNombre() { return nombre; }
 
     public String getDosis() { return dosis; }
@@ -41,6 +43,8 @@ public class MedicamentoPorTomar {
     public String getHorario() { return horario; }
 
     public Boolean getTomada() { return tomada; }
+
+    public void setTomada(Boolean tomada) { this.tomada = tomada; }
 
     public String getFecha() { return fecha; }
 }

@@ -91,7 +91,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
 
 
     private static final String CREATE_TABLE_HIST = "CREATE TABLE " +
-            TABLE_HIST + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + HIST_MEDICAMENTO + " TEXT, " + HIST_DOSIS + " REAL, " +
+            TABLE_HIST + "(ID INTEGER PRIMARY KEY, " + HIST_MEDICAMENTO + " TEXT, " + HIST_DOSIS + " REAL, " +
                             HIST_HORARIO + " TEXT, " + HIST_FECHA + " TEXT, " + HIST_TOMADA + " REAL)" ;
 
     public ProductoDBHelper(Context context) {
