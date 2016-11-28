@@ -92,7 +92,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_HIST = "CREATE TABLE " +
             TABLE_HIST + "(ID INTEGER, " + HIST_MEDICAMENTO + " TEXT, " + HIST_DOSIS + " REAL, " +
-                            HIST_HORARIO + " TEXT, " + HIST_FECHA + " TEXT, " + HIST_TOMADA + " REAL, " +
+                            HIST_HORARIO + " TEXT, " + HIST_FECHA + " TEXT, " + HIST_TOMADA + " INTEGER, " +
                             "PRIMARY KEY (ID, "+ " " + HIST_MEDICAMENTO + ")"+")" ;
 
     public ProductoDBHelper(Context context) {

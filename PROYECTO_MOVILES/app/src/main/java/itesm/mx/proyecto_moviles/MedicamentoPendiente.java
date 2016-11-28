@@ -143,14 +143,16 @@ public class MedicamentoPendiente extends AppCompatActivity {
         switch (id) {
             case R.id.tomada:
                 medHistorial.setTomada(true);
-                if(dao.updateHistorial(medHistorial) == 0) {
+                int updateResult = dao.updateHistorial(medHistorial);
+                if(updateResult == 0) {
                     dao.addHistorial(medHistorial);
                 }
                 Toast.makeText(getApplicationContext(), "Medicamento  " + medHistorial.getNombre() + " registrado como tomado.", Toast.LENGTH_LONG).show();
                 break;
             case R.id.no_tomada:
                 medHistorial.setTomada(false);
-                if(dao.updateHistorial(medHistorial) == 0) {
+                updateResult = dao.updateHistorial(medHistorial);
+                if(updateResult == 0) {
                     dao.addHistorial(medHistorial);
                 }
                 Toast.makeText(getApplicationContext(), "Medicamento  " + medHistorial.getNombre() + " registrado como no tomado.", Toast.LENGTH_LONG).show();
@@ -160,7 +162,7 @@ public class MedicamentoPendiente extends AppCompatActivity {
         ArrayList<MedicamentoPorTomar> temp = dao.getAllHistorial();
 
         for(int i=0; i<temp.size(); i++) {
-            Log.d("hist", Long.toString(temp.get(i).getId()) + " " + temp.get(i).getTomada());
+            Log.d("hist", temp.get(i).getNombre() + Long.toString(temp.get(i).getId()) + " " + temp.get(i).getTomada());
         }
 
         return super.onContextItemSelected(item);
