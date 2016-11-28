@@ -1,5 +1,13 @@
 package itesm.mx.proyecto_moviles;
 
+
+//ch
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.SystemClock;
+
+
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +17,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import java.util.Date;
 
 public class AgregarMedicamento extends AppCompatActivity implements View.OnClickListener {
 
@@ -63,25 +76,75 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.boton_guardar_medicamento:
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy");
                 String nombre = etNombre.getText().toString();
                 String dosis = etDosis.getText().toString();
                 String horainicio = etHora.getText().toString();
                 String cadaHora = etTomarCada.getText().toString();
+                String fechainicio = mdformat.format(calendar.getTime());
                 String fechafin = tvFechafin.getText().toString();
                 String comentarios = etComentarios.getText().toString();
+
+                Calendar cal = Calendar.getInstance();
+                String[] sHora = horainicio.split(":");
+                int iHora = Integer.parseInt(sHora[0]);
+                int iMinu = Integer.parseInt(sHora[1]);
+                int iIntervalo = Integer.parseInt(cadaHora);
+
+                String[] sFecha = fechainicio.split("/");
+                int iDia = Integer.parseInt(sFecha[0]);
+                int iAnno = Integer.parseInt(sFecha[2]);
+                int iMes = Integer.parseInt(sFecha[1]);
+
+                cal.set(Calendar.YEAR, iAnno);
+                cal.set(Calendar.MONTH, (iMes -1));
+                cal.set(Calendar.DAY_OF_MONTH, iDia);
+
+                cal.set(Calendar.HOUR_OF_DAY, iHora);
+                cal.set(Calendar.MINUTE,iMinu);
+                cal.set(Calendar.SECOND,0);
+                cal.set(Calendar.MILLISECOND,0);
+
+                boolean bAlarmInFuture = (cal.getTimeInMillis() > calendar.getTimeInMillis());
+
                 if (etNombre.getText() != null && etDosis.getText() != null
                         && etHora.getText() != null && etTomarCada.getText() != null &&
-                        tvFechafin.getText() != null) {
+                        tvFechafin.getText() != null && bAlarmInFuture) {
                     Medicamento medicamento = new Medicamento(nombre,
                             spinnerTipoMedicamento.getSelectedItem().toString(),
-                            Double.valueOf(dosis), horainicio, cadaHora, comentarios, fechafin);
+                            Double.valueOf(dosis), horainicio, cadaHora, comentarios, fechainicio, fechafin);
+
                     long index = dao.addMedicamento(medicamento);
+                    int iReqCode = (int) index;
+                    //int iReqCode = (int) dao.addFecha(cal.getTimeInMillis());
+
+
+                    AlarmManager alarmMgr = (AlarmManager)getSystemService(ALARM_SERVICE);
+                    Intent intent = new Intent(this, AlarmReceiver.class);
+                    intent.putExtra("reqCode", iReqCode);
+                    String ALARMA_ACTION = "itesm.mx.proyecto_moviles.ALARMA";
+                    intent.setAction(ALARMA_ACTION);
+
+                    PendingIntent pending = PendingIntent.getBroadcast(this.getApplicationContext(),
+                            iReqCode, intent, 0);
+
+                    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                            cal.getTimeInMillis(), //hora de prender alarma
+                            (long) (iIntervalo*3600*1000), //intervalo de tiempo
+                            pending);
+
                     dao.close();
+
+                    Toast.makeText(AgregarMedicamento.this, "Medicamento Registrado!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
+                else{
+                    Toast.makeText(AgregarMedicamento.this, "Error al registrar", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
         }
     }
-
 
 }

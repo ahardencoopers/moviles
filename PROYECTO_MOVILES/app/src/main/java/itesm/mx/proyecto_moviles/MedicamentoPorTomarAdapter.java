@@ -35,7 +35,7 @@ public class MedicamentoPorTomarAdapter extends ArrayAdapter<MedicamentoPorTomar
             TextView tvHorarioDosis = (TextView) convertView.findViewById(R.id.text_horario_dosis);
             CheckBox checkBoxTomada = (CheckBox) convertView.findViewById(R.id.checkBox_tomada);
 
-            ivMedicamento.setImageResource(medicamentoPorTomar.getIdImagen());
+            //ivMedicamento.setImageResource(medicamentoPorTomar.getIdImagen());
             tvNombre.setText(medicamentoPorTomar.getNombre());
             tvDosis.setText(medicamentoPorTomar.getDosis());
             tvHorarioDosis.setText(medicamentoPorTomar.getHorario());

@@ -5,6 +5,7 @@
 */
 package itesm.mx.proyecto_moviles;
 
+import android.animation.FloatEvaluator;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -26,6 +27,8 @@ public class ProductoOperations {
 	private static final String TABLE_MED = "Medicamento";
 	private static final String TABLE_USRS = "Usuario";
 	private static final String TABLE_DOCS = "Doctor";
+	private static final String TABLE_FECHAS = "Fechas";//chk
+	private static final String TABLE_HIST = "Historial";
 
 	//fields of table Medicamentos
 	private static final String MED_NOMBRE = "nombre";
@@ -35,6 +38,7 @@ public class ProductoOperations {
 	private static final String MED_TOMARCADA = "tomarcada";
 	private static final String MED_COMENTARIOS = "comentarios";
 	private static final String MED_FOTOID = "fotoid";
+	private static final String MED_FECHAINICIO = "fechainicio";
 	private static final String MED_HASTAFECHA = "hastafecha";
 
 	//fields of table Usuarios
@@ -55,6 +59,16 @@ public class ProductoOperations {
 	private static final String DOCS_CIUDAD = "ciudad";
 	private static final String DOCS_TELEFONO = "telefono";
 	private static final String DOCS_CORREO = "correo";
+
+	//fields of table fechas
+	private static final String FECHAS_TSTAMP = "tstamp";//chk
+
+	//fields of table Historial
+	private static final String HIST_MEDICAMENTO = "medicamento";
+	private static final String HIST_DOSIS = "dosis";
+	private static final String HIST_HORARIO = "horario";
+	private static final String HIST_FECHA = "fecha";
+	private static final String HIST_TOMADA = "tomada";
 
 
 	public ProductoOperations(Context context) {
@@ -86,6 +100,7 @@ public class ProductoOperations {
 			values.put(MED_TOMARCADA, med.getTomarCada());
 			values.put(MED_COMENTARIOS, med.getComentarios());
 			//values.put(MED_FOTOID, med.getIdImagen());
+			values.put(MED_FECHAINICIO, med.getFechaInicio());
 			values.put(MED_HASTAFECHA, med.getHastaFecha());
 		
 			newRowId = db.insert(TABLE_MED, null, values);
@@ -160,6 +175,44 @@ public class ProductoOperations {
 		return newRowId;
 	}
 
+	public long addHistorial(MedicamentoPorTomar med) {
+		long newRowId = 0;
+		try {
+			//Table Medicamentos field strings: nombre tipo dosis horainicio tomarcada comentarios fotoid hastafecha
+			//Object Medicamento attributes: nombre tipo dosis horario tomarCada comentarios idImagen hastafecha
+			ContentValues values = new ContentValues();
+			values.put(HIST_MEDICAMENTO, med.getNombre());
+			values.put(HIST_DOSIS, med.getDosis());
+			values.put(HIST_HORARIO, med.getHorario());
+			values.put(HIST_FECHA, med.getFecha());
+			values.put(HIST_TOMADA, med.getTomada());
+
+			newRowId = db.insert(TABLE_HIST, null, values);
+		}
+		catch(SQLException e) {
+			Log.e("SQL ADD ERROR", e.toString());
+		}
+
+		return newRowId;
+	}
+
+	public int updateHistorial(MedicamentoPorTomar med) {
+		int result = -1;
+		try {
+			ContentValues values = new ContentValues();
+			values.put(HIST_MEDICAMENTO, med.getNombre());
+			values.put(HIST_FECHA, med.getFecha());
+			values.put(HIST_HORARIO, med.getHorario());
+			values.put(HIST_DOSIS, med.getDosis());
+			values.put(HIST_TOMADA, med.getTomada());
+			result = db.update(TABLE_USRS, values, "ID =" + med.getId(), null);
+		}
+		catch(SQLiteException e){
+			Log.e("SQLUPDATE", e.toString());
+		}
+		return result;
+	}
+
 	public Medicamento findMedicamento(long id) {
 		Medicamento med = null;
 		String query = "SELECT * FROM " + TABLE_MED + " WHERE " + TABLE_MED + ".ID = " + id;
@@ -168,7 +221,7 @@ public class ProductoOperations {
 			Cursor cursor = db.rawQuery(query, null);
 			if(cursor.moveToFirst()) {
 				med = new Medicamento(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3),
-					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
+					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
 			}
 			cursor.close();
 		}
@@ -208,6 +261,7 @@ public class ProductoOperations {
 				doc = new Doctor(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
 					cursor.getString(6), cursor.getString(7));
 			}
+			cursor.close();
 		}
 		catch(SQLException e) {
 			Log.e("SQLFIND ERROR", e.toString());
@@ -242,8 +296,58 @@ public class ProductoOperations {
 			if (cursor.moveToFirst()) {
 				do {
 					med = new Medicamento(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3),
-					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
+					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
 					listaMedicamentos.add(med);
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+		}catch(SQLException e) {
+			Log.e("SQLGETALL", e.toString());
+		}
+		return listaMedicamentos;
+	}
+
+	public ArrayList<MedicamentoPorTomar> getAllHistorial() {
+		MedicamentoPorTomar med = null;
+		ArrayList<MedicamentoPorTomar> listaMedicamentos = new ArrayList<MedicamentoPorTomar>();
+
+		String selectQuery = "Select * FROM " + TABLE_MED;
+
+		try {
+			Cursor cursor = db.rawQuery(selectQuery, null);
+			if (cursor.moveToFirst()) {
+				do {
+					boolean bAux = (cursor.getInt(4) == 1)? true : false ;
+					med = new MedicamentoPorTomar(cursor.getLong(0), R.drawable.logo,  cursor.getString(1), cursor.getString(2), cursor.getString(3),
+							bAux, cursor.getString(5));
+					listaMedicamentos.add(med);
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+		}catch(SQLException e) {
+			Log.e("SQLGETALL", e.toString());
+		}
+		return listaMedicamentos;
+	}
+
+	public ArrayList<Medicamento> getAllMedicamentosByDate(String sDate) {
+		Medicamento med = null;
+		sDate = sDate.replace("/","");
+		double dDate = Double.parseDouble(sDate);
+		ArrayList<Medicamento> listaMedicamentos = new ArrayList<Medicamento>();
+
+		String selectQuery = "Select * FROM " + TABLE_MED;
+
+		try {
+			Cursor cursor = db.rawQuery(selectQuery, null);
+			if (cursor.moveToFirst()) {
+				do {
+					double dAux = Double.parseDouble(cursor.getString(8).replace("/",""));
+					if(dAux > dDate) {
+						med = new Medicamento(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3),
+								cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
+						listaMedicamentos.add(med);
+					}
 				} while (cursor.moveToNext());
 			}
 			cursor.close();
@@ -298,6 +402,95 @@ public class ProductoOperations {
 		boolean result = false;
 		try {
 			db.delete(TABLE_DOCS,
+					"ID" + " = ?",
+					new String[]{Long.toString(id)});
+			result = true;
+		}
+		catch(SQLiteException e){
+			Log.e("SQLDELETE", e.toString());
+		}
+		return result;
+	}
+
+	public long addFecha(long stamp){
+		long newRowId = -1;
+		try {
+			ContentValues values = new ContentValues();
+			values.put(FECHAS_TSTAMP, stamp);
+			newRowId = db.insert(TABLE_FECHAS, null, values);
+		}
+		catch (SQLException e) {
+			Log.e("SQLADD", e.toString());
+		}
+		return newRowId;
+	}
+
+	public Fecha getFecha(long id){
+		Fecha fecha = null;
+		String query = "SELECT * FROM " + TABLE_FECHAS + " WHERE " + TABLE_FECHAS + ".ID" + " = " + id;
+
+		try {
+			Cursor cursor = db.rawQuery(query, null);
+			if(cursor.moveToFirst()) {
+				fecha = new Fecha(cursor.getLong(0), cursor.getLong(1));
+			}
+			cursor.close();
+		}
+		catch(SQLException e) {
+			Log.e("SQLFIND ERROR", e.toString());
+		}
+
+		return fecha;
+	}
+
+	public ArrayList<Fecha> getAllFechas() {
+		ArrayList<Fecha> listaFechas = new ArrayList<Fecha>();
+
+		String selectQuery = "Select * FROM " + TABLE_FECHAS;
+
+		try {
+			Cursor cursor = db.rawQuery(selectQuery, null);
+
+			if (cursor.moveToFirst()) {
+				do {
+					Fecha fe = new Fecha(cursor.getLong(0), cursor.getLong(1));
+					listaFechas.add(fe);
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+		} catch (SQLException e) {
+			Log.e("SQLGETALL", e.toString());
+		}
+		return listaFechas;
+	}
+
+	public ArrayList<MedicamentoPorTomar> getHistorialByDate(String sDate) {
+		MedicamentoPorTomar med = null;
+		ArrayList<MedicamentoPorTomar> listaMedicamentos = new ArrayList<MedicamentoPorTomar>();
+
+		String selectQuery = "Select * FROM " + TABLE_HIST + " Where " + HIST_FECHA + " = " + sDate;
+
+		try {
+			Cursor cursor = db.rawQuery(selectQuery, null);
+			if (cursor.moveToFirst()) {
+				do {
+					boolean bAux = (cursor.getInt(4) == 1) ? true : false;
+					med = new MedicamentoPorTomar(cursor.getLong(0), R.drawable.logo, cursor.getString(1), cursor.getString(2), cursor.getString(3),
+							bAux, cursor.getString(5));
+					listaMedicamentos.add(med);
+				} while (cursor.moveToNext());
+			}
+			cursor.close();
+		} catch (SQLException e) {
+			Log.e("SQLGETALL", e.toString());
+		}
+		return listaMedicamentos;
+	}
+
+	public boolean deleteFecha(long id){
+		boolean result = false;
+		try {
+			db.delete(TABLE_FECHAS,
 					"ID" + " = ?",
 					new String[]{Long.toString(id)});
 			result = true;

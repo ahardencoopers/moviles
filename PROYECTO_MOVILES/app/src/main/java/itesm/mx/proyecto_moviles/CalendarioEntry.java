@@ -1,9 +1,10 @@
 package itesm.mx.proyecto_moviles;
 
 /**
- * Created by achs on 23/10/16.
+ * Created by achs on 12/11/16.
  */
-public class Medicamento {
+
+public class CalendarioEntry {
     private long id;
     private String nombre;
     private String tipo;
@@ -11,11 +12,10 @@ public class Medicamento {
     private String horario; //Medicamentos.horainicio en BD
     private String tomarCada;
     private String comentarios;
-    // private int idImagen; //Medicamentos.fotoid en BD
-    private String fechaInicio;
     private String hastaFecha;
+    private String separador;
 
-    public Medicamento(long id, String nombre, String tipo, double dosis, String horario, String tomarCada, String comentarios, String fechaInicio, String hastaFecha) {
+    public CalendarioEntry(long id, String nombre, String tipo, double dosis, String horario, String tomarCada, String comentarios, String hastaFecha) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -24,11 +24,10 @@ public class Medicamento {
         this.tomarCada = tomarCada;
         this.comentarios = comentarios;
         // this.idImagen = idImagen;
-        this.fechaInicio = fechaInicio;
         this.hastaFecha = hastaFecha;
     }
 
-    public Medicamento(String nombre, String tipo, double dosis, String horario, String tomarCada, String comentarios,String fechaInicio, String hastaFecha) {
+    public CalendarioEntry(String nombre, String tipo, double dosis, String horario, String tomarCada, String comentarios, String hastaFecha) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.dosis = dosis;
@@ -36,7 +35,6 @@ public class Medicamento {
         this.tomarCada = tomarCada;
         this.comentarios = comentarios;
         //this.idImagen = idImagen;
-        this.fechaInicio = fechaInicio;
         this.hastaFecha = hastaFecha;
     }
     public long getId() { return id; }
@@ -55,9 +53,11 @@ public class Medicamento {
 
     // public int getIdImagen() { return idImagen; }
 
-    public String getFechaInicio() { return  fechaInicio; }
-
     public String getHastaFecha() {return hastaFecha; }
 
+    public CalendarioEntry(String separador) {
+        this.separador = separador;
+    }
 
+    public String getSeparador() { return separador; }
 }

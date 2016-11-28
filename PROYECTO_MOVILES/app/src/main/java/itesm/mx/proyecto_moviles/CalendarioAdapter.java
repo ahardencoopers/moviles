@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -29,7 +32,7 @@ class CalendarioAdapter extends BaseAdapter {
     private static final int TYPE_SEPARATOR = 1;
     private static final int TYPE_MAX_COUNT = TYPE_SEPARATOR + 1;
 
-    private ArrayList<String> mData = new ArrayList<String>();
+    private ArrayList<CalendarioEntry> mData = new ArrayList<CalendarioEntry>();
     private LayoutInflater mInflater;
 
     private TreeSet<Integer> mSeparatorsSet = new TreeSet<Integer>();
@@ -40,12 +43,12 @@ class CalendarioAdapter extends BaseAdapter {
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void addItem(final String item) {
+    public void addItem(final CalendarioEntry item) {
         mData.add(item);
         notifyDataSetChanged();
     }
 
-    public void addSeparatorItem(final String item) {
+    public void addSeparatorItem(final CalendarioEntry item) {
         mData.add(item);
         // save separator position
         mSeparatorsSet.add(mData.size() - 1);
@@ -68,7 +71,7 @@ class CalendarioAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public CalendarioEntry getItem(int position) {
         return mData.get(position);
     }
 
@@ -87,7 +90,10 @@ class CalendarioAdapter extends BaseAdapter {
             switch (type) {
                 case TYPE_ITEM:
                     convertView = mInflater.inflate(R.layout.row, null);
-                    holder.textView = (TextView)convertView.findViewById(R.id.text_nombre_medicina);
+                    holder.imageView = (ImageView) convertView.findViewById(R.id.image_medicamento);
+                    holder.textView = (TextView) convertView.findViewById(R.id.text_nombre_medicina);
+                    holder.tomarCada = (TextView) convertView.findViewById(R.id.text_horario);
+                    holder.dosis = (TextView) convertView.findViewById(R.id.text_dosis);
                     break;
                 case TYPE_SEPARATOR:
                     convertView = mInflater.inflate(R.layout.row_dia, null);
@@ -98,7 +104,16 @@ class CalendarioAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder)convertView.getTag();
         }
-        holder.textView.setText(mData.get(position));
+
+        if( type == TYPE_ITEM) {
+            holder.textView.setText(mData.get(position).getNombre());
+            holder.tomarCada.setText(mData.get(position).getTomarCada());
+            holder.dosis.setText(Double.toString(mData.get(position).getDosis()));
+        }
+        else {
+            holder.textView.setText(mData.get(position).getSeparador());
+        }
+
         return convertView;
     }
 
