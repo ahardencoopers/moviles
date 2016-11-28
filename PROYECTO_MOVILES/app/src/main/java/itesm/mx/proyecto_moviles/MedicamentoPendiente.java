@@ -8,12 +8,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -31,6 +33,7 @@ public class MedicamentoPendiente extends AppCompatActivity {
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
+    private ArrayList <MedicamentoPorTomar> arrayListMedicamentoPorTomar;
 
     private ProductoOperations dao;
 
@@ -116,11 +119,33 @@ public class MedicamentoPendiente extends AppCompatActivity {
         dao.open();
 
         lvMedicamentoPendiente = (ListView) findViewById(R.id.list_medicamento_pendiente);
-        ArrayList <MedicamentoPorTomar> arrayListMedicamentoPorTomar;
         arrayListMedicamentoPorTomar = getDataForListView();
 
         MedicamentoPorTomarAdapter adapterMedicamentosPorTomar = new MedicamentoPorTomarAdapter(this, arrayListMedicamentoPorTomar);
         lvMedicamentoPendiente.setAdapter(adapterMedicamentosPorTomar);
+        registerForContextMenu(lvMedicamentoPendiente);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.context_menu_hoy, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.tomada:
+                Toast.makeText(getApplicationContext(), "tomada " + arrayListMedicamentoPorTomar.get(info.position).getNombre(), Toast.LENGTH_LONG).show();
+                break;
+            case R.id.no_tomada:
+                Toast.makeText(getApplicationContext(), "no tomada " + arrayListMedicamentoPorTomar.get(info.position).getNombre(), Toast.LENGTH_LONG).show();
+                break;
+        }
+
+        return super.onContextItemSelected(item);
     }
 
     private void addDrawerItems() {
