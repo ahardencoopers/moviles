@@ -58,16 +58,17 @@ public class MedicamentoPendiente extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         String formattedDate = dateFormat.format(date); //2016/11/16 12:08:43
-        System.out.println(date.toString());
         int horas;
         double tomarhora;
 
-        listMedicamentos = dao.getAllMedicamentosByDate(formattedDate);
+        listMedicamentos = dao.getAllMedicamentos();
 
         ArrayList<MedicamentoPorTomar> listMedicamentosPorTomar = new ArrayList<MedicamentoPorTomar>();
+        Log.d("hist", Integer.toString(listMedicamentos.size()));
 
         double dFechaAct = Double.parseDouble(formattedDate.replace("/",""));
         for (int i = 0; i < listMedicamentos.size(); i++) {
+            Log.d("hist", listMedicamentos.get(i).getNombre());
             String fechaInicio = listMedicamentos.get(i).getFechaInicio();
             String horario = listMedicamentos.get(i).getHorario();
             String cadahora = listMedicamentos.get(i).getTomarCada();
@@ -95,6 +96,9 @@ public class MedicamentoPendiente extends AppCompatActivity {
                 }
                 horas += tomarhora;
             }
+        }
+        for(int i=0; i<listMedicamentosPorTomar.size(); i++) {
+            Log.d("hist", listMedicamentosPorTomar.get(i).getNombre());
         }
         return listMedicamentosPorTomar;
     }
