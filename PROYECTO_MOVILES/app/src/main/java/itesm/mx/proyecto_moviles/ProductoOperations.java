@@ -200,6 +200,7 @@ public class ProductoOperations {
 
 	public int updateHistorial(MedicamentoPorTomar med) {
 		long id = med.getId();
+		String nombre = med.getNombre();
 		int result = -1;
 
 		try {
@@ -209,7 +210,7 @@ public class ProductoOperations {
 			values.put(HIST_HORARIO, med.getHorario());
 			values.put(HIST_DOSIS, med.getDosis());
 			values.put(HIST_TOMADA, med.getTomada());
-			result = db.update(TABLE_HIST, values, "ID = " + id, null);
+			result = db.update(TABLE_HIST, values, "ID = " + id + " AND " + HIST_MEDICAMENTO + " = " + nombre, null);
 		}
 		catch(SQLiteException e){
 			Log.e("SQLUPDATE", e.toString());
