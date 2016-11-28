@@ -45,5 +45,3 @@ public class DatePickerFragment extends DialogFragment
         fecha.setText(data);
     }
 }
-
-

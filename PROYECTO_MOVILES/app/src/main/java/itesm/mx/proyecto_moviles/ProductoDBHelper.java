@@ -21,6 +21,8 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String TABLE_MED = "Medicamento";
     private static final String TABLE_USRS = "Usuario";
     private static final String TABLE_DOCS = "Doctor";
+    private static final String TABLE_FECHAS = "Fechas"; // checar
+
     private static final String TABLE_HIST = "Historial";
 
     //fields of table Medicamentos
@@ -53,6 +55,10 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String DOCS_TELEFONO = "telefono";
     private static final String DOCS_CORREO = "correo";
 
+    //checar/eliminar
+    //fields of table fechas
+    private static final String FECHAS_TSTAMP = "tstamp";
+
     //fields of table Historial
     private static final String HIST_MEDICAMENTO = "medicamento";
     private static final String HIST_DOSIS = "dosis";
@@ -79,6 +85,11 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
                                 DOCS_DIR + " TEXT, " + DOCS_CODIGOPOS + " INT, " + DOCS_TELEFONO + " TEXT, " +
                                 DOCS_CIUDAD + " TEXT, " + DOCS_CORREO + " TEXT)";
 
+    //checar/eliminar
+    private static final String CREATE_TABLE_FECHAS = "CREATE TABLE " +
+            TABLE_FECHAS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " + FECHAS_TSTAMP + " INTEGER)";
+
+
     private static final String CREATE_TABLE_HIST = "CREATE TABLE " +
             TABLE_HIST + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + HIST_MEDICAMENTO + " TEXT, " + HIST_DOSIS + " REAL, " +
                             HIST_HORARIO + " TEXT, " + HIST_FECHA + " TEXT, " + HIST_TOMADA + " REAL)" ;
@@ -98,8 +109,13 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
         Log.i("Producthelper onCreate", CREATE_TABLE_DOCS);
         db.execSQL(CREATE_TABLE_DOCS);
 
+        //checar
+        Log.i("Producthelper onCreate", CREATE_TABLE_FECHAS);
+        db.execSQL(CREATE_TABLE_FECHAS);
+
         Log.i("Producthelper onCreate", CREATE_TABLE_HIST);
         db.execSQL(CREATE_TABLE_HIST);
+
 
     }
 
@@ -114,6 +130,8 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MED);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USRS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOCS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FECHAS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HIST);
         onCreate(db);
     }
 

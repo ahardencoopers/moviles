@@ -219,13 +219,11 @@ public class Medicos extends AppCompatActivity implements View.OnClickListener, 
         if (id == R.id.action_settings) {
             return true;
         }
-        /*
         if (id == R.id.action_user) {
             Intent intent = new Intent(Medicos.this, UserActivity.class);
             startActivity(intent);
             return true;
         }
-        */
 
         // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -246,3 +244,4 @@ public class Medicos extends AppCompatActivity implements View.OnClickListener, 
         super.onPause();
     }
 }
+>>>>>>> carlo
