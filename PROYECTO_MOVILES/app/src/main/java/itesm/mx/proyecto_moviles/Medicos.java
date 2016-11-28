@@ -244,4 +244,3 @@ public class Medicos extends AppCompatActivity implements View.OnClickListener, 
         super.onPause();
     }
 }
->>>>>>> carlo
