@@ -64,11 +64,9 @@ public class MedicamentoPendiente extends AppCompatActivity {
         listMedicamentos = dao.getAllMedicamentos();
 
         ArrayList<MedicamentoPorTomar> listMedicamentosPorTomar = new ArrayList<MedicamentoPorTomar>();
-        Log.d("hist", Integer.toString(listMedicamentos.size()));
 
         double dFechaAct = Double.parseDouble(formattedDate.replace("/",""));
         for (int i = 0; i < listMedicamentos.size(); i++) {
-            Log.d("hist", listMedicamentos.get(i).getNombre());
             String fechaInicio = listMedicamentos.get(i).getFechaInicio();
             String horario = listMedicamentos.get(i).getHorario();
             String cadahora = listMedicamentos.get(i).getTomarCada();
@@ -96,9 +94,6 @@ public class MedicamentoPendiente extends AppCompatActivity {
                 }
                 horas += tomarhora;
             }
-        }
-        for(int i=0; i<listMedicamentosPorTomar.size(); i++) {
-            Log.d("hist", listMedicamentosPorTomar.get(i).getNombre());
         }
         return listMedicamentosPorTomar;
     }

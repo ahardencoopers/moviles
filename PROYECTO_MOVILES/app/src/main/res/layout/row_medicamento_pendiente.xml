@@ -27,21 +27,14 @@
             android:text="1 Pastilla"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/image_medicamento" />
+
         <TextView
             android:layout_width="100px"
             android:layout_height="wrap_content"
             android:id="@+id/text_horario_dosis"
             android:text="8:00"
-            android:layout_below="@+id/checkBox_tomada"
-            android:layout_alignStart="@+id/checkBox_tomada" />
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox_tomada"
-            android:text="Tomada"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="63dp" />
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
 </LinearLayout>
