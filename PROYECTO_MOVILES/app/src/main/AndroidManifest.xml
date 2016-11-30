@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -28,16 +28,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegistrateActivity" />
-        <activity android:name=".AgregarMedicamentos" />
-        <activity android:name=".AgregarMedicamento" />
-        <activity android:name=".RegistrarMedico" />
-        <activity android:name=".MedicosRegistrados" />
-        <activity android:name=".CalendarioActivity" />
-        <activity android:name=".MedicamentoPendiente" />
-        <activity android:name=".UserActivity" />
-        <activity android:name=".Medicos" />
-        <activity android:name=".Historial"></activity>
+        <activity android:name=".RegistrateActivity"
+            android:label="@string/registro"/>
+
+        <activity android:name=".AgregarMedicamentos"
+            android:label="@string/agregar_medicamento"/>
+
+        <activity android:name=".AgregarMedicamento"
+            android:label="@string/agregar_medicamento"/>
+
+        <activity android:name=".RegistrarMedico"
+            android:label="@string/registrar_medico"/>
+
+        <activity android:name=".MedicosRegistrados"
+            android:label="@string/medicos"/>
+
+        <activity android:name=".CalendarioActivity"
+            android:label="@string/calendario"/>
+
+        <activity android:name=".MedicamentoPendiente"
+            android:label="@string/pendiente"/>
+
+        <activity android:name=".UserActivity"
+            android:label="@string/usuario"/>
+
+        <activity android:name=".Medicos"
+            android:label="@string/lista_medico"/>
+
+        <activity android:name=".Historial"
+            android:label="@string/historial"/>
 
         <receiver
             android:name=".AlarmReceiver"

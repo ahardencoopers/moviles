@@ -92,9 +92,9 @@ public class MedicamentoPendiente extends AppCompatActivity {
                         String.valueOf(horas) + ":" + horario.split(":")[1], false, formattedDate);
                 listMedicamentosPorTomar.add(medicamentoPorTomar);
                 if(dao.getHistorialByDate(formattedDate).size() <= 0) {
-                    if(dao.updateHistorial(medicamentoPorTomar) == 0) {
-                        //dao.addHistorial(medicamentoPorTomar);
-                    }
+                    //if(dao.updateHistorial(medicamentoPorTomar) == 0) {
+                        dao.addHora(medicamentoPorTomar, listMedicamentos.get(i).getId());
+                    //}
                 }
                 horas += tomarhora;
             }

@@ -22,7 +22,9 @@
             android:layout_height="wrap_content"
             android:text="@string/agregar_medico"
             android:id="@+id/button_agregar_medico"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textStyle="bold"/>
 
         <ListView
             android:layout_width="match_parent"

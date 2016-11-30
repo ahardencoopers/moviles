@@ -5,6 +5,7 @@ package itesm.mx.proyecto_moviles;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.SystemClock;
 
 
@@ -95,7 +96,7 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                 int iHora = Integer.parseInt(sHora[0]);
                 int iMinu = Integer.parseInt(sHora[1]);
                 int iIntervalo = Integer.parseInt(cadaHora);
-
+                System.out.println(iMinu);
                 String[] sFecha = fechainicio.split("/");
                 int iDia = Integer.parseInt(sFecha[0]);
                 int iAnno = Integer.parseInt(sFecha[2]);
@@ -139,6 +140,8 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
 
                     Toast.makeText(AgregarMedicamento.this, "Medicamento Registrado!", Toast.LENGTH_SHORT).show();
                     finish();
+                    Intent ret = new Intent(this, MedicamentoPendiente.class);
+                    startActivity(ret);
                 }
                 if (TextUtils.isEmpty(nombre) || TextUtils.isEmpty(dosis) || TextUtils.isEmpty(horainicio) || TextUtils.isEmpty(cadaHora) ||
                         TextUtils.isEmpty(fechafin)) {

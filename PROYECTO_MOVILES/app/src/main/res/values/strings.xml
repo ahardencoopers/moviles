@@ -33,6 +33,16 @@
     <string name="registrar_medico">Agrega a tu médico</string>
     <string name="actualizar">Actualizar</string>
     <string name="delete">Borrar</string>
+    <string name="registro">Resgistro</string>
+    <string name="agregar_medicina">Agregar Medicamento</string>
+    <string name="registro_medico">Resgistrar médico</string>
+    <string name="medicos">Información de médico</string>
+    <string name="calendario">Calendario</string>
+    <string name="pendiente">Hoy</string>
+    <string name="lista_medico">Médicos</string>
+    <string name="usuario">Usuario</string>
+    <string name="historial">Historial</string>
+
 
     <string name="action_user">Datos de Usuario</string>
     <string name="action_settings">Settings</string>

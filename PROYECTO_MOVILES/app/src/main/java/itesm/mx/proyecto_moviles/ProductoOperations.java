@@ -29,6 +29,7 @@ public class ProductoOperations {
 	private static final String TABLE_DOCS = "Doctor";
 	private static final String TABLE_FECHAS = "Fechas";//chk
 	private static final String TABLE_HIST = "Historial";
+	private static final String TABLE_HORA = "Hora";
 
 	//fields of table Medicamentos
 	private static final String MED_NOMBRE = "nombre";
@@ -69,6 +70,11 @@ public class ProductoOperations {
 	private static final String HIST_HORARIO = "horario";
 	private static final String HIST_FECHA = "fecha";
 	private static final String HIST_TOMADA = "tomada";
+
+	//fields of table Historial
+	private static final String HORA_MEDICAMENTO = "medicamento";
+	private static final String HORA_HORARIO = "horario";
+	private static final String HORA_FECHA = "fecha";
 
 
 	public ProductoOperations(Context context) {
@@ -246,6 +252,43 @@ public class ProductoOperations {
 		}
 		
 		return med;
+	}
+
+	public Medicamento findMedicamentoByHora(String sHora) {
+		Medicamento med = null;
+		String query = "SELECT * FROM " + TABLE_HORA + " WHERE " + TABLE_HORA + "." + HORA_HORARIO + "= '" + sHora +"'";
+
+		try {
+			Cursor cursor = db.rawQuery(query, null);
+			if(cursor.moveToFirst()) {
+				med = findMedicamento(cursor.getLong(1));
+				//med = new Medicamento(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3),
+				//		cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
+			}
+			cursor.close();
+		}
+		catch(SQLException e) {
+			Log.e("SQLFIND ERROR", e.toString());
+		}
+
+		return med;
+	}
+
+	public long addHora(MedicamentoPorTomar med, long idMed) {
+		long newRowId = 0;
+		try {
+			//Table Medicamentos field strings: nombre tipo dosis horainicio tomarcada comentarios fotoid hastafecha
+			//Object Medicamento attributes: nombre tipo dosis horario tomarCada comentarios idImagen hastafecha
+			ContentValues values = new ContentValues();
+			values.put(HORA_MEDICAMENTO, idMed);
+			values.put(HORA_HORARIO, med.getHorario());
+			values.put(HORA_FECHA, med.getFecha());
+
+			newRowId = db.insert(TABLE_HORA, null, values);
+		} catch (SQLException e) {
+			Log.e("SQL ADD ERROR", e.toString());
+		}
+		return newRowId;
 	}
 
 	public Usuario findUsuario() {

@@ -4,8 +4,8 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="250px"
-        android:layout_height="250px"
+        android:layout_width="400px"
+        android:layout_height="400px"
         android:id="@+id/logo"
         android:src="@drawable/logo"
         android:layout_marginTop="43dp"
@@ -19,5 +19,7 @@
         android:id="@+id/comenzar"
         android:layout_marginBottom="88dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textStyle="bold"/>
 </RelativeLayout>

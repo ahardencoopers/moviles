@@ -110,7 +110,9 @@
             android:id="@+id/boton_registrar_medico"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     </ScrollView>

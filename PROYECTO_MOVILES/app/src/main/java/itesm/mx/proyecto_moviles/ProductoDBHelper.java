@@ -22,6 +22,7 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String TABLE_USRS = "Usuario";
     private static final String TABLE_DOCS = "Doctor";
     private static final String TABLE_FECHAS = "Fechas"; // checar
+    private static final String TABLE_HORA = "Hora";
 
     private static final String TABLE_HIST = "Historial";
 
@@ -67,6 +68,11 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
     private static final String HIST_FECHA = "fecha";
     private static final String HIST_TOMADA = "tomada";
 
+    //fields of table Historial
+    private static final String HORA_MEDICAMENTO = "medicamento";
+    private static final String HORA_HORARIO = "horario";
+    private static final String HORA_FECHA = "fecha";
+
     //Create table queries
     private static final String CREATE_TABLE_MED = "CREATE TABLE " +
             TABLE_MED + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -96,6 +102,10 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
                             HIST_HORARIO + " TEXT, " + HIST_FECHA + " TEXT, " + HIST_TOMADA + " INTEGER, " +
                             "PRIMARY KEY (ID, "+ " " + HIST_MEDICAMENTO + ")"+")" ;
 
+    private static final String CREATE_TABLE_HORA = "CREATE TABLE " +
+            TABLE_HORA + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + HORA_MEDICAMENTO + " REAL, " +
+            HORA_HORARIO + " TEXT, " + HIST_FECHA + " TEXT)";
+
     public ProductoDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -118,6 +128,8 @@ public class ProductoDBHelper extends SQLiteOpenHelper {
         Log.i("Producthelper onCreate", CREATE_TABLE_HIST);
         db.execSQL(CREATE_TABLE_HIST);
 
+        Log.i("Producthelper onCreate", CREATE_TABLE_HORA);
+        db.execSQL(CREATE_TABLE_HORA);
 
     }
 

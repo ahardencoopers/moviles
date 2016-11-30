@@ -7,11 +7,16 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.PowerManager;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.NotificationCompat;
+import android.text.format.Time;
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,24 +35,30 @@ public class AlarmReceiver extends BroadcastReceiver {
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "WakelockTag");
         wakeLock.acquire();
-
-        int iReqCode= intent.getIntExtra("requestCode", 0);
-
         dao = new ProductoOperations(context);
         dao.open();
+        //int iReqCode= intent.getIntExtra("reqCode", 0);
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        Date date = new Date();
+        String formattedDate = dateFormat.format(date);
+        System.out.println(formattedDate);
+        Medicamento med = dao.findMedicamentoByHora(formattedDate);
+        int iReqCode = (int) med.getId();
+        //System.out.println(iReqCode);
 
-        Medicamento med = dao.findMedicamento((long) iReqCode);
+
+        //Medicamento med = dao.findMedicamento((long) iReqCode);
         Calendar calAhora = Calendar.getInstance();
         Calendar calMedFinal = Calendar.getInstance();
 
-        String[] sFecha = med.getHastaFecha().split("/");
+        String sFecha[] = med.getHastaFecha().split("/");
         int iDia = Integer.parseInt(sFecha[0]);
         int iAnno = Integer.parseInt(sFecha[2]);
         int iMes = Integer.parseInt(sFecha[1]);
 
         calMedFinal.set(Calendar.YEAR, iAnno);
         calMedFinal.set(Calendar.MONTH, (iMes -1));
-        calMedFinal.set(Calendar.DAY_OF_MONTH, iDia);
+        calMedFinal.set(Calendar.DAY_OF_MONTH, iDia + 1);
 
         calMedFinal.set(Calendar.HOUR_OF_DAY, 0);
         calMedFinal.set(Calendar.MINUTE,0);
@@ -85,6 +96,13 @@ public class AlarmReceiver extends BroadcastReceiver {
             int nID = 0;
             // mId allows you to update the notification later on.
             mNotificationManager.notify(nID, mBuilder.build());
+            try {
+                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+                Ringtone r = RingtoneManager.getRingtone(context, notification);
+                r.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         else{
 

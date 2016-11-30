@@ -36,8 +36,8 @@ public class MedicamentoPorTomarAdapter extends ArrayAdapter<MedicamentoPorTomar
 
             //ivMedicamento.setImageResource(medicamentoPorTomar.getIdImagen());
             tvNombre.setText(medicamentoPorTomar.getNombre());
-            tvDosis.setText(medicamentoPorTomar.getDosis());
-            tvHorarioDosis.setText(medicamentoPorTomar.getHorario());
+            tvDosis.setText("Dosis: " + medicamentoPorTomar.getDosis());
+            tvHorarioDosis.setText("Hora: " + medicamentoPorTomar.getHorario());
         }
         else {
             ImageView ivMedicamento = (ImageView) convertView.findViewById(R.id.image_medicamento);
@@ -47,8 +47,8 @@ public class MedicamentoPorTomarAdapter extends ArrayAdapter<MedicamentoPorTomar
 
             //ivMedicamento.setImageResource(medicamentoPorTomar.getIdImagen());
             tvNombre.setText(medicamentoPorTomar.getNombre());
-            tvDosis.setText(medicamentoPorTomar.getDosis());
-            tvHorarioDosis.setText(medicamentoPorTomar.getHorario());
+            tvDosis.setText("Dosis: " + medicamentoPorTomar.getDosis());
+            tvHorarioDosis.setText("Hora: " + medicamentoPorTomar.getHorario());
         }
 
         return convertView;

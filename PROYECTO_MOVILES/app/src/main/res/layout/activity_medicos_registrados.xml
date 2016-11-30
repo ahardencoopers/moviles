@@ -97,7 +97,9 @@
             android:text="@string/actualizar"
             android:id="@+id/button_actualizar_medico"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
     <ListView
