@@ -256,11 +256,12 @@ public class ProductoOperations {
 
 	public Medicamento findMedicamentoByHora(String sHora) {
 		Medicamento med = null;
-		String query = "SELECT * FROM " + TABLE_HORA + " WHERE " + TABLE_HORA + "." + HORA_HORARIO + "= '" + sHora +"'";
-
+		String query = "SELECT * FROM " + TABLE_HORA + " WHERE " + HORA_HORARIO + " = '" + sHora +"'";
+		Log.e("SQL", query);
 		try {
 			Cursor cursor = db.rawQuery(query, null);
 			if(cursor.moveToFirst()) {
+				Log.e("SQL", String.valueOf(cursor.getLong(1)));
 				med = findMedicamento(cursor.getLong(1));
 				//med = new Medicamento(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3),
 				//		cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));

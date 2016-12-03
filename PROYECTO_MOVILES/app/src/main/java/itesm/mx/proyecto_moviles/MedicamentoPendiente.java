@@ -3,19 +3,28 @@ package itesm.mx.proyecto_moviles;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.icu.text.RelativeDateTimeFormatter;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
+
+import android.view.ViewGroup.LayoutParams;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -89,7 +98,7 @@ public class MedicamentoPendiente extends AppCompatActivity {
             while (horas <= 24) {
                 medicamentoPorTomar = new MedicamentoPorTomar(R.drawable.logo,
                         listMedicamentos.get(i).getNombre(), String.valueOf(listMedicamentos.get(i).getDosis()),
-                        String.valueOf(horas) + ":" + horario.split(":")[1], false, formattedDate);
+                        ((horas > 10)? horas : "0" + horas) + ":" + horario.split(":")[1], false, formattedDate);
                 listMedicamentosPorTomar.add(medicamentoPorTomar);
                 if(dao.getHistorialByDate(formattedDate).size() <= 0) {
                     //if(dao.updateHistorial(medicamentoPorTomar) == 0) {
@@ -125,6 +134,38 @@ public class MedicamentoPendiente extends AppCompatActivity {
         MedicamentoPorTomarAdapter adapterMedicamentosPorTomar = new MedicamentoPorTomarAdapter(this, arrayListMedicamentoPorTomar);
         lvMedicamentoPendiente.setAdapter(adapterMedicamentosPorTomar);
         registerForContextMenu(lvMedicamentoPendiente);
+
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        final Ringtone r = AlarmReceiver.r;
+
+        if (r != null && r.isPlaying()) {
+            LayoutInflater layoutInflater
+                    = (LayoutInflater)getBaseContext()
+                    .getSystemService(LAYOUT_INFLATER_SERVICE);
+            View popupView = layoutInflater.inflate(R.layout.popup, null);
+            final PopupWindow popupWindow = new PopupWindow(
+                    popupView,
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+
+            Button btnDismiss = (Button)popupView.findViewById(R.id.dismiss);
+            btnDismiss.setOnClickListener(new Button.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    r.stop();
+                    popupWindow.dismiss();
+                }});
+
+            findViewById(R.id.drawer_layout).post(new Runnable() {
+                public void run() {
+                    popupWindow.showAtLocation( findViewById(R.id.drawer_layout), Gravity.CENTER, 0, 0);
+                }
+            });
+
+
+        }
     }
 
     @Override

@@ -24,6 +24,7 @@ import java.util.Date;
 public class AlarmReceiver extends BroadcastReceiver {
 
     private ProductoOperations dao;
+    static Ringtone r;
 
     public AlarmReceiver() {
     }
@@ -43,6 +44,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         String formattedDate = dateFormat.format(date);
         System.out.println(formattedDate);
         Medicamento med = dao.findMedicamentoByHora(formattedDate);
+        Log.i("ID", String.valueOf(med.getId()));
         int iReqCode = (int) med.getId();
         //System.out.println(iReqCode);
 
@@ -98,7 +100,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             mNotificationManager.notify(nID, mBuilder.build());
             try {
                 Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-                Ringtone r = RingtoneManager.getRingtone(context, notification);
+                r = RingtoneManager.getRingtone(context, notification);
                 r.play();
             } catch (Exception e) {
                 e.printStackTrace();

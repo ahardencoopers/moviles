@@ -13,6 +13,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -131,7 +132,7 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                     PendingIntent pending = PendingIntent.getBroadcast(this.getApplicationContext(),
                             iReqCode, intent, 0);
 
-                    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                    alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,
                             cal.getTimeInMillis(), //hora de prender alarma
                             (long) (iIntervalo*3600*1000), //intervalo de tiempo
                             pending);
@@ -139,6 +140,7 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                     dao.close();
 
                     Toast.makeText(AgregarMedicamento.this, "Medicamento Registrado!", Toast.LENGTH_SHORT).show();
+                    Log.i("HORA", horainicio);
                     finish();
                     Intent ret = new Intent(this, MedicamentoPendiente.class);
                     startActivity(ret);

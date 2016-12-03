@@ -97,7 +97,7 @@ public class medServ extends IntentService {
                 PendingIntent pending = PendingIntent.getBroadcast(this.getApplicationContext(),
                         iReqCode, alarmIntent, 0);
 
-                alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,
                         alarmNewStart, //hora de prender alarma
                         (long) (lIntervalo*3600*1000), //intervalo de tiempo
                         pending);
