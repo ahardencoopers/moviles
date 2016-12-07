@@ -13,14 +13,16 @@ public class HistorialEntry {
     private String horario; //Medicamentos.horainicio en BD
     private String comentarios;
     private String separador;
+    private boolean tomada;
 
-    public HistorialEntry(long id, String nombre, String fecha, double dosis, String horario) {
+    public HistorialEntry(long id, String nombre, String fecha, double dosis, String horario, boolean tomada) {
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;
         this.dosis = dosis;
         this.horario = horario;
         this.comentarios = comentarios;
+        this.tomada = tomada;
     }
 
     public long getId() { return id; }
@@ -38,4 +40,6 @@ public class HistorialEntry {
     }
 
     public String getSeparador() { return separador; }
+
+    public Boolean getTomada() { return  tomada; }
 }

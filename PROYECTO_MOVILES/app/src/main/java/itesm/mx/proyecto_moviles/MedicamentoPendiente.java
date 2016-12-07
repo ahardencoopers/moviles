@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class MedicamentoPendiente extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
     private ArrayList <MedicamentoPorTomar> arrayListMedicamentoPorTomar;
+    MedicamentoPorTomarAdapter adapterMedicamentosPorTomar;
 
     private ProductoOperations dao;
 
@@ -68,11 +70,11 @@ public class MedicamentoPendiente extends AppCompatActivity {
         //fecha de hoy
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
-        String formattedDate = dateFormat.format(date); //2016/11/16 12:08:43
+        String formattedDate = dateFormat.format(date); // 16/11/2016
         int horas;
         double tomarhora;
 
-        listMedicamentos = dao.getAllMedicamentos();
+        listMedicamentos = dao.getAllMedicamentosByDate(formattedDate);
 
         ArrayList<MedicamentoPorTomar> listMedicamentosPorTomar = new ArrayList<MedicamentoPorTomar>();
 
@@ -97,8 +99,11 @@ public class MedicamentoPendiente extends AppCompatActivity {
             }
             while (horas <= 24) {
                 medicamentoPorTomar = new MedicamentoPorTomar(R.drawable.logo,
-                        listMedicamentos.get(i).getNombre(), String.valueOf(listMedicamentos.get(i).getDosis()),
-                        ((horas > 10)? horas : "0" + horas) + ":" + horario.split(":")[1], false, formattedDate);
+                        listMedicamentos.get(i).getNombre(), String.valueOf((int)listMedicamentos.get(i).getDosis()),
+                        ((horas >= 10)? horas : "0" + horas) + ":" + horario.split(":")[1], false, formattedDate);
+                boolean bTomada = (dao.getMedicamentoTomado(medicamentoPorTomar) != null)? dao.getMedicamentoTomado(medicamentoPorTomar).getTomada() : false;
+                System.out.println("Busqueda: " + bTomada + " " + dao.getMedicamentoTomado(medicamentoPorTomar) + " " + ((dao.getMedicamentoTomado(medicamentoPorTomar) != null)? dao.getMedicamentoTomado(medicamentoPorTomar) : null));
+                medicamentoPorTomar.setTomada(bTomada);
                 listMedicamentosPorTomar.add(medicamentoPorTomar);
                 if(dao.getHistorialByDate(formattedDate).size() <= 0) {
                     //if(dao.updateHistorial(medicamentoPorTomar) == 0) {
@@ -131,7 +136,7 @@ public class MedicamentoPendiente extends AppCompatActivity {
         lvMedicamentoPendiente = (ListView) findViewById(R.id.list_medicamento_pendiente);
         arrayListMedicamentoPorTomar = getDataForListView();
 
-        MedicamentoPorTomarAdapter adapterMedicamentosPorTomar = new MedicamentoPorTomarAdapter(this, arrayListMedicamentoPorTomar);
+        adapterMedicamentosPorTomar = new MedicamentoPorTomarAdapter(this, arrayListMedicamentoPorTomar);
         lvMedicamentoPendiente.setAdapter(adapterMedicamentosPorTomar);
         registerForContextMenu(lvMedicamentoPendiente);
 
@@ -189,6 +194,8 @@ public class MedicamentoPendiente extends AppCompatActivity {
                 if(updateResult == 0) {
                     dao.addHistorial(medHistorial);
                 }
+                arrayListMedicamentoPorTomar.get(info.position).setTomada(true);
+                adapterMedicamentosPorTomar.notifyDataSetChanged();
                 Toast.makeText(getApplicationContext(), "Medicamento  " + medHistorial.getNombre() + " registrado como tomado.", Toast.LENGTH_LONG).show();
                 break;
             case R.id.no_tomada:
@@ -198,6 +205,8 @@ public class MedicamentoPendiente extends AppCompatActivity {
                     dao.addHistorial(medHistorial);
                 }
                 Toast.makeText(getApplicationContext(), "Medicamento  " + medHistorial.getNombre() + " registrado como no tomado.", Toast.LENGTH_LONG).show();
+                arrayListMedicamentoPorTomar.get(info.position).setTomada(false);
+                adapterMedicamentosPorTomar.notifyDataSetChanged();
                 break;
         }
 
@@ -294,10 +303,7 @@ public class MedicamentoPendiente extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
         if (id == R.id.action_user) {
             Intent intent = new Intent(MedicamentoPendiente.this, UserActivity.class);
             startActivity(intent);

@@ -27,13 +27,31 @@
             android:text="Medicina"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/image_medicamento" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_dosis"
-            android:text="1 Pastilla"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/image_medicamento" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_dosis"
+                android:text="1 Pastilla"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/image_medicamento"
+                android:layout_weight="0.61" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tomada"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:id="@+id/checkBox2"
+                android:layout_gravity="right" />
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="wrap_content"

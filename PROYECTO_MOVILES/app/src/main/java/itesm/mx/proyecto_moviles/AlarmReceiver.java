@@ -101,7 +101,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             try {
                 Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
                 r = RingtoneManager.getRingtone(context, notification);
-                r.play();
+                if (!r.isPlaying())
+                    r.play();
             } catch (Exception e) {
                 e.printStackTrace();
             }

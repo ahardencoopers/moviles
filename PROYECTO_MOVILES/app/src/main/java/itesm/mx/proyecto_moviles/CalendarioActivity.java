@@ -52,7 +52,7 @@ public class CalendarioActivity extends AppCompatActivity {
 
             Log.d("Calendario temp", temp.getSeparador());
 
-            for(int i=0; i<listMedicamentos.size(); i++) {
+            for(int i = 0; i < listMedicamentos.size(); i++) {
                 Medicamento actual = listMedicamentos.get(i);
 
                 Log.d("Calendario med", actual.getHastaFecha());
@@ -189,17 +189,14 @@ public class CalendarioActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        /*
+
+
         if (id == R.id.action_user) {
             Intent intent = new Intent(CalendarioActivity.this, UserActivity.class);
             startActivity(intent);
             return true;
         }
-        */
+
 
         // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {

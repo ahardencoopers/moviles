@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -94,6 +95,7 @@ class HistorialAdapter extends BaseAdapter {
                     holder.textView = (TextView) convertView.findViewById(R.id.text_nombre_medicina);
                     holder.horario = (TextView) convertView.findViewById(R.id.text_horario);
                     holder.dosis = (TextView) convertView.findViewById(R.id.text_dosis);
+                    holder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
                     break;
                 case TYPE_SEPARATOR:
                     convertView = mInflater.inflate(R.layout.row_dia, null);
@@ -109,6 +111,10 @@ class HistorialAdapter extends BaseAdapter {
             holder.textView.setText(mData.get(position).getNombre());
             holder.horario.setText(mData.get(position).getHorario());
             holder.dosis.setText(Double.toString(mData.get(position).getDosis()));
+            if (mData.get(position).getTomada() == true)
+                holder.checkBox.setChecked(true);
+            else
+                holder.checkBox.setChecked(false);
         }
         else {
             holder.textView.setText(mData.get(position).getSeparador());

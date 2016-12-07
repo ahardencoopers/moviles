@@ -196,11 +196,12 @@ public class MedicosRegistrados extends AppCompatActivity implements View.OnClic
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+
+        if (id == R.id.action_user) {
+            Intent intent = new Intent(MedicosRegistrados.this, UserActivity.class);
+            startActivity(intent);
             return true;
         }
-
         // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;

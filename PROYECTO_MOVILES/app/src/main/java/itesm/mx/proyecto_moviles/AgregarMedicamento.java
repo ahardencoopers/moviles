@@ -112,6 +112,11 @@ public class AgregarMedicamento extends AppCompatActivity implements View.OnClic
                 cal.set(Calendar.SECOND,0);
                 cal.set(Calendar.MILLISECOND,0);
 
+                    Calendar auxCal = Calendar.getInstance();
+                    if (cal.before(auxCal)) {
+                        cal.add(Calendar.HOUR_OF_DAY, iIntervalo);
+                    }
+
                 boolean bAlarmInFuture = (cal.getTimeInMillis() > calendar.getTimeInMillis());
 
                     Medicamento medicamento = new Medicamento(nombre,

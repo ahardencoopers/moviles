@@ -318,8 +318,8 @@ public class ProductoOperations {
 		try {
 			Cursor cursor = db.rawQuery(query, null);
 			if(cursor.moveToFirst()) {
-				doc = new Doctor(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5),
-					cursor.getString(6), cursor.getString(7));
+				doc = new Doctor(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(6),
+					cursor.getString(7), cursor.getString(5));
 			}
 			cursor.close();
 		}
@@ -377,7 +377,7 @@ public class ProductoOperations {
 			Cursor cursor = db.rawQuery(selectQuery, null);
 			if (cursor.moveToFirst()) {
 				do {
-					boolean bAux = (cursor.getInt(5) == 1)? true : false ;
+					boolean bAux = (cursor.getInt(5) == 1)? true : false;
 					med = new MedicamentoPorTomar(cursor.getInt(0), R.drawable.logo, cursor.getString(1), cursor.getString(2),
 							cursor.getString(3), bAux, cursor.getString(4));
 					listaMedicamentos.add(med);
@@ -426,7 +426,7 @@ public class ProductoOperations {
 			if (cursor.moveToFirst()) {
 				do {
 					double dAux = Double.parseDouble(cursor.getString(8).replace("/",""));
-					if(dAux > dDate) {
+					if(dAux >= dDate) {
 						med = new Medicamento(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getDouble(3),
 								cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
 						listaMedicamentos.add(med);
@@ -557,9 +557,9 @@ public class ProductoOperations {
 			Cursor cursor = db.rawQuery(selectQuery, null);
 			if (cursor.moveToFirst()) {
 				do {
-					boolean bAux = (cursor.getInt(4) == 1) ? true : false;
+					boolean bAux = (cursor.getInt(5) == 1) ? true : false;
 					med = new MedicamentoPorTomar(cursor.getLong(0), R.drawable.logo, cursor.getString(1), cursor.getString(2), cursor.getString(3),
-							bAux, cursor.getString(5));
+							bAux, cursor.getString(4));
 					listaMedicamentos.add(med);
 				} while (cursor.moveToNext());
 			}
@@ -568,6 +568,31 @@ public class ProductoOperations {
 			Log.e("SQLGETALL", e.toString());
 		}
 		return listaMedicamentos;
+	}
+
+	public MedicamentoPorTomar getMedicamentoTomado(MedicamentoPorTomar medAux) {
+		MedicamentoPorTomar med = null;
+
+		String selectQuery = "Select * FROM " + TABLE_HIST + " WHERE " + HIST_MEDICAMENTO + " = '"
+				+ medAux.getNombre() + "' AND " + HIST_DOSIS + " = '" + medAux.getDosis() + "' AND " +
+				HIST_HORARIO + " = '" + medAux.getHorario() + "' AND " + HIST_FECHA + " = '" + medAux.getFecha() + "'";
+
+		try {
+			Cursor cursor = db.rawQuery(selectQuery, null);
+			if (cursor.moveToFirst()) {
+
+					boolean dTomada = (cursor.getInt(5) == 1)? true : false;
+					med = new MedicamentoPorTomar(cursor.getLong(0), R.drawable.logo, cursor.getString(1), cursor.getString(2), cursor.getString(3),
+							dTomada, cursor.getString(4));
+					System.out.println("medicamento tomado: " + cursor.getLong(0) +" "+ R.drawable.logo +" "+ cursor.getString(1)+" "+cursor.getString(2)+" "+ cursor.getString(3) +
+							" " + dTomada + " " + cursor.getString(5));
+
+			}
+			cursor.close();
+		}catch(SQLException e) {
+			Log.e("SQLGETALL", e.toString());
+		}
+		return med;
 	}
 
 	public boolean deleteFecha(long id){
@@ -583,4 +608,6 @@ public class ProductoOperations {
 		}
 		return result;
 	}
+
+
 }

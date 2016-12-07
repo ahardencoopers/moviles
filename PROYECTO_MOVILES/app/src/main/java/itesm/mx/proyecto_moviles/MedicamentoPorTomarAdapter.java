@@ -33,24 +33,29 @@ public class MedicamentoPorTomarAdapter extends ArrayAdapter<MedicamentoPorTomar
             TextView tvNombre = (TextView) convertView.findViewById(R.id.text_nombre_medicina);
             TextView tvDosis = (TextView) convertView.findViewById(R.id.text_dosis);
             TextView tvHorarioDosis = (TextView) convertView.findViewById(R.id.text_horario_dosis);
+            CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox2);
 
             //ivMedicamento.setImageResource(medicamentoPorTomar.getIdImagen());
             tvNombre.setText(medicamentoPorTomar.getNombre());
             tvDosis.setText("Dosis: " + medicamentoPorTomar.getDosis());
             tvHorarioDosis.setText("Hora: " + medicamentoPorTomar.getHorario());
+            checkBox.setChecked(medicamentoPorTomar.getTomada());
+
         }
         else {
             ImageView ivMedicamento = (ImageView) convertView.findViewById(R.id.image_medicamento);
             TextView tvNombre = (TextView) convertView.findViewById(R.id.text_nombre_medicina);
             TextView tvDosis = (TextView) convertView.findViewById(R.id.text_dosis);
             TextView tvHorarioDosis = (TextView) convertView.findViewById(R.id.text_horario_dosis);
+            CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox2);
 
             //ivMedicamento.setImageResource(medicamentoPorTomar.getIdImagen());
             tvNombre.setText(medicamentoPorTomar.getNombre());
             tvDosis.setText("Dosis: " + medicamentoPorTomar.getDosis());
             tvHorarioDosis.setText("Hora: " + medicamentoPorTomar.getHorario());
-        }
+            checkBox.setChecked(medicamentoPorTomar.getTomada());
 
+        }
         return convertView;
     }
 }

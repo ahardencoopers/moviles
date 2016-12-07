@@ -23,16 +23,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/nombre_medicina"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <TextView
+                android:id="@+id/text_dosis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dosis"
+                android:layout_weight="0.77" />
+            <CheckBox
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Tomada"
+                android:id="@+id/checkBox"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:layout_gravity="right" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/text_horario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/horario"/>
-        <TextView
-            android:id="@+id/text_dosis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dosis"/>
+
     </LinearLayout>
 
 </LinearLayout>

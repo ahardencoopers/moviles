@@ -92,7 +92,8 @@ class CalendarioAdapter extends BaseAdapter {
                     convertView = mInflater.inflate(R.layout.row, null);
                     holder.imageView = (ImageView) convertView.findViewById(R.id.image_medicamento);
                     holder.textView = (TextView) convertView.findViewById(R.id.text_nombre_medicina);
-                    holder.tomarCada = (TextView) convertView.findViewById(R.id.text_horario);
+                    holder.tomarCada = (TextView) convertView.findViewById(R.id.text_tomar_cada);
+                    holder.horario = (TextView) convertView.findViewById(R.id.text_horario);
                     holder.dosis = (TextView) convertView.findViewById(R.id.text_dosis);
                     break;
                 case TYPE_SEPARATOR:
@@ -107,8 +108,9 @@ class CalendarioAdapter extends BaseAdapter {
 
         if( type == TYPE_ITEM) {
             holder.textView.setText(mData.get(position).getNombre());
-            holder.tomarCada.setText(mData.get(position).getTomarCada());
-            holder.dosis.setText(Double.toString(mData.get(position).getDosis()));
+            holder.tomarCada.setText("Tomar cada " + mData.get(position).getTomarCada() + " horas");
+            holder.horario.setText("Fecha de termino: " + mData.get(position).getHastaFecha());
+            holder.dosis.setText("Dosis: " + Double.toString(mData.get(position).getDosis()) + " mg");
         }
         else {
             holder.textView.setText(mData.get(position).getSeparador());

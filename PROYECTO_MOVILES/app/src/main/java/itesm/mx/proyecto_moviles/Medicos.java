@@ -215,10 +215,7 @@ public class Medicos extends AppCompatActivity implements View.OnClickListener, 
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
         if (id == R.id.action_user) {
             Intent intent = new Intent(Medicos.this, UserActivity.class);
             startActivity(intent);

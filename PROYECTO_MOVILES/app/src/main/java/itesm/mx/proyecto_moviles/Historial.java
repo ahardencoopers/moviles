@@ -47,12 +47,12 @@ public class Historial extends AppCompatActivity {
             Log.d("historial", listMedicamentoPorTomar.get(0).getFecha());
             temp = new HistorialEntry(Integer.parseInt(fecha[0]) + "/" + Integer.parseInt(fecha[1]) + "/" + Integer.parseInt(fecha[2]));
             historialAdapter.addSeparatorItem(temp);
-
+            /*
             temp = new HistorialEntry(listMedicamentoPorTomar.get(0).getId(), listMedicamentoPorTomar.get(0).getNombre(),
                     listMedicamentoPorTomar.get(0).getFecha(), Double.parseDouble(listMedicamentoPorTomar.get(0).getDosis()),
-                    listMedicamentoPorTomar.get(0).getHorario());
+                    listMedicamentoPorTomar.get(0).getHorario(), listMedicamentoPorTomar.get(0).getTomada());
             historialAdapter.addItem(temp);
-
+            */
 
             for(int i=0; i<listMedicamentoPorTomar.size(); i++) {
                 MedicamentoPorTomar medActual = listMedicamentoPorTomar.get(i);
@@ -66,7 +66,7 @@ public class Historial extends AppCompatActivity {
 
                 temp = new HistorialEntry(listMedicamentoPorTomar.get(i).getId(), listMedicamentoPorTomar.get(i).getNombre(),
                         listMedicamentoPorTomar.get(i).getFecha(), Double.parseDouble(listMedicamentoPorTomar.get(i).getDosis()),
-                        listMedicamentoPorTomar.get(i).getHorario());
+                        listMedicamentoPorTomar.get(i).getHorario(), listMedicamentoPorTomar.get(i).getTomada());
                 historialAdapter.addItem(temp);
             }
         }
@@ -192,10 +192,7 @@ public class Historial extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
         if (id == R.id.action_user) {
             Intent intent = new Intent(Historial.this, UserActivity.class);
             startActivity(intent);
