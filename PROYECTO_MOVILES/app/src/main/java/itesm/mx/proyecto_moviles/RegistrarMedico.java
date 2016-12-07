@@ -78,9 +78,9 @@ public class RegistrarMedico extends AppCompatActivity implements View.OnClickLi
                     finish();
                     Toast.makeText(RegistrarMedico.this, "Médico Registrado!", Toast.LENGTH_SHORT).show();
                 }
-                else {
+                /*else {
                     Toast.makeText(RegistrarMedico.this, "El médico no pudo ser registrado", Toast.LENGTH_SHORT).show();
-                }
+                }*/
         }
     }
 

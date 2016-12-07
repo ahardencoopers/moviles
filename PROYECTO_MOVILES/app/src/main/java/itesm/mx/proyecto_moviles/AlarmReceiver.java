@@ -48,7 +48,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         Medicamento med = dao.findMedicamentoByHora(formattedHour, formattedDate);
         while(med == null && iCont < 3) {
             int AuxMin = Integer.parseInt(formattedHour.split(":")[1]) - iCont;
-            int AuxHour = (AuxMin == -1)? Integer.parseInt(formattedHour.split(":")[0]) - 1 : Integer.parseInt(formattedHour.split(":")[0]);
+            int AuxHour = (AuxMin < 0)? Integer.parseInt(formattedHour.split(":")[0]) - 1 : Integer.parseInt(formattedHour.split(":")[0]);
+            AuxMin = (AuxMin < 0)? 60 - AuxMin : AuxMin;
             String sHour = ((AuxHour < 10)? "0": "") + Integer.toString(AuxHour) + ((AuxMin < 10)? "0": "") + Integer.toString(AuxMin);
             med = dao.findMedicamentoByHora(sHour, formattedDate);
             iCont++;

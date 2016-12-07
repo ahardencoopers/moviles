@@ -39,7 +39,7 @@ public class MedicamentoAdapter extends ArrayAdapter<Medicamento> {
             //if(medicamento.getIdImagen() > -1)
             //    ivMedicamento.setImageResource(medicamento.getIdImagen());
             tvNombre.setText(medicamento.getNombre());
-            tvTomarCada.setText("Tomar cada: " + medicamento.getTomarCada());
+            tvTomarCada.setText("Tomar cada: " + medicamento.getTomarCada() + " horas");
             tvHorario.setText("Horario: " + medicamento.getHorario());
             tvDosis.setText("Dosis: " + medicamento.getDosis() + " " + medicamento.getTipo());
         }
