@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Recuerdame Med</string>
+    <string name="app_name">RecuerdaMed</string>
     <string name="comenzar">Comenzar</string>
-    <string name="registrate">Registrate</string>
+    <string name="registrate">Regístrate</string>
     <string name="nombre">Nombre</string>
     <string name="direccion">Dirección</string>
     <string name="telefono">Teléfono</string>
@@ -10,7 +10,7 @@
     <string name="altura">Altura</string>
     <string name="registrarse">Registrarse</string>
     <string name="nombre_medicina">Medicina</string>
-    <string name="tomar_cada">Tomar cada 8 horas</string>
+    <string name="tomar_cada">Ej. Tomar cada 8 horas</string>
     <string name="horario">8:00 - 16:00 - 00:00</string>
     <string name="agregar_medicamento">Agregar Medicamento</string>
     <string name="dosis">Dosis</string>
@@ -18,10 +18,10 @@
     <string name="comentarios">Comentarios</string>
     <string name="guardar_medicamento">Guardar Medicamento</string>
     <string name="especialidad">Especialidad</string>
-    <string name="codigo_postal">Codigo Postal</string>
-    <string name="numero">Numero</string>
+    <string name="codigo_postal">Código Postal</string>
+    <string name="numero">Número</string>
     <string name="correo">Correo</string>
-    <string name="title_activity_medicamento_pendiente">MedicamentoPendiente</string>
+    <string name="title_activity_medicamento_pendiente">Medicamento Pendiente</string>
     <string name="tomada">Tomada</string>
     <string name="no_tomada">No Tomada</string>
     <string name="horario_dosis">8:00</string>
@@ -33,11 +33,11 @@
     <string name="registrar_medico">Agrega a tu médico</string>
     <string name="actualizar">Guardar</string>
     <string name="delete">Borrar</string>
-    <string name="registro">Resgistro</string>
+    <string name="registro">Registro</string>
     <string name="agregar_medicina">Agregar Medicamento</string>
-    <string name="registro_medico">Resgistrar médico</string>
+    <string name="registro_medico">Registrar médico</string>
     <string name="medicos">Información de médico</string>
-    <string name="calendario">Calendario</string>
+    <string name="calendario">Calendario (5 días)</string>
     <string name="pendiente">Hoy</string>
     <string name="lista_medico">Médicos</string>
     <string name="usuario">Usuario</string>

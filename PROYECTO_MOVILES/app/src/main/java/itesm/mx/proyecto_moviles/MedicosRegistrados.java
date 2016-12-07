@@ -33,7 +33,7 @@ public class MedicosRegistrados extends AppCompatActivity implements View.OnClic
     Button btnActualizar;
 
     private long idMedico = 1;
-
+    private int REQUESTCODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,9 +100,10 @@ public class MedicosRegistrados extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        if(saveMedico() > -1)
-        {
+        if(saveMedico() > -1) {
             Toast.makeText(MedicosRegistrados.this, "Información de médico actualizada", Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK);
+            finish();
         }
         else
             Toast.makeText(MedicosRegistrados.this, "Error al actualizar médico", Toast.LENGTH_SHORT).show();

@@ -39,13 +39,23 @@ public class AlarmReceiver extends BroadcastReceiver {
         dao = new ProductoOperations(context);
         dao.open();
         //int iReqCode= intent.getIntExtra("reqCode", 0);
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        DateFormat hourFormat = new SimpleDateFormat("HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
+        String formattedHour = hourFormat.format(date);
         String formattedDate = dateFormat.format(date);
-        System.out.println(formattedDate);
-        Medicamento med = dao.findMedicamentoByHora(formattedDate);
-        Log.i("ID", String.valueOf(med.getId()));
-        int iReqCode = (int) med.getId();
+        int iCont = 1; System.out.println(formattedHour + " " + formattedDate);
+        Medicamento med = dao.findMedicamentoByHora(formattedHour, formattedDate);
+        while(med == null && iCont < 3) {
+            int AuxMin = Integer.parseInt(formattedHour.split(":")[1]) - iCont;
+            int AuxHour = (AuxMin == -1)? Integer.parseInt(formattedHour.split(":")[0]) - 1 : Integer.parseInt(formattedHour.split(":")[0]);
+            String sHour = ((AuxHour < 10)? "0": "") + Integer.toString(AuxHour) + ((AuxMin < 10)? "0": "") + Integer.toString(AuxMin);
+            med = dao.findMedicamentoByHora(sHour, formattedDate);
+            iCont++;
+        }
+
+        int iReqCode = (med != null)? (int) med.getId() : 0;
+        Log.i("ID", ((med != null)? String.valueOf(med.getId()) : null));
         //System.out.println(iReqCode);
 
 
@@ -74,7 +84,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_alarm_black_24dp)
                             .setContentTitle("Medicamentos")
-                            .setContentText("Alerta: Debes tomar medicina")
+                            .setContentText("Alerta: Debes tomar medicamento " + med.getNombre())
                             .setTicker("Hora de tomar medicina");
 
             Intent resultIntent = new Intent(context, MedicamentoPendiente.class);

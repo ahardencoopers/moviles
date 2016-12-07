@@ -254,9 +254,9 @@ public class ProductoOperations {
 		return med;
 	}
 
-	public Medicamento findMedicamentoByHora(String sHora) {
+	public Medicamento findMedicamentoByHora(String sHora, String sFecha) {
 		Medicamento med = null;
-		String query = "SELECT * FROM " + TABLE_HORA + " WHERE " + HORA_HORARIO + " = '" + sHora +"'";
+		String query = "SELECT * FROM " + TABLE_HORA + " WHERE " + HORA_HORARIO + " = '" + sHora +"' AND " + HORA_FECHA + " = '" + sFecha + "'";
 		Log.e("SQL", query);
 		try {
 			Cursor cursor = db.rawQuery(query, null);

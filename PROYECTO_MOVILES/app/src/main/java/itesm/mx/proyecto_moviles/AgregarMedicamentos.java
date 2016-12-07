@@ -86,7 +86,7 @@ public class AgregarMedicamentos extends AppCompatActivity implements View.OnCli
         int id = item.getItemId();
 
         if (id == R.id.delete) {
-            Toast.makeText(getApplicationContext(), "Medicamento Borrado: " + listMedicamentos.get(info.position).getId(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Medicamento Borrado " /*+ listMedicamentos.get(info.position).getId()*/, Toast.LENGTH_LONG).show();
             dao.deleteMedicamento(listMedicamentos.get(info.position).getId());
             listMedicamentos.clear();
             listMedicamentos.addAll(dao.getAllMedicamentos());

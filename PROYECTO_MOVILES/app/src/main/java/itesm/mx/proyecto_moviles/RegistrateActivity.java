@@ -94,11 +94,11 @@ public class RegistrateActivity extends AppCompatActivity implements View.OnClic
                     finish();
                     startActivity(myIntent);
                 }
-                else {
+                /*else {
                     Toast.makeText(RegistrateActivity.this,
                             "Error al registrar usuario, favor de volver a abrir la app e intentarlo nuevamente...",
                             Toast.LENGTH_SHORT).show();
-                }
+                }*/
         }
     }
 

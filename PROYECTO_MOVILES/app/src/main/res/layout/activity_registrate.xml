@@ -60,13 +60,23 @@
             android:layout_below="@+id/edit_direccion"
             android:layout_centerHorizontal="true"
             android:hint="@string/telefono"/>
-
-        <Spinner
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/spinner_sexo"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/edit_telefono" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Genero: "/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/spinner_sexo"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/edit_telefono" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:orientation="horizontal"
